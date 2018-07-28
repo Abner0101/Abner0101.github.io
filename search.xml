@@ -1,56 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>记Hexo + Github Pages博客搭建</title>
-      <link href="/2018/07/27/%E8%AE%B0Hexo%20+%20Github%20pages%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-      <url>/2018/07/27/%E8%AE%B0Hexo%20+%20Github%20pages%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
-      <content type="html"><![CDATA[<p>很早之前就听说可以通过github pages来搭建博客，但是由于种种原因（就是懒），迟迟没有付诸行动，终于，趁着暑假，开始了我的hexo+github pages 搭建博客的踩坑记，折腾了两天，终于成功搭建好了博客，接下来，开始分享搭建本博客的过程中以及各种坑。。。</p><h2 id="用Hexo-Gitpages的原因"><a href="#用Hexo-Gitpages的原因" class="headerlink" title="用Hexo + Gitpages的原因"></a>用Hexo + Gitpages的原因</h2><ul><li>不用配置服务器</li><li>不用数据库</li><li>访问速度相当快</li><li>没有安全性可言</li><li>使用户可更注重博客内容</li><li>支持markdown<br>还有就是hexo相对来说轻巧一些，生成文章的速度也比较快（静态博客生成页面时都是要整站生成，所以，页面越多，速度就越慢）</li></ul><h2 id="从hexo开始"><a href="#从hexo开始" class="headerlink" title="从hexo开始"></a>从hexo开始</h2><p>首先本地得装上了node.js、git和hexo</p><p>安装git：<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a></p><p>安装nodejs：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">node.js官网</a></p><p>hexo：<a href="https://hexo.io/" target="_blank" rel="noopener">hexo官网</a></p><p>hexo使用npm安装（过程如下）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure><p>然后打开<a href="http://localhost:4000/就可以查看效果了。" target="_blank" rel="noopener">http://localhost:4000/就可以查看效果了。</a><br>如果4000端口打不开，可以通过以下命令更改端口访问(改为3000）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s -p 3000</span><br></pre></td></tr></table></figure><p><em>注</em>：Hexo依赖Node.js和Git，需要先安装。<br><em>hexo的使用可参详<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网文档</a>。</em></p><p>常用命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo g  生成静态博客，即重新生成public文件夹</span><br><span class="line">hexo s  本地预览调试 (一般组合使用 hexo g &amp;&amp; hexo s)</span><br><span class="line">hexo d (发布到github)</span><br><span class="line">hexo n (执行该命令之后在source/_posts目录下产生&lt; blog name &gt;.md文件，这是你的一篇新博客。可以在markdown工具下编写，markdown工具在网上搜有一大堆，比如本博主使用的csdn的markdown工具，具体怎么使用也可以自己百度啦~）</span><br></pre></td></tr></table></figure><h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>在github上创建一个仓库，仓库必须命名为：你的github账号.github.io<br>(例如我的账号为Abner0101，所以我的仓库名为：Abner0101.github.io)</p><p>配置hexo  config.yml，修改Deployment</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:你的帐号/你的帐号.github.com.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure><p>然后执行命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><p>此时，在博客的根目录下会生成一个文件夹：.deploy</p><p>然后我们把这个文件夹里面的文件都push到刚才新建那个项目就OK了。几分钟过后，就可以打开：你的用户名.github.io 看到你的博客了。</p><h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p>在项目的根目录，新建名为CNAME的文件，内容为：你的域名，例如我的就是：jdsheng.cn<br>再到把你的域名指向你的用户名.github.io，几分钟过后，就可以看到成功的诞生了。</p><h2 id="NexT主题与第三方服务"><a href="#NexT主题与第三方服务" class="headerlink" title="NexT主题与第三方服务"></a>NexT主题与第三方服务</h2><p>我使用的主题是next，在你的博客根目录下gitbash，安装next主题</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure><p>打开<strong><em>站点配置文件</em></strong>(_config.yml)，增加一行：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure><p>进入themes/next，修改<strong><em>主题配置文件</em></strong> _config.yml 定位到scheme参数来选择自己喜欢的主题风格：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheme: Mist</span><br></pre></td></tr></table></figure><p>关于next主题更多的配置（添加评论，分享，喜欢，添加头像等功能）可以参考<a href="https://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT使用文档</a></p><h2 id="关于更换电脑，如何继续写博客"><a href="#关于更换电脑，如何继续写博客" class="headerlink" title="关于更换电脑，如何继续写博客"></a>关于更换电脑，如何继续写博客</h2><p>1.将你原来的电脑上已经配置好的源代码项目拷贝到你新的电脑，注意，无需拷贝全部，只需要拷贝一下几个目录：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">package.json</span><br><span class="line">scaffolds/</span><br><span class="line">source/</span><br><span class="line">themes/</span><br></pre></td></tr></table></figure><p>将这些目录放在一个目录下，例如：blog/</p><p>2.在你的新电脑上配置hexo环境：安装git、安装node.js<br>3.安装hexo，执行命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure><p>4.安装好之后，在hexo目录下gitbash，执行命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure><p>5.部署，执行命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><blockquote><p>在执行第5步时，可能会出错，不知道你们会不会遇到，反正我是遇到了，在部署提交代码的时候出现了这个问题：</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*** Please tell me who you are.</span><br><span class="line">Run</span><br><span class="line">  git config --global user.email &quot;you@example.com&quot;</span><br><span class="line">  git config --global user.name &quot;Your Name&quot;</span><br><span class="line">to set your account&apos;s default identity.</span><br><span class="line">Omit --global to set the identity only in this repository.</span><br></pre></td></tr></table></figure><p>所以解决方法是当出现这个上述提示后 接着补充<br>你在命令行中执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email  &quot;你的邮箱&quot;</span><br><span class="line">git config --global user.name  &quot;你的名字&quot;</span><br></pre></td></tr></table></figure><p><em>（注意 “ 前面是有空格的）</em><br>输入后在接着执行git g、git d即可！</p>]]></content>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> github </tag>
-            
-            <tag> Next </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hello 老黄瓜</title>
-      <link href="/2018/07/27/Welcome%20old%20cucumber/"/>
-      <url>/2018/07/27/Welcome%20old%20cucumber/</url>
-      <content type="html"><![CDATA[<h2 id="恭喜老黄瓜入驻博客！！"><a href="#恭喜老黄瓜入驻博客！！" class="headerlink" title="恭喜老黄瓜入驻博客！！"></a>恭喜老黄瓜入驻博客！！</h2><p>今天，2018年7月20日！记录历史的一天~</p><p>前端小白老黄瓜即将开启他的前端之路~</p><p>话不多说</p><p>上图！！</p><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1532107563477&amp;di=c0f416079100d75a500229a4f7964e6a&amp;imgtype=0&amp;src=http%3A%2F%2Fp1.pstatp.com%2Flarge%2F47210001dd7b1ec2200a" alt="这里写图片描述"></p>]]></content>
-      
-      
-        <tags>
-            
-            <tag> 前端 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>node.js学习记录</title>
-      <link href="/2018/07/27/node.js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-      <url>/2018/07/27/node.js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
-      <content type="html"><![CDATA[<p>–<a href="https://www.nodebeginner.org/index-zh-cn.html#analyzing-our-http-server" target="_blank" rel="noopener">node.js入门</a></p>]]></content>
-      
-      
-        <tags>
-            
-            <tag> node.js </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+<search>
+  <entry>
+    <title><![CDATA[记Hexo + Github Pages博客搭建]]></title>
+    <url>%2F%E8%AE%B0Hexo%20%2B%20Github%20pages%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html</url>
+    <content type="text"><![CDATA[很早之前就听说可以通过github pages来搭建博客，但是由于种种原因（就是懒），迟迟没有付诸行动，终于，趁着暑假，开始了我的hexo+github pages 搭建博客的踩坑记，折腾了两天，终于成功搭建好了博客，接下来，开始分享搭建本博客的过程中以及各种坑。。。 用Hexo + Gitpages的原因 不用配置服务器 不用数据库 访问速度相当快 没有安全性可言 使用户可更注重博客内容 支持markdown还有就是hexo相对来说轻巧一些，生成文章的速度也比较快（静态博客生成页面时都是要整站生成，所以，页面越多，速度就越慢） 从hexo开始首先本地得装上了node.js、git和hexo 安装git：git 安装nodejs：node.js官网 hexo：hexo官网 hexo使用npm安装（过程如下） 1234npm install hexo-cli -ghexo init blogcd bloghexo server 然后打开http://localhost:4000/就可以查看效果了。如果4000端口打不开，可以通过以下命令更改端口访问(改为3000） 1hexo s -p 3000 注：Hexo依赖Node.js和Git，需要先安装。hexo的使用可参详官网文档。 常用命令： 1234hexo g 生成静态博客，即重新生成public文件夹hexo s 本地预览调试 (一般组合使用 hexo g &amp;&amp; hexo s)hexo d (发布到github)hexo n (执行该命令之后在source/_posts目录下产生&lt; blog name &gt;.md文件，这是你的一篇新博客。可以在markdown工具下编写，markdown工具在网上搜有一大堆，比如本博主使用的csdn的markdown工具，具体怎么使用也可以自己百度啦~） 部署到Github在github上创建一个仓库，仓库必须命名为：你的github账号.github.io(例如我的账号为Abner0101，所以我的仓库名为：Abner0101.github.io) 配置hexo config.yml，修改Deployment 1234deploy: type: git repo: git@github.com:你的帐号/你的帐号.github.com.git branch: master 然后执行命令： 123hexo cleanhexo ghexo d 此时，在博客的根目录下会生成一个文件夹：.deploy 然后我们把这个文件夹里面的文件都push到刚才新建那个项目就OK了。几分钟过后，就可以打开：你的用户名.github.io 看到你的博客了。 绑定域名在项目的根目录，新建名为CNAME的文件，内容为：你的域名，例如我的就是：jdsheng.cn再到把你的域名指向你的用户名.github.io，几分钟过后，就可以看到成功的诞生了。 NexT主题与第三方服务我使用的主题是next，在你的博客根目录下gitbash，安装next主题 1git clone https://github.com/iissnan/hexo-theme-next themes/next 打开站点配置文件(_config.yml)，增加一行： 1theme: next 进入themes/next，修改主题配置文件 _config.yml 定位到scheme参数来选择自己喜欢的主题风格： 1scheme: Mist 关于next主题更多的配置（添加评论，分享，喜欢，添加头像等功能）可以参考NexT使用文档 关于更换电脑，如何继续写博客1.将你原来的电脑上已经配置好的源代码项目拷贝到你新的电脑，注意，无需拷贝全部，只需要拷贝一下几个目录： 12345_config.ymlpackage.jsonscaffolds/source/themes/ 将这些目录放在一个目录下，例如：blog/ 2.在你的新电脑上配置hexo环境：安装git、安装node.js3.安装hexo，执行命令： 1npm install -g hexo 4.安装好之后，在hexo目录下gitbash，执行命令： 1234npm installnpm install hexo-deployer-git --savenpm install hexo-generator-feed --savenpm install hexo-generator-sitemap --save 5.部署，执行命令： 12 hexo ghexo d 在执行第5步时，可能会出错，不知道你们会不会遇到，反正我是遇到了，在部署提交代码的时候出现了这个问题： 123456*** Please tell me who you are.Run git config --global user.email &quot;you@example.com&quot; git config --global user.name &quot;Your Name&quot;to set your account&apos;s default identity.Omit --global to set the identity only in this repository. 所以解决方法是当出现这个上述提示后 接着补充你在命令行中执行 12git config --global user.email &quot;你的邮箱&quot;git config --global user.name &quot;你的名字&quot; （注意 “ 前面是有空格的）输入后在接着执行git g、git d即可！]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello 老黄瓜]]></title>
+    <url>%2FWelcome%20old%20cucumber.html</url>
+    <content type="text"><![CDATA[恭喜老黄瓜入驻博客！！今天，2018年7月20日！记录历史的一天~ 前端小白老黄瓜即将开启他的前端之路~ 话不多说 上图！！]]></content>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[node.js学习记录]]></title>
+    <url>%2Fnode.js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95.html</url>
+    <content type="text"><![CDATA[–node.js入门]]></content>
+      <tags>
+        <tag>node.js</tag>
+      </tags>
+  </entry>
 </search>
