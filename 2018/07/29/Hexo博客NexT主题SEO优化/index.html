@@ -76,6 +76,8 @@
 
 
 
+  
+
 
   <link rel="alternate" href="/atom.xml" title="Old C" type="application/atom+xml" />
 
@@ -97,7 +99,7 @@
 <meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227183912.gif">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2029141-e62d9b69fee897f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2029141-1400d6c78c881aab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:updated_time" content="2018-07-28T17:25:11.718Z">
+<meta property="og:updated_time" content="2018-07-28T17:30:51.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客NexT主题SEO优化">
 <meta name="twitter:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
@@ -370,7 +372,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,114
+                  1,120
                 </span>
               
 
@@ -410,8 +412,8 @@
         <p>刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。<br><em>本文主要以谷歌搜索为主。</em></p>
 <h2 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h2><p><strong>–安装sitemap站点地图自动生成插件</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br><span class="line">npm install hexo-generator-baidu-sitemap --save</span><br></pre></td></tr></table></figure>
-<p><strong>–修改站点配置文件</strong><br>将sitemap文件添加到站点配置文件_config.yml中，并修改url字段的值，其值默认为<a href="http://yoursite.com。" target="_blank" rel="noopener">http://yoursite.com。</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sitemap: </span><br><span class="line">  path: sitemap.xml</span><br><span class="line">baidusitemap:</span><br><span class="line">  path: baidusitemap.xml</span><br><span class="line"></span><br><span class="line">url: https://hoxis.github.i</span><br></pre></td></tr></table></figure>
+<p><strong>–修改站点配置文件</strong><br>将sitemap文件添加到站点配置文件_config.yml中，并修改url字段的值，其值默认为<a href="https://yoursite.com" target="_blank" rel="noopener">https://yoursite.com</a>(你的博客域名）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sitemap: </span><br><span class="line">  path: sitemap.xml</span><br><span class="line">baidusitemap:</span><br><span class="line">  path: baidusitemap.xml</span><br><span class="line"></span><br><span class="line">url: https://abner.github.io</span><br></pre></td></tr></table></figure>
 <p>配置好后，执行hexo g 就能在站点public\目录中生成sitemap.xml 和 baidusitemap.xml了;其中第一个是一会要提交给google的，后面那个看名字当然就是提交给Baidu的了；</p>
 <h2 id="添加蜘蛛协议"><a href="#添加蜘蛛协议" class="headerlink" title="添加蜘蛛协议"></a>添加蜘蛛协议</h2><p>在站点source文件夹下新建robots.txt文件，文件内容如下：（参考我的）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Allow: /</span><br><span class="line">Allow: /archives/</span><br><span class="line">Allow: /categories/</span><br><span class="line">Allow: /tags/ </span><br><span class="line">Allow: /resources/ </span><br><span class="line">Disallow: /vendors/</span><br><span class="line">Disallow: /js/</span><br><span class="line">Disallow: /css/</span><br><span class="line">Disallow: /fonts/</span><br><span class="line">Disallow: /vendors/</span><br><span class="line">Disallow: /fancybox/</span><br><span class="line"></span><br><span class="line">Sitemap: https://abner0101.github.io/sitemap.xml</span><br><span class="line">Sitemap: https://abner0101.github.io/baidusitemap.xml</span><br></pre></td></tr></table></figure>
