@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Old C</title>
   
-  
+  <subtitle>人生在于折腾</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://abner0101.github.io/"/>
@@ -113,9 +113,9 @@
     
       <category term="hexo" scheme="https://abner0101.github.io/tags/hexo/"/>
     
-      <category term="github" scheme="https://abner0101.github.io/tags/github/"/>
-    
       <category term="Next" scheme="https://abner0101.github.io/tags/Next/"/>
+    
+      <category term="github" scheme="https://abner0101.github.io/tags/github/"/>
     
   </entry>
   
