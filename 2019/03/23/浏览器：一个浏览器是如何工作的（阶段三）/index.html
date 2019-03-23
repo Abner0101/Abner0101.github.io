@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="hexo,Next,seo优化," />
+  <meta name="keywords" content="前端," />
 
 
 
@@ -85,24 +85,18 @@
 
 
 
-<meta name="description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
-<meta name="keywords" content="hexo,Next,seo优化">
+<meta name="description" content="在上一节课中，我已经讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。整体过程首先我们还是要感性地理解一下这个过程。首先 CSS 选择器这个名称，可能会给你带来一定的误解，觉得好像 CSS 规则是 DOM 树构建好了以后">
+<meta name="keywords" content="前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客NexT主题SEO优化">
-<meta property="og:url" content="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/index.html">
+<meta property="og:title" content="浏览器：一个浏览器是如何工作的？（阶段一）">
+<meta property="og:url" content="https://jdsheng.cn/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
+<meta property="og:description" content="在上一节课中，我已经讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。整体过程首先我们还是要感性地理解一下这个过程。首先 CSS 选择器这个名称，可能会给你带来一定的误解，觉得好像 CSS 规则是 DOM 树构建好了以后">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227182234.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227183005.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227183912.gif">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2029141-e62d9b69fee897f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2029141-1400d6c78c881aab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:updated_time" content="2018-07-28T17:33:42.168Z">
+<meta property="og:updated_time" content="2019-03-23T01:02:52.385Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo博客NexT主题SEO优化">
-<meta name="twitter:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227182234.gif">
+<meta name="twitter:title" content="浏览器：一个浏览器是如何工作的？（阶段一）">
+<meta name="twitter:description" content="在上一节课中，我已经讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。整体过程首先我们还是要感性地理解一下这个过程。首先 CSS 选择器这个名称，可能会给你带来一定的误解，觉得好像 CSS 规则是 DOM 树构建好了以后">
 
 
 
@@ -132,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/"/>
+  <link rel="canonical" href="https://jdsheng.cn/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/"/>
 
 
 
 
 
-  <title>Hexo博客NexT主题SEO优化 | Old C</title>
+  <title>浏览器：一个浏览器是如何工作的？（阶段一） | Old C</title>
   
 
 
@@ -299,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/">
+    <link itemprop="mainEntityOfPage" href="https://jdsheng.cn/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="老黄瓜">
@@ -316,7 +310,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Hexo博客NexT主题SEO优化</h2>
+          <h2 class="post-title" itemprop="name headline">浏览器：一个浏览器是如何工作的？（阶段一）</h2>
         
 
         <div class="post-meta">
@@ -328,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T00:57:12+08:00">
-                2018-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T09:02:09+08:00">
+                2019-03-23
               </time>
             
 
@@ -346,7 +340,7 @@
 
           
           
-             <span id="/2018/07/29/Hexo博客NexT主题SEO优化/" class="leancloud_visitors" data-flag-title="Hexo博客NexT主题SEO优化">
+             <span id="/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/" class="leancloud_visitors" data-flag-title="浏览器：一个浏览器是如何工作的？（阶段一）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -371,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,120
+                  2,091
                 </span>
               
 
@@ -387,7 +381,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  8
                 </span>
               
             </div>
@@ -408,39 +402,7 @@
       
 
       
-        <p>刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。<br><em>本文主要以谷歌搜索为主。</em></p>
-<h2 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h2><p><strong>–安装sitemap站点地图自动生成插件</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p><strong>–修改站点配置文件</strong><br>将sitemap文件添加到站点配置文件_config.yml中，并修改url字段的值，其值默认为<a href="https://yoursite.com" target="_blank" rel="noopener">https://yoursite.com</a>(你的博客域名）。</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sitemap</span>: </span><br><span class="line">  <span class="attribute">path</span>: sitemap.xml</span><br><span class="line"><span class="attribute">baidusitemap</span>:</span><br><span class="line">  <span class="attribute">path</span>: baidusitemap.xml</span><br><span class="line"></span><br><span class="line"><span class="attribute">url</span>: <span class="attribute">https</span>:<span class="comment">//abner0101.github.io</span></span><br></pre></td></tr></table></figure>
-<p>配置好后，执行hexo g 就能在站点public\目录中生成sitemap.xml 和 baidusitemap.xml了;其中第一个是一会要提交给google的，后面那个看名字当然就是提交给Baidu的了；</p>
-<h2 id="添加蜘蛛协议"><a href="#添加蜘蛛协议" class="headerlink" title="添加蜘蛛协议"></a>添加蜘蛛协议</h2><p>在站点source文件夹下新建robots.txt文件，文件内容如下：（参考我的）</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">User-<span class="string">agent:</span> *</span><br><span class="line"><span class="string">Allow:</span> /</span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/archives/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/categories/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/tags/</span> </span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/resources/</span> </span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/js/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/css/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fonts/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fancybox/</span></span><br><span class="line"></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//abner0101.github.io/sitemap.xml</span></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//abner0101.github.io/baidusitemap.xml</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中Allow后面的就是你的menu<br>请自行将abner0101.github.io改成自己的域名，然后hexo d -g提交一下</p>
-</blockquote>
-<h2 id="提交站点到Google"><a href="#提交站点到Google" class="headerlink" title="提交站点到Google"></a>提交站点到Google</h2><p>打开<a href="https://www.google.com/webmasters/#?modal_active=none" target="_blank" rel="noopener">Google Search Console</a>，根据提示注册好之后，添加你的博客域名。<br><img src="https://www.github.com/hoxis/token4md/raw/master/20171227182234.gif" alt="添加博客域名"></p>
-<h2 id="站点验证"><a href="#站点验证" class="headerlink" title="站点验证"></a>站点验证</h2><p>我选择了备用方法中的HTML 标记，将给出的元标记复制到\themes\hexo-theme-next\layout_partials\head.swig文件中。添加后运行hexo d -g将改动提交。稍后就可以验证成功了。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="attribute">charset</span>=<span class="string">"UTF-8"</span>/&gt;</span><br><span class="line">&lt;meta <span class="attribute">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attribute">content</span>=<span class="string">"IE=edge"</span> /&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"viewport"</span> <span class="attribute">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1"</span>/&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"theme-color"</span> <span class="attribute">content</span>=<span class="string">"&#123;&#123; theme.android_chrome_color &#125;&#125;"</span>&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"google-site-verification"</span> <span class="attribute">content</span>=<span class="string">"xxxxxxxxxxxxx"</span> /&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"baidu-site-verification"</span> <span class="attribute">content</span>=<span class="string">"xxxxxxxxx"</span> /&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="测试robots-txt"><a href="#测试robots-txt" class="headerlink" title="测试robots.txt"></a>测试robots.txt</h2><p>点击左侧的robots.txt测试工具，根据提示提交你的robots.txt，其实刚才我们已经提交了。<br><img src="https://www.github.com/hoxis/token4md/raw/master/20171227183005.gif" alt=""></p>
-<blockquote>
-<p>注意要0错误才可以，如果有错误的话，会有提示，改正确就可以了。</p>
-</blockquote>
-<h2 id="提交站点地图"><a href="#提交站点地图" class="headerlink" title="提交站点地图"></a>提交站点地图</h2><p>还记得我们刚才创建创建sitemap.xml文件吧,现在它要派上用场了。点击左侧工具栏的站点地图<br><img src="https://www.github.com/hoxis/token4md/raw/master/20171227183912.gif" alt="这里写图片描述"></p>
-<h2 id="Google-抓取方式"><a href="#Google-抓取方式" class="headerlink" title="Google 抓取方式"></a>Google 抓取方式</h2><p>提交站点地图之后，点击左侧的Google 抓取方式<br><img src="https://upload-images.jianshu.io/upload_images/2029141-e62d9b69fee897f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="这里写图片描述"></p>
-<p>这一步很重要！这一不很重要！这一步很重要！<br><img src="https://upload-images.jianshu.io/upload_images/2029141-1400d6c78c881aab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="这里写图片描述"><br>在这里我们填上我们需要抓取的url,不填这表示抓取首页，抓取方式可以选择桌面，智能手机等等，自行根据需要选择。填好url之后，点击抓取。<br>然后可能会出现几种情况，如:完成、部分完成、重定向等，自由这三种情况是可以提交的。<br>提交完成后，提交至索引，根据提示操作就可以了。</p>
-<h2 id="网站结构自身优化"><a href="#网站结构自身优化" class="headerlink" title="网站结构自身优化"></a>网站结构自身优化</h2><p><strong>出站链接添加nofollow标签</strong><br>网络爬虫会在当前页面搜索所有的链接，然后一个个查看，所以就很有可能跳到别的网站就不回来了。这个时候就需要nofollow起作用了。</p>
-<blockquote>
-<p>nofollow标签是由谷歌领头创新的一个反垃圾链接的标签，并被百度、yahoo等各大搜索引擎广泛支持，引用nofollow标签的目的是：用于指示搜索引擎不要追踪（即抓取）网页上的带有nofollow属性的任何出站链接，以减少垃圾链接的分散网站权重。</p>
-</blockquote>
-<p><strong>修改footer.swig文件</strong><br>路径在your-hexo-site\themes\next\layout_partials，将下面代码中的a标签加上rel=”external nofollow”属性。</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; __(<span class="name">'footer.powered'</span>, '&lt;a rel=<span class="string">"external nofollow"</span> class=<span class="string">"theme-link"</span> target=<span class="string">"_blank"</span> href=<span class="string">"https://hexo.io"</span>&gt;Hexo&lt;/a&gt;') &#125;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a <span class="attribute">rel</span>=<span class="string">"external nofollow"</span> <span class="attribute">class</span>=<span class="string">"theme-link"</span> <span class="attribute">target</span>=<span class="string">"_blank"</span> <span class="attribute">href</span>=<span class="string">"https://github.com/iissnan/hexo-theme-next"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>修改sidebar.swig文件</strong><br>路径在your-hexo-site\themes\next\layout_macro，将下面代码中的a标签加上rel=”external nofollow”属性</p>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.creative_commons === 'zero' %&#125;</span><span class="xml"><span class="tag"><span class="string">publicdomain/zero/1.0</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span><span class="xml"><span class="tag"><span class="string">licenses/</span></span></span><span class="template-variable">&#123;&#123; theme.creative_commons &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">/4.0</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"><span class="tag"><span class="string">/"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"cc-opacity"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; link &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">title</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; name &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span><span class="template-variable">&#123;&#123; name &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a <span class="attribute">rel</span>=<span class="string">"external nofollow"</span> <span class="attribute">href</span>=<span class="string">"&#123;&#123; link.split('||')[0] | trim &#125;&#125;"</span> <span class="attribute">target</span>=<span class="string">"_blank"</span> <span class="attribute">title</span>=<span class="string">"&#123;&#123; name &#125;&#125;"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>至此，seo优化得差不多了，还有很多可以优化的地方，博主日后再更新。马上上google搜索一下你的关键词和博客title测试一下吧！</p>
+        <div class="_1kh1ihh6_0"><p>在上一节课中，我已经讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。</p><p>我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。</p><h2>整体过程</h2><p>首先我们还是要感性地理解一下这个过程。</p><p>首先 CSS 选择器这个名称，可能会给你带来一定的误解，觉得好像 CSS 规则是 DOM 树构建好了以后，再进行选择并给它添加样式的。实际上，这个过程并不是这样的。</p><p>我们回忆一下我们在浏览器第一节课讲的内容，浏览器会尽量流式处理整个过程。我们上一节课构建 DOM 的过程是：从父到子，从先到后，一个一个节点构造，并且挂载到 DOM 树上的，那么这个过程中，我们是否能同步把 CSS 属性计算出来呢？</p><p>答案是肯定的。</p><p>在这个过程中，我们依次拿到上一部构造好的元素，去检查它匹配到了哪些规则，再根据规则的优先级，做覆盖和调整。所以，从这个角度看，所谓的选择器，应该被理解成“匹配器”才更合适。</p><p>我在 CSS 语法部分，已经总结了选择器的各种符号，这里再把它列出来，我们回顾一下：</p><ul><br><li>空格: 后代，选中它的子节点和所有子节点的后代节点。</li><br><li>&gt;: 子代，选中它的子节点。</li><br><li>+：直接后继选择器，选中它的下一个相邻节点。</li><br><li>~：后继，选中它之后所有的相邻节点。</li><br><li>||：列，选中表格中的一列。</li><br></ul><!-- [[[read_end]]] --><p>关于选择器的知识，我会在 CSS 的部分继续讲解。这里我们主要介绍浏览器是如何实现这些规则的。</p><p>不知道你有没有发现，这里的选择器有个特点，那就是选择器的出现顺序，必定跟构建 DOM 树的顺序一致。这是一个 CSS 设计的原则，即保证选择器在 DOM 树构建到当前节点时，已经可以准确判断是否匹配，不需要后续节点信息。</p><p>也就是说，未来也不可能会出现“父元素选择器”这种东西，因为父元素选择器要求根据当前节点的子节点，来判断当前节点是否被选中，而父节点会先于子节点构建。</p><p>理解了 CSS 构建的大概过程，我们下面来看看具体的操作。</p><p>首先，我们必须把 CSS 规则做一下处理。作为一门语言，CSS 需要先经过词法分析和语法分析，变成计算机能够理解的结构。</p><p>这部分具体的做法属于编译原理的内容，这里就不做赘述了。我们这里假设 CSS 已经被解析成了一棵可用的抽象语法树。</p><p>我们在之前的 CSS 课程中已经介绍过 compound-selector 的概念，一个 compound-selector 是检查一个元素的规则，而一个复合型选择器，则是由数个 compound-selector 通过前面讲的符号连接起来的。</p><h2>后代选择器 “空格”</h2><p>我们先来分析一下后代选择器，我们来一起看一个例子：</p><br><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-id">#b</span> <span class="selector-class">.cls</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>可以把一个 CSS 选择器按照 compound-selector 来拆成数段，每当满足一段条件的时候，就前进一段。</p><p>比如，在上面的例子中，当我们找到了匹配 a#b 的元素时，我们才会开始检查它所有的子代是否匹配 .cls。</p><p>除了前进一段的情况，我们还需要处理后退的情况，比如，我们这样一段代码：</p><br><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">b</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>1<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">cls</span>&gt;</span>2<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">cls</span>&gt;</span>3<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>当遇到 &lt;/a&gt; 时，必须使得规则 a#b .cls 回退一步，这样第三个 span 才不会被选中。后代选择器的作用范围是父节点的所有子节点，因此规则是在匹配到本标签的结束标签时回退。</p><h2>后继选择器“ ~ ”</h2><p>接下来我们看下后继选择器，跟后代选择器不同的地方是，后继选择器只作用于一层，我们来看一个例子：</p><br><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.cls~* &#123;</span><br><span class="line">    border:solid 1px green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>1<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">cls</span>&gt;</span>2<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line">    3</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>4<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>5<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>这里 .cls 选中了 span 2 然后 span 3 是它的后继，但是 span 3 的子节点 span 4 并不应该被选中，而 span 5 也是它的后继，因此应该被选中。</p><p>按照 DOM 树的构造顺序，4 在 3 和 5 中间，我们就没有办法像前面讲的后代选择器一样通过激活或者关闭规则来实现匹配。</p><p>但是这里有个非常方便的思路，就是给选择器的激活，带上一个条件：父元素。</p><p>注意，这里后继选择器，当前半段的 .cls 匹配成功时，后续 * 所匹配的所有元素的父元素都已经确定了（后继节点和当前节点父元素相同是充分必要条件）。在我们的例子中，那个 div 就是后继节点的父元素。</p><h2>子代选择器“ &gt;”</h2><p>我们继续看，子代选择器是如何实现的。</p><p>实际上，有了前面讲的父元素这个约束思路，我们很容易实现子代选择器。区别仅仅是拿当前节点作为父元素，还是拿当前节点的父元素作为父元素。</p><br><br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">div&gt;.<span class="class">cls </span>&#123;</span><br><span class="line"><span class="symbol">    border:</span>solid <span class="number">1</span>px green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="params">&lt;div&gt;</span></span><br><span class="line"><span class="params">&lt;span&gt;</span><span class="number">1</span><span class="params">&lt;span&gt;</span></span><br><span class="line"><span class="params">&lt;span class=cls&gt;</span><span class="number">2</span><span class="params">&lt;span&gt;</span></span><br><span class="line"><span class="params">&lt;span&gt;</span></span><br><span class="line">    <span class="number">3</span></span><br><span class="line">    <span class="params">&lt;span&gt;</span><span class="number">4</span><span class="params">&lt;/span&gt;</span></span><br><span class="line"><span class="params">&lt;span&gt;</span></span><br><span class="line"><span class="params">&lt;span&gt;</span><span class="number">5</span><span class="params">&lt;/span&gt;</span></span><br><span class="line"><span class="params">&lt;/div&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>我们看这段代码，当 DOM 树构造到 div 时，匹配了 CSS 规则的第一段，因为是子代选择器，我们激活后面的 .cls 选择条件，并且指定父元素必须是当前 div。于是后续的构建 DOM 树构建过程中，span 2 就被选中了。</p><h2>直接后继选择器“ +”</h2><p>直接后继选择器的实现是上述中最为简单的了，因为它只对唯一一个元素生效，所以不需要像前面几种一样反复激活和关闭规则。</p><p>一个最简单的思路是，我们可以把它当作检查元素自身的选择器来处理。即我们把 #id+.cls 都当做检查某一个元素的选择器。</p><p>另外的一种思路是：给后继选择器加上一个 flag，使它匹配一次后失效。你可以尝试一下，告诉我结果。</p><h2>列选择器“ || ”</h2><p>列选择器比较特别，它是专门针对表格的选择器，跟表格的模型建立相关，我们这里不详细讲了。</p><h2>其它</h2><p>我们不要忘记，CSS 选择器还支持逗号分隔，表示“或”的关系。这里最简单的实现是把逗号视为两条规则的一种简易写法。</p><p>比如</p><br><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a<span class="selector-id">#b</span>, <span class="selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>我们当作两条规则来处理：</p><br><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-id">#b</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>还有一个情况，就是选择器可能有重合，这样，我们可以使用树形结构来进行一些合并，来提高效率：</p><br><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#a</span> <span class="selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#a</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">#a&gt;<span class="selector-tag">span</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>这里实际上可以把选择器构造成一棵树：</p><ul><br><li>#a<br><ul><br><li>&lt; 空格 &gt;.cls</li><br><li>&lt; 空格 &gt;span</li><br><li>&gt;span</li><br></ul><br></li><br></ul><p>需要注意的是，这里的树，必须要带上连接符。</p><h2>结语</h2><p>这一节我们讲解了 CSS 计算的过程。CSS 计算是把 CSS 规则应用到 DOM 树上，为 DOM 结构添加显示相关属性的过程。在这一节中，我们主要介绍了选择器的几种复合结构应该如何实现。</p><p>在这一步骤之后，我们得到了一棵带有 CSS 属性的树，为我们后续继续显式打下了基础。</p><p>最后留一个问题，你认为 CSS 语法解析成什么结构，最适合我们进行 CSS 计算。</p><p>转自—《重学前端》</p></div>
 
       
     </div>
@@ -458,11 +420,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
-          
-            <a href="/tags/Next/" rel="tag"># Next</a>
-          
-            <a href="/tags/seo优化/" rel="tag"># seo优化</a>
+            <a href="/tags/前端/" rel="tag"># 前端</a>
           
         </div>
       
@@ -475,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/记Hexo + Github pages博客搭建/" rel="next" title="记Hexo + Github Pages博客搭建">
-                <i class="fa fa-chevron-left"></i> 记Hexo + Github Pages博客搭建
+              <a href="/2019/03/23/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/" rel="next" title="JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？">
+                <i class="fa fa-chevron-left"></i> JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？
               </a>
             
           </div>
@@ -485,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/09/用jQuery实现简单图片轮播效果 /" rel="prev" title="用jQuery实现简单的图片轮播效果">
-                用jQuery实现简单的图片轮播效果 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/23/浏览器：一个浏览器是如何工作的？（阶段四）/" rel="prev" title="浏览器：一个浏览器是如何工作的？（阶段一）">
+                浏览器：一个浏览器是如何工作的？（阶段一） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -637,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加站点地图"><span class="nav-number">1.</span> <span class="nav-text">添加站点地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加蜘蛛协议"><span class="nav-number">2.</span> <span class="nav-text">添加蜘蛛协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交站点到Google"><span class="nav-number">3.</span> <span class="nav-text">提交站点到Google</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#站点验证"><span class="nav-number">4.</span> <span class="nav-text">站点验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试robots-txt"><span class="nav-number">5.</span> <span class="nav-text">测试robots.txt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交站点地图"><span class="nav-number">6.</span> <span class="nav-text">提交站点地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-抓取方式"><span class="nav-number">7.</span> <span class="nav-text">Google 抓取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网站结构自身优化"><span class="nav-number">8.</span> <span class="nav-text">网站结构自身优化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">整体过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">后代选择器 “空格”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">后继选择器“ ~ ”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">子代选择器“ &gt;”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">直接后继选择器“ +”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">列选择器“ || ”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>

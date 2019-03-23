@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="hexo,Next,seo优化," />
+  <meta name="keywords" content="前端,js," />
 
 
 
@@ -85,24 +85,21 @@
 
 
 
-<meta name="description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
-<meta name="keywords" content="hexo,Next,seo优化">
+<meta name="description" content="在上一课，我们了解了 JavaScript 执行中最粗粒度的任务：传给引擎执行的代码段。并且，我们还根据“由 JavaScript 引擎发起”还是“由宿主发起”，分成了宏观任务和微观任务，接下来我们继续去看一看更细的执行粒度。一段 JavaScript 代码可能会包含函数调用的相关内容，从今天开始，我们就用两节课的时间来了解一下函数的执行。我们今天要讲的知识在网上有不同的名字，比较常见的可能有：闭">
+<meta name="keywords" content="前端,js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客NexT主题SEO优化">
-<meta property="og:url" content="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/index.html">
+<meta property="og:title" content="JavaScript执行（二）：闭包和执行上下文到底是怎么回事？">
+<meta property="og:url" content="https://jdsheng.cn/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
+<meta property="og:description" content="在上一课，我们了解了 JavaScript 执行中最粗粒度的任务：传给引擎执行的代码段。并且，我们还根据“由 JavaScript 引擎发起”还是“由宿主发起”，分成了宏观任务和微观任务，接下来我们继续去看一看更细的执行粒度。一段 JavaScript 代码可能会包含函数调用的相关内容，从今天开始，我们就用两节课的时间来了解一下函数的执行。我们今天要讲的知识在网上有不同的名字，比较常见的可能有：闭">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227182234.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227183005.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227183912.gif">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2029141-e62d9b69fee897f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2029141-1400d6c78c881aab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:updated_time" content="2018-07-28T17:33:42.168Z">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/68/52/68f50c00d475a7d6d8c7eef6a91b2152.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/9b/0c/9b6c6693afe654b4cfdbf16852b82a0c.png">
+<meta property="og:updated_time" content="2019-03-23T01:39:41.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo博客NexT主题SEO优化">
-<meta name="twitter:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图–安装sitemap站点地图自动生成插件 12npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/20171227182234.gif">
+<meta name="twitter:title" content="JavaScript执行（二）：闭包和执行上下文到底是怎么回事？">
+<meta name="twitter:description" content="在上一课，我们了解了 JavaScript 执行中最粗粒度的任务：传给引擎执行的代码段。并且，我们还根据“由 JavaScript 引擎发起”还是“由宿主发起”，分成了宏观任务和微观任务，接下来我们继续去看一看更细的执行粒度。一段 JavaScript 代码可能会包含函数调用的相关内容，从今天开始，我们就用两节课的时间来了解一下函数的执行。我们今天要讲的知识在网上有不同的名字，比较常见的可能有：闭">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/68/52/68f50c00d475a7d6d8c7eef6a91b2152.png">
 
 
 
@@ -132,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/"/>
+  <link rel="canonical" href="https://jdsheng.cn/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/"/>
 
 
 
 
 
-  <title>Hexo博客NexT主题SEO优化 | Old C</title>
+  <title>JavaScript执行（二）：闭包和执行上下文到底是怎么回事？ | Old C</title>
   
 
 
@@ -299,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/">
+    <link itemprop="mainEntityOfPage" href="https://jdsheng.cn/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="老黄瓜">
@@ -316,7 +313,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Hexo博客NexT主题SEO优化</h2>
+          <h2 class="post-title" itemprop="name headline">JavaScript执行（二）：闭包和执行上下文到底是怎么回事？</h2>
         
 
         <div class="post-meta">
@@ -328,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T00:57:12+08:00">
-                2018-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T09:38:38+08:00">
+                2019-03-23
               </time>
             
 
@@ -346,7 +343,7 @@
 
           
           
-             <span id="/2018/07/29/Hexo博客NexT主题SEO优化/" class="leancloud_visitors" data-flag-title="Hexo博客NexT主题SEO优化">
+             <span id="/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/" class="leancloud_visitors" data-flag-title="JavaScript执行（二）：闭包和执行上下文到底是怎么回事？">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -371,7 +368,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,120
+                  3,118
                 </span>
               
 
@@ -387,7 +384,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  11
                 </span>
               
             </div>
@@ -408,39 +405,7 @@
       
 
       
-        <p>刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。<br><em>本文主要以谷歌搜索为主。</em></p>
-<h2 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h2><p><strong>–安装sitemap站点地图自动生成插件</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p><strong>–修改站点配置文件</strong><br>将sitemap文件添加到站点配置文件_config.yml中，并修改url字段的值，其值默认为<a href="https://yoursite.com" target="_blank" rel="noopener">https://yoursite.com</a>(你的博客域名）。</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sitemap</span>: </span><br><span class="line">  <span class="attribute">path</span>: sitemap.xml</span><br><span class="line"><span class="attribute">baidusitemap</span>:</span><br><span class="line">  <span class="attribute">path</span>: baidusitemap.xml</span><br><span class="line"></span><br><span class="line"><span class="attribute">url</span>: <span class="attribute">https</span>:<span class="comment">//abner0101.github.io</span></span><br></pre></td></tr></table></figure>
-<p>配置好后，执行hexo g 就能在站点public\目录中生成sitemap.xml 和 baidusitemap.xml了;其中第一个是一会要提交给google的，后面那个看名字当然就是提交给Baidu的了；</p>
-<h2 id="添加蜘蛛协议"><a href="#添加蜘蛛协议" class="headerlink" title="添加蜘蛛协议"></a>添加蜘蛛协议</h2><p>在站点source文件夹下新建robots.txt文件，文件内容如下：（参考我的）</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">User-<span class="string">agent:</span> *</span><br><span class="line"><span class="string">Allow:</span> /</span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/archives/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/categories/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/tags/</span> </span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/resources/</span> </span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/js/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/css/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fonts/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fancybox/</span></span><br><span class="line"></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//abner0101.github.io/sitemap.xml</span></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//abner0101.github.io/baidusitemap.xml</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中Allow后面的就是你的menu<br>请自行将abner0101.github.io改成自己的域名，然后hexo d -g提交一下</p>
-</blockquote>
-<h2 id="提交站点到Google"><a href="#提交站点到Google" class="headerlink" title="提交站点到Google"></a>提交站点到Google</h2><p>打开<a href="https://www.google.com/webmasters/#?modal_active=none" target="_blank" rel="noopener">Google Search Console</a>，根据提示注册好之后，添加你的博客域名。<br><img src="https://www.github.com/hoxis/token4md/raw/master/20171227182234.gif" alt="添加博客域名"></p>
-<h2 id="站点验证"><a href="#站点验证" class="headerlink" title="站点验证"></a>站点验证</h2><p>我选择了备用方法中的HTML 标记，将给出的元标记复制到\themes\hexo-theme-next\layout_partials\head.swig文件中。添加后运行hexo d -g将改动提交。稍后就可以验证成功了。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="attribute">charset</span>=<span class="string">"UTF-8"</span>/&gt;</span><br><span class="line">&lt;meta <span class="attribute">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attribute">content</span>=<span class="string">"IE=edge"</span> /&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"viewport"</span> <span class="attribute">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1"</span>/&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"theme-color"</span> <span class="attribute">content</span>=<span class="string">"&#123;&#123; theme.android_chrome_color &#125;&#125;"</span>&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"google-site-verification"</span> <span class="attribute">content</span>=<span class="string">"xxxxxxxxxxxxx"</span> /&gt;</span><br><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">"baidu-site-verification"</span> <span class="attribute">content</span>=<span class="string">"xxxxxxxxx"</span> /&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="测试robots-txt"><a href="#测试robots-txt" class="headerlink" title="测试robots.txt"></a>测试robots.txt</h2><p>点击左侧的robots.txt测试工具，根据提示提交你的robots.txt，其实刚才我们已经提交了。<br><img src="https://www.github.com/hoxis/token4md/raw/master/20171227183005.gif" alt=""></p>
-<blockquote>
-<p>注意要0错误才可以，如果有错误的话，会有提示，改正确就可以了。</p>
-</blockquote>
-<h2 id="提交站点地图"><a href="#提交站点地图" class="headerlink" title="提交站点地图"></a>提交站点地图</h2><p>还记得我们刚才创建创建sitemap.xml文件吧,现在它要派上用场了。点击左侧工具栏的站点地图<br><img src="https://www.github.com/hoxis/token4md/raw/master/20171227183912.gif" alt="这里写图片描述"></p>
-<h2 id="Google-抓取方式"><a href="#Google-抓取方式" class="headerlink" title="Google 抓取方式"></a>Google 抓取方式</h2><p>提交站点地图之后，点击左侧的Google 抓取方式<br><img src="https://upload-images.jianshu.io/upload_images/2029141-e62d9b69fee897f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="这里写图片描述"></p>
-<p>这一步很重要！这一不很重要！这一步很重要！<br><img src="https://upload-images.jianshu.io/upload_images/2029141-1400d6c78c881aab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="这里写图片描述"><br>在这里我们填上我们需要抓取的url,不填这表示抓取首页，抓取方式可以选择桌面，智能手机等等，自行根据需要选择。填好url之后，点击抓取。<br>然后可能会出现几种情况，如:完成、部分完成、重定向等，自由这三种情况是可以提交的。<br>提交完成后，提交至索引，根据提示操作就可以了。</p>
-<h2 id="网站结构自身优化"><a href="#网站结构自身优化" class="headerlink" title="网站结构自身优化"></a>网站结构自身优化</h2><p><strong>出站链接添加nofollow标签</strong><br>网络爬虫会在当前页面搜索所有的链接，然后一个个查看，所以就很有可能跳到别的网站就不回来了。这个时候就需要nofollow起作用了。</p>
-<blockquote>
-<p>nofollow标签是由谷歌领头创新的一个反垃圾链接的标签，并被百度、yahoo等各大搜索引擎广泛支持，引用nofollow标签的目的是：用于指示搜索引擎不要追踪（即抓取）网页上的带有nofollow属性的任何出站链接，以减少垃圾链接的分散网站权重。</p>
-</blockquote>
-<p><strong>修改footer.swig文件</strong><br>路径在your-hexo-site\themes\next\layout_partials，将下面代码中的a标签加上rel=”external nofollow”属性。</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; __(<span class="name">'footer.powered'</span>, '&lt;a rel=<span class="string">"external nofollow"</span> class=<span class="string">"theme-link"</span> target=<span class="string">"_blank"</span> href=<span class="string">"https://hexo.io"</span>&gt;Hexo&lt;/a&gt;') &#125;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a <span class="attribute">rel</span>=<span class="string">"external nofollow"</span> <span class="attribute">class</span>=<span class="string">"theme-link"</span> <span class="attribute">target</span>=<span class="string">"_blank"</span> <span class="attribute">href</span>=<span class="string">"https://github.com/iissnan/hexo-theme-next"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>修改sidebar.swig文件</strong><br>路径在your-hexo-site\themes\next\layout_macro，将下面代码中的a标签加上rel=”external nofollow”属性</p>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.creative_commons === 'zero' %&#125;</span><span class="xml"><span class="tag"><span class="string">publicdomain/zero/1.0</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span><span class="xml"><span class="tag"><span class="string">licenses/</span></span></span><span class="template-variable">&#123;&#123; theme.creative_commons &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">/4.0</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"><span class="tag"><span class="string">/"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"cc-opacity"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; link &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">title</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; name &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span><span class="template-variable">&#123;&#123; name &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a <span class="attribute">rel</span>=<span class="string">"external nofollow"</span> <span class="attribute">href</span>=<span class="string">"&#123;&#123; link.split('||')[0] | trim &#125;&#125;"</span> <span class="attribute">target</span>=<span class="string">"_blank"</span> <span class="attribute">title</span>=<span class="string">"&#123;&#123; name &#125;&#125;"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>至此，seo优化得差不多了，还有很多可以优化的地方，博主日后再更新。马上上google搜索一下你的关键词和博客title测试一下吧！</p>
+        <div class="_1kh1ihh6_0"><p>在上一课，我们了解了 JavaScript 执行中最粗粒度的任务：传给引擎执行的代码段。并且，我们还根据“由 JavaScript 引擎发起”还是“由宿主发起”，分成了宏观任务和微观任务，接下来我们继续去看一看更细的执行粒度。</p><p>一段 JavaScript 代码可能会包含函数调用的相关内容，从今天开始，我们就用两节课的时间来了解一下函数的执行。</p><p>我们今天要讲的知识在网上有不同的名字，比较常见的可能有：</p><ul><br><li>闭包；</li><br><li>作用域链；</li><br><li>执行上下文；</li><br><li>this 值。</li><br></ul><p>实际上，尽管它们是表示不同的意思的术语，所指向的几乎是同一部分知识，那就是函数执行过程相关的知识。我们可以简单看一下图。</p><p><img src="https://static001.geekbang.org/resource/image/68/52/68f50c00d475a7d6d8c7eef6a91b2152.png" alt=""></p><p>看着也许会有点晕，别着急，我会和你共同理一下它们之间的关系。</p><p>当然，除了让你理解函数执行过程的知识，理清这些概念也非常重要。所以我们先来讲讲这个有点复杂的概念：闭包。</p><h2>闭包</h2><p>闭包翻译自英文单词 closure，这是个不太好翻译的词，在计算机领域，它就有三个完全不相同的意义：编译原理中，它是处理语法产生式的一个步骤；计算几何中，它表示包裹平面点集的凸多边形（翻译作凸包）；而在编程语言领域，它表示一种函数。</p><p>闭包这个概念第一次出现在 1964 年的《The Computer Journal》上，由 P. J. Landin 在《The mechanical evaluation of expressions》一文中提出了 applicative expression 和 closure 的概念。</p><!-- [[[read_end]]] --><p><img src="https://static001.geekbang.org/resource/image/9b/0c/9b6c6693afe654b4cfdbf16852b82a0c.png" alt=""></p><p>在上世纪 60 年代，主流的编程语言是基于 lambda 演算的函数式编程语言，所以这个最初的闭包定义，使用了大量的函数式术语。一个不太精确的描述是“带有一系列信息的λ表达式”。对函数式语言而言，λ表达式其实就是函数。</p><p>我们可以这样简单理解一下，闭包其实只是一个绑定了执行环境的函数，这个函数并不是印在书本里的一条简单的表达式，闭包与普通函数的区别是，它携带了执行的环境，就像人在外星中需要自带吸氧的装备一样，这个函数也带有在程序中生存的环境。</p><p>这个古典的闭包定义中，闭包包含两个部分。</p><ul><br><li>环境部分<br><ul><br><li>环境</li><br><li>标识符列表</li><br></ul><br></li><br><li>表达式部分</li><br></ul><p>当我们把视角放在 JavaScript 的标准中，我们发现，标准中并没有出现过 closure 这个术语，但是，我们却不难根据古典定义，在 JavaScript 中找到对应的闭包组成部分。</p><ul><br><li>环境部分<br><ul><br><li>环境：函数的词法环境（执行上下文的一部分）</li><br><li>标识符列表：函数中用到的未声明的变量</li><br></ul><br></li><br><li>表达式部分：函数体</li><br></ul><p>至此，我们可以认为，JavaScript 中的函数完全符合闭包的定义。它的环境部分是函数词法环境部分组成，它的标识符列表是函数中用到的未声明变量，它的表达式部分就是函数体。</p><p>这里我们容易产生一个常见的概念误区，有些人会把 JavaScript 执行上下文，或者作用域（Scope，ES3 中规定的执行上下文的一部分）这个概念当作闭包。</p><p>实际上 JavaScript 中跟闭包对应的概念就是“函数”，可能是这个概念太过于普通，跟闭包看起来又没什么联系，所以大家才不自觉地把这个概念对应到了看起来更特别的“作用域”吧（其实我早年也是这么理解闭包，直到后来被朋友纠正，查了资料才改正过来）。</p><h3>执行上下文：执行的基础设施</h3><p>相比普通函数，JavaScript 函数的主要复杂性来自于它携带的“环境部分”。当然，发展到今天的 JavaScript，它所定义的环境部分，已经比当初经典的定义复杂了很多。</p><p>JavaScript 中与闭包“环境部分”相对应的术语是“词法环境”，但是 JavaScript 函数比λ函数要复杂得多，我们还要处理 this、变量声明、with 等等一系列的复杂语法，λ函数中可没有这些东西，所以，在 JavaScript 的设计中，词法环境只是 JavaScript 执行上下文的一部分。</p><p>JavaScript 标准把一段代码（包括函数），执行所需的所有信息定义为：“执行上下文”。</p><p>因为这部分术语经历了比较多的版本和社区的演绎，所以定义比较混乱，这里我们先来理一下 JavaScript 中的概念。</p><p><strong>执行上下文在 ES3 中</strong>，包含三个部分。</p><ul><br><li>scope：作用域，也常常被叫做作用域链。</li><br><li>variable object：变量对象，用于存储变量的对象。</li><br><li>this value：this 值。</li><br></ul><p><strong>在 ES5 中</strong>，我们改进了命名方式，把执行上下文最初的三个部分改为下面这个样子。</p><ul><br><li>lexical environment：词法环境，当获取变量时使用。</li><br><li>variable environment：变量环境，当声明变量时使用。</li><br><li>this value：this 值。</li><br></ul><p><strong>在 ES2018 中</strong>，执行上下文又变成了这个样子，this 值被归入 lexical environment，但是增加了不少内容。</p><ul><br><li>lexical environment：词法环境，当获取变量或者 this 值时使用。</li><br><li>variable environment：变量环境，当声明变量时使用</li><br><li>code evaluation state：用于恢复代码执行位置。</li><br><li>Function：执行的任务是函数时使用，表示正在被执行的函数。</li><br><li>ScriptOrModule：执行的任务是脚本或者模块时使用，表示正在被执行的代码。</li><br><li>Realm：使用的基础库和内置对象实例。</li><br><li>Generator：仅生成器上下文有这个属性，表示当前生成器。</li><br></ul><p>我们在这里介绍执行上下文的各个版本定义，是考虑到你可能会从各种网上的文章中接触这些概念，如果不把它们理清楚，我们就很难分辨对错。如果是我们自己使用，我建议统一使用最新的 ES2018 中规定的术语定义。</p><p>尽管我们介绍了这些定义，但我并不打算按照 JavaScript 标准的思路，从实现的角度去介绍函数的执行过程，这是不容易被理解的。</p><p>我想试着从代码实例出发，跟你一起推导函数执行过程中需要哪些信息，它们又对应着执行上下文中的哪些部分。</p><p>比如，我们看以下的这段 JavaScript 代码：</p><br><br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="attr">b</span> = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">c</span> = <span class="number">1</span></span><br><span class="line">this.<span class="attr">a</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure><br><br><p>要想正确执行它，我们需要知道以下信息：</p><ol><br><li>var 把 b 声明到哪里；</li><br><li>b 表示哪个变量；</li><br><li>b 的原型是哪个对象；</li><br><li>let 把 c 声明到哪里；</li><br><li>this 指向哪个对象。</li><br></ol><p>这些信息就需要执行上下文来给出了，这段代码出现在不同的位置，甚至在每次执行中，会关联到不同的执行上下文，所以，同样的代码会产生不一样的行为。</p><p>在这两篇文章中，我会基本覆盖执行上下文的组成部分，本篇我们先讲 var 声明与赋值，let，realm 三个特性来分析上下文提供的信息，分析执行上下文中提供的信息。</p><h3>var 声明与赋值</h3><p>我们来分析一段代码：</p><br><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> <span class="selector-tag">b</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure><br><br><p>通常我们认为它声明了 b，并且为它赋值为 1，var 声明作用域函数执行的作用域。也就是说，var 会穿透 for 、if 等语句。</p><p>在只有 var，没有 let 的旧 JavaScript 时代，诞生了一个技巧，叫做：立即执行的函数表达式（IIFE），通过创建一个函数，并且立即执行，来构造一个新的域，从而控制 var 的范围。</p><p>由于语法规定了 function 关键字开头是函数声明，所以要想让函数变成函数表达式，我们必须得加点东西，最常见的做法是加括号。</p><br><br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure><br><br><p>但是，括号有个缺点，那就是如果上一行代码不写分号，括号会被解释为上一行代码最末的函数调用，产生完全不符合预期，并且难以调试的行为，加号等运算符也有类似的问题。所以一些推荐不加分号的代码风格规范，会要求在括号前面加上分号。</p><br><br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure><br><br><p>我比较推荐的写法是使用 void 关键字。也就是下面的这种形式。</p><br><br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure><br><br><p>这有效避免了语法问题，同时，语义上 void 运算表示忽略后面表达式的值，变成 undefined，我们确实不关心 IIFE 的返回值，所以语义也更为合理。</p><p>值得特别注意的是，有时候 var 的特性会导致声明的变量和被赋值的变量是两个 b，JavaScript 中有特例，那就是使用 with 的时候：</p><br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b;</span><br><span class="line"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> env = &#123;<span class="attr">b</span>:<span class="number">1</span>&#125;;</span><br><span class="line">    b = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"In function b:"</span>, b);</span><br><span class="line">    <span class="keyword">with</span>(env) &#123;</span><br><span class="line">        <span class="keyword">var</span> b = <span class="number">3</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"In with b:"</span>, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Global b:"</span>, b);</span><br></pre></td></tr></table></figure><br><br><p>在这个例子中，我们利用立即执行的函数表达式（IIFE）构造了一个函数的执行环境，并且在里面使用了我们一开头的代码。</p><p>可以看到，在 Global function with 三个环境中，b 的值都不一样，而在 function 环境中，并没有出现 var b，这说明 with 内的 var b 作用到了 function 这个环境当中。</p><p>var b = {} 这样一句对两个域产生了作用，从语言的角度是个非常糟糕的设计，这也是一些人坚定地反对在任何场景下使用 with 的原因之一。</p><h3>let</h3><p>let 是 ES6 开始引入的新的变量声明模式，比起 var 的诸多弊病，let 做了非常明确的梳理和规定。</p><p>为了实现 let，JavaScript 在运行时引入了块级作用域。也就是说，在 let 出现之前，JavaScript 的 if for 等语句皆不产生作用域。</p><p>我简单统计了下，以下语句会产生 let 使用的作用域：</p><ul><br><li>for；</li><br><li>if；</li><br><li>switch；</li><br><li>try/catch/finally。</li><br></ul><h3>Realm</h3><p>在最新的标准（9.0）中，JavaScript 引入了一个新概念 Realm，它的中文意思是“国度”“领域”“范围”。这个英文的用法就有点比喻的意思，几个翻译都不太适合 JavaScript 语境，所以这里就不翻译啦。</p><p>我们继续来看这段代码：</p><br><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> <span class="selector-tag">b</span> = &#123;&#125;</span><br></pre></td></tr></table></figure><br><br><p>在 ES2016 之前的版本中，标准中甚少提及{}的原型问题。但在实际的前端开发中，通过 iframe 等方式创建多 window 环境并非罕见的操作，所以，这才促成了新概念 Realm 的引入。</p><p>Realm 中包含一组完整的内置对象，而且是复制关系。</p><p>对不同 Realm 中的对象操作，会有一些需要格外注意的问题，比如 instanceOf 几乎是失效的。</p><p>以下代码展示了在浏览器环境中获取来自两个 Realm 的对象，它们跟本土的 Object 做 instanceOf 时会产生差异：</p><br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>)</span><br><span class="line"><span class="built_in">document</span>.documentElement.appendChild(iframe)</span><br><span class="line">iframe.src=<span class="string">"javascript:var b = &#123;&#125;;"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b1 = iframe.contentWindow.b;</span><br><span class="line"><span class="keyword">var</span> b2 = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> b1, <span class="keyword">typeof</span> b2); <span class="comment">//object object</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(b1 <span class="keyword">instanceof</span> <span class="built_in">Object</span>, b2 <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">//false true</span></span><br></pre></td></tr></table></figure><br><br><p>可以看到，由于 b1、 b2 由同样的代码“ {} ”在不同的 Realm 中执行，所以表现出了不同的行为。</p><h2>结语</h2><p>在今天的课程中，我帮你梳理了一些概念：有编程语言的概念闭包，也有各个版本中的 JavaScript 标准中的概念：执行上下文、作用域、this 值等等。</p><p>之后我们又从代码的角度，分析了一些执行上下文中所需要的信息，并从<code class="ps">var<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></code>、<code class="ps">let<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></code>、对象字面量等语法中，推导出了词法作用域、变量作用域、Realm的设计。</p><p>最后留给你一个问题：你喜欢使用 let 还是 var？</p><p>转自—《重学前端》</p></div>
 
       
     </div>
@@ -458,11 +423,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/前端/" rel="tag"># 前端</a>
           
-            <a href="/tags/Next/" rel="tag"># Next</a>
-          
-            <a href="/tags/seo优化/" rel="tag"># seo优化</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -475,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/记Hexo + Github pages博客搭建/" rel="next" title="记Hexo + Github Pages博客搭建">
-                <i class="fa fa-chevron-left"></i> 记Hexo + Github Pages博客搭建
+              <a href="/2019/03/23/浏览器：一个浏览器是如何工作的？（阶段五）/" rel="next" title="浏览器：一个浏览器是如何工作的？（阶段一）">
+                <i class="fa fa-chevron-left"></i> 浏览器：一个浏览器是如何工作的？（阶段一）
               </a>
             
           </div>
@@ -484,10 +447,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/09/用jQuery实现简单图片轮播效果 /" rel="prev" title="用jQuery实现简单的图片轮播效果">
-                用jQuery实现简单的图片轮播效果 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -637,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加站点地图"><span class="nav-number">1.</span> <span class="nav-text">添加站点地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加蜘蛛协议"><span class="nav-number">2.</span> <span class="nav-text">添加蜘蛛协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交站点到Google"><span class="nav-number">3.</span> <span class="nav-text">提交站点到Google</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#站点验证"><span class="nav-number">4.</span> <span class="nav-text">站点验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试robots-txt"><span class="nav-number">5.</span> <span class="nav-text">测试robots.txt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交站点地图"><span class="nav-number">6.</span> <span class="nav-text">提交站点地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-抓取方式"><span class="nav-number">7.</span> <span class="nav-text">Google 抓取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网站结构自身优化"><span class="nav-number">8.</span> <span class="nav-text">网站结构自身优化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">执行上下文：执行的基础设施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">var 声明与赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">let</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">Realm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
