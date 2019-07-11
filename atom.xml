@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jdsheng.cn/"/>
-  <updated>2019-03-25T13:24:11.546Z</updated>
+  <updated>2019-07-11T14:11:12.889Z</updated>
   <id>https://jdsheng.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue常见问题及解决方法（一）</title>
+    <link href="https://jdsheng.cn/2019/07/10/vue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>https://jdsheng.cn/2019/07/10/vue常见问题及解决方法（一）/</id>
+    <published>2019-07-10T15:40:30.935Z</published>
+    <updated>2019-07-11T14:11:12.889Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>列表进入详情页的传参问题</li><li>路由懒加载（也叫延迟加载）</li></ul><h2 id="列表进入详情页的传参问题"><a href="#列表进入详情页的传参问题" class="headerlink" title="列表进入详情页的传参问题"></a>列表进入详情页的传参问题</h2><p><em>关联知识点</em>  ——<strong>路由跳转的方式</strong><br>声明式的跳转：</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">// query通过path切换路由</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;path: 'Detail', query: &#123; id: 1 &#125;</span><span class="xml"><span class="tag"><span class="string">&#125;"</span>&gt;</span>前往Detail页面<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="xml">// params通过name切换路由</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;name: 'Detail', params: &#123; id: 1 &#125;</span><span class="xml"><span class="tag"><span class="string">&#125;"</span>&gt;</span>前往Detail页面<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>编程式的跳转：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//跳转到上一次浏览的页面</span></span><br><span class="line"> <span class="keyword">this</span>.$router.go(<span class="number">-1</span>)</span><br><span class="line">           </span><br><span class="line"><span class="comment">//指定跳转的地址，我们自己设置的路由地址</span></span><br><span class="line"><span class="keyword">this</span>.$router.replace(<span class="string">'/pathname'</span>)</span><br><span class="line">           </span><br><span class="line"><span class="comment">//指定跳转路由的名字下，pathname是我们自身为路由设置的名字</span></span><br><span class="line"><span class="keyword">this</span>.$router.replace(&#123;name:<span class="string">"pathname"</span>&#125;)</span><br><span class="line">          </span><br><span class="line"><span class="comment">//通过push进行跳转，我们自己设置的路由地址或者我们自己设置的名字</span></span><br><span class="line"><span class="keyword">this</span>.$router.push(<span class="string">'/pathname'</span>)</span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123;name:<span class="string">'pathname'</span>&#125;)</span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123; path: <span class="string">'/pathname/$&#123;id&#125;'</span>&#125;) <span class="comment">//id为参数</span></span><br></pre></td></tr></table></figure><p><strong>传参的方式</strong>：query、params+动态路由传参</p><p><strong>两者的区别：</strong></p><ol><li><p>query通过<code>path</code>切换路由，params通过<code>name</code>切换路由</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">// query通过path切换路由</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;path: 'Detail', query: &#123; id: 1 &#125;</span><span class="xml"><span class="tag"><span class="string">&#125;"</span>&gt;</span>前往Detail页面<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="xml">// params通过name切换路由</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;name: 'Detail', params: &#123; id: 1 &#125;</span><span class="xml"><span class="tag"><span class="string">&#125;"</span>&gt;</span>前往Detail页面<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li><li><p>query通过<code>this.$route.query</code>来接收参数，params通过<code>this.$route.params</code>来接收参数。</p><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// query通过this.$route.query接收参数</span></span><br><span class="line">created () &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">id</span> = <span class="keyword">this</span>.$route.query.id;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// params通过this.$route.params来接收参数</span></span><br><span class="line">created () &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">id</span> = <span class="keyword">this</span>.$route.params.id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>query传参的url展现方式：<code>/detail?id=1&amp;user=123&amp;identity=1&amp;更多参数</code><br>  params＋动态路由的url方式：<code>/detail/123</code></p></li><li><p>params动态路由传参，一定要在路由中定义参数，然后在路由跳转的时候必须要加上参数，否则就是空白页面，而query传参则不用：</p><p><em>对应的路由配置：</em></p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;      </span><br><span class="line">    <span class="attribute">path</span>: <span class="string">'/detail/:id'</span>,      </span><br><span class="line">    name: <span class="string">'Detail'</span>,      </span><br><span class="line">    component: Detail    </span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></li></ol><pre><code>  注意，params传参时，如果没有在路由中定义参数，也是可以传过去的，同时也能接收到，但是一旦刷新页面，这个参数就不存在了。这对于需要依赖参数进行某些操作的行为是行不通的，因为你总不可能要求用户不能刷新页面吧。 例如：<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义的路由中，只定义一个id参数</span></span><br><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'detail/:id'</span>,</span><br><span class="line">    name: <span class="string">'Detail'</span>,</span><br><span class="line">    components: Detail</span><br><span class="line">&#125;</span><br><span class="line">       </span><br><span class="line"><span class="comment">// template中的路由传参，</span></span><br><span class="line"><span class="comment">// 传了一个id参数和一个token参数</span></span><br><span class="line"><span class="comment">// id是在路由中已经定义的参数，而token没有定义</span></span><br><span class="line">&lt;router-link :to=<span class="string">"&#123;name: 'Detail', params: &#123; id: 1, token: '123456' &#125;&#125;"</span>&gt;前往Detail页面&lt;/router-link&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在详情页接收</span></span><br><span class="line">created () &#123;</span><br><span class="line">    <span class="comment">// 以下都可以正常获取到</span></span><br><span class="line">    <span class="comment">// 但是页面刷新后，id依然可以获取，而token此时就不存在了</span></span><br><span class="line">    <span class="keyword">const</span> id = <span class="keyword">this</span>.$route.<span class="keyword">params</span>.id;</span><br><span class="line">    <span class="keyword">const</span> token = <span class="keyword">this</span>.$route.<span class="keyword">params</span>.token;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>参考：</p><ol><li><a href="https://segmentfault.com/a/1190000012393587" target="_blank" rel="noopener">vue路由传参的三种基本方式</a></li><li><a href="https://blog.csdn.net/gqzydh/article/details/81453990" target="_blank" rel="noopener">vue 关于路由跳转方法</a></li></ol><h2 id="路由懒加载（也叫延迟加载）"><a href="#路由懒加载（也叫延迟加载）" class="headerlink" title="路由懒加载（也叫延迟加载）"></a>路由懒加载（也叫延迟加载）</h2><p>路由懒加载可以帮我们在进入首屏时不用加载过度的资源，从而减少首屏加载速度。在路由文件中，</p><p>非懒加载写法：</p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Index <span class="keyword">from</span> <span class="string">'@/page/index/index'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;  </span><br><span class="line">    routes: [    </span><br><span class="line">        &#123; </span><br><span class="line">            path: <span class="string">'/'</span>, </span><br><span class="line">            name: <span class="string">'Index'</span>,     </span><br><span class="line">            component: Index </span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>路由懒加载写法：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">export</span> <span class="selector-tag">default</span> <span class="selector-tag">new</span> <span class="selector-tag">Router</span>(&#123;</span><br><span class="line">  <span class="attribute">routes</span>: [    </span><br><span class="line">        &#123; </span><br><span class="line">            path: <span class="string">'/'</span>, </span><br><span class="line">            name: <span class="string">'Index'</span>, </span><br><span class="line">            component: resolve =&gt; <span class="built_in">require</span>([<span class="string">'@/view/index/index'</span>], resolve) </span><br><span class="line">        &#125;</span><br><span class="line">   ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;列表进入详情页的传参问题&lt;/li&gt;
+&lt;li&gt;路由懒加载（也叫延迟加载）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;列表进入详情页的传参问题&quot;&gt;&lt;a href=&quot;#列表进入详情页的传参问题&quot; class=&quot;headerlink&quot; title=&quot;列表进入详情页的传参问题
+      
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="https://jdsheng.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="VUE" scheme="https://jdsheng.cn/tags/VUE/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript对象：你知道全部的对象分类吗？</title>
@@ -481,30 +510,6 @@
       <category term="Next" scheme="https://jdsheng.cn/tags/Next/"/>
     
       <category term="github" scheme="https://jdsheng.cn/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>node.js学习记录</title>
-    <link href="https://jdsheng.cn/2018/07/27/node.js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    <id>https://jdsheng.cn/2018/07/27/node.js学习记录/</id>
-    <published>2018-07-27T15:18:24.412Z</published>
-    <updated>2018-07-27T03:20:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>–<a href="https://www.nodebeginner.org/index-zh-cn.html#analyzing-our-http-server" target="_blank" rel="noopener">node.js入门</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;–&lt;a href=&quot;https://www.nodebeginner.org/index-zh-cn.html#analyzing-our-http-server&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;node.js入门&lt;/a&gt;&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="node.js" scheme="https://jdsheng.cn/tags/node-js/"/>
     
   </entry>
   
