@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="hexo,Next,github," />
+  <meta name="keywords" content="js,前端," />
 
 
 
@@ -85,18 +85,21 @@
 
 
 
-<meta name="description" content="很早之前就听说可以通过github pages来搭建博客，但是由于种种原因（就是懒），迟迟没有付诸行动，终于，趁着暑假，开始了我的hexo+github pages 搭建博客的踩坑记，折腾了两天，终于成功搭建好了博客，接下来，开始分享搭建本博客的过程中以及各种坑。。。 用Hexo + Gitpages的原因 不用配置服务器 不用数据库 访问速度相当快 没有安全性可言 使用户可更注重博客内容 支持m">
-<meta name="keywords" content="hexo,Next,github">
+<meta name="description" content="文法是编译原理中对语言的写法的一种规定，一般来说，文法分成词法和语法两种。词法规定了语言的最小语义单元：token，可以翻译成“标记”或者“词”，在我的专栏文章中，我统一把 token 翻译成词。从字符到词的整个过程是没有结构的，只要符合词的规则，就构成词，一般来说，词法设计不会包含冲突。词法分析技术上可以使用状态机或者正则表达式来进行，我们的课程主要是学习词法，关于它们实现的细节就不多谈了。概述">
+<meta name="keywords" content="js,前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记Hexo + Github Pages博客搭建">
-<meta property="og:url" content="https://jdsheng.cn/2018/07/27/记Hexo + Github pages博客搭建/index.html">
+<meta property="og:title" content="JavaScript词法：为什么12.toString会报错？">
+<meta property="og:url" content="https://jdsheng.cn/2019/07/25/JavaScript词法：为什么12.toString会报错？/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="很早之前就听说可以通过github pages来搭建博客，但是由于种种原因（就是懒），迟迟没有付诸行动，终于，趁着暑假，开始了我的hexo+github pages 搭建博客的踩坑记，折腾了两天，终于成功搭建好了博客，接下来，开始分享搭建本博客的过程中以及各种坑。。。 用Hexo + Gitpages的原因 不用配置服务器 不用数据库 访问速度相当快 没有安全性可言 使用户可更注重博客内容 支持m">
+<meta property="og:description" content="文法是编译原理中对语言的写法的一种规定，一般来说，文法分成词法和语法两种。词法规定了语言的最小语义单元：token，可以翻译成“标记”或者“词”，在我的专栏文章中，我统一把 token 翻译成词。从字符到词的整个过程是没有结构的，只要符合词的规则，就构成词，一般来说，词法设计不会包含冲突。词法分析技术上可以使用状态机或者正则表达式来进行，我们的课程主要是学习词法，关于它们实现的细节就不多谈了。概述">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-13T10:47:19.975Z">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/dd/60/dd26aa9599b61d26e7de807dee2c6360.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/02/75/022c2c77d0a3c846ad0d61b48c4e0e75.png">
+<meta property="og:updated_time" content="2019-07-25T14:17:48.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记Hexo + Github Pages博客搭建">
-<meta name="twitter:description" content="很早之前就听说可以通过github pages来搭建博客，但是由于种种原因（就是懒），迟迟没有付诸行动，终于，趁着暑假，开始了我的hexo+github pages 搭建博客的踩坑记，折腾了两天，终于成功搭建好了博客，接下来，开始分享搭建本博客的过程中以及各种坑。。。 用Hexo + Gitpages的原因 不用配置服务器 不用数据库 访问速度相当快 没有安全性可言 使用户可更注重博客内容 支持m">
+<meta name="twitter:title" content="JavaScript词法：为什么12.toString会报错？">
+<meta name="twitter:description" content="文法是编译原理中对语言的写法的一种规定，一般来说，文法分成词法和语法两种。词法规定了语言的最小语义单元：token，可以翻译成“标记”或者“词”，在我的专栏文章中，我统一把 token 翻译成词。从字符到词的整个过程是没有结构的，只要符合词的规则，就构成词，一般来说，词法设计不会包含冲突。词法分析技术上可以使用状态机或者正则表达式来进行，我们的课程主要是学习词法，关于它们实现的细节就不多谈了。概述">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/dd/60/dd26aa9599b61d26e7de807dee2c6360.png">
 
 
 
@@ -126,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://jdsheng.cn/2018/07/27/记Hexo + Github pages博客搭建/"/>
+  <link rel="canonical" href="https://jdsheng.cn/2019/07/25/JavaScript词法：为什么12.toString会报错？/"/>
 
 
 
 
 
-  <title>记Hexo + Github Pages博客搭建 | Old C</title>
+  <title>JavaScript词法：为什么12.toString会报错？ | Old C</title>
   
 
 
@@ -293,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jdsheng.cn/2018/07/27/记Hexo + Github pages博客搭建/">
+    <link itemprop="mainEntityOfPage" href="https://jdsheng.cn/2019/07/25/JavaScript词法：为什么12.toString会报错？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="老黄瓜">
@@ -310,7 +313,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">记Hexo + Github Pages博客搭建</h2>
+          <h2 class="post-title" itemprop="name headline">JavaScript词法：为什么12.toString会报错？</h2>
         
 
         <div class="post-meta">
@@ -322,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T23:18:24+08:00">
-                2018-07-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T22:16:36+08:00">
+                2019-07-25
               </time>
             
 
@@ -340,7 +343,7 @@
 
           
           
-             <span id="/2018/07/27/记Hexo + Github pages博客搭建/" class="leancloud_visitors" data-flag-title="记Hexo + Github Pages博客搭建">
+             <span id="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="leancloud_visitors" data-flag-title="JavaScript词法：为什么12.toString会报错？">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -365,7 +368,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,136
+                  3,062
                 </span>
               
 
@@ -381,7 +384,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  11
                 </span>
               
             </div>
@@ -402,57 +405,68 @@
       
 
       
-        <p>很早之前就听说可以通过github pages来搭建博客，但是由于种种原因（就是懒），迟迟没有付诸行动，终于，趁着暑假，开始了我的hexo+github pages 搭建博客的踩坑记，折腾了两天，终于成功搭建好了博客，接下来，开始分享搭建本博客的过程中以及各种坑。。。</p>
-<h2 id="用Hexo-Gitpages的原因"><a href="#用Hexo-Gitpages的原因" class="headerlink" title="用Hexo + Gitpages的原因"></a>用Hexo + Gitpages的原因</h2><ul>
-<li>不用配置服务器</li>
-<li>不用数据库</li>
-<li>访问速度相当快</li>
-<li>没有安全性可言</li>
-<li>使用户可更注重博客内容</li>
-<li>支持markdown<br>还有就是hexo相对来说轻巧一些，生成文章的速度也比较快（静态博客生成页面时都是要整站生成，所以，页面越多，速度就越慢）</li>
-</ul>
-<h2 id="从hexo开始"><a href="#从hexo开始" class="headerlink" title="从hexo开始"></a>从hexo开始</h2><p>首先本地得装上了node.js、git和hexo</p>
-<p>安装git：<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a></p>
-<p>安装nodejs：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">node.js官网</a></p>
-<p>hexo：<a href="https://hexo.io/" target="_blank" rel="noopener">hexo官网</a></p>
-<p>hexo使用npm安装（过程如下）</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install </span>hexo-cli -g</span><br><span class="line">hexo init <span class="keyword">blog</span></span><br><span class="line"><span class="keyword">cd </span><span class="keyword">blog</span></span><br><span class="line"><span class="keyword">hexo </span>server</span><br></pre></td></tr></table></figure>
-<p>然后打开<a href="http://localhost:4000/就可以查看效果了。" target="_blank" rel="noopener">http://localhost:4000/就可以查看效果了。</a><br>如果4000端口打不开，可以通过以下命令更改端口访问(改为3000）</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s -<span class="selector-tag">p</span> <span class="number">3000</span></span><br></pre></td></tr></table></figure>
-<p><em>注</em>：Hexo依赖Node.js和Git，需要先安装。<br><em>hexo的使用可参详<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网文档</a>。</em></p>
-<p>常用命令：</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo g  生成静态博客，即重新生成<span class="keyword">public</span>文件夹</span><br><span class="line">hexo s  本地预览调试 (一般组合使用 hexo g &amp;&amp; hexo s)</span><br><span class="line">hexo d (发布到github)</span><br><span class="line">hexo n (执行该命令之后在source/_posts目录下产生&lt; blog <span class="keyword">name</span> &gt;.md文件，这是你的一篇新博客。可以在markdown工具下编写，markdown工具在网上搜有一大堆，比如本博主使用的csdn的markdown工具，具体怎么使用也可以自己百度啦~）</span><br></pre></td></tr></table></figure>
-<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>在github上创建一个仓库，仓库必须命名为：你的github账号.github.io<br>(例如我的账号为Abner0101，所以我的仓库名为：Abner0101.github.io)</p>
-<p>配置hexo  config.yml，修改Deployment</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:你的帐号/你的帐号.github.com.git</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
-<p>然后执行命令：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo clean</span></span><br><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
-<p>此时，在博客的根目录下会生成一个文件夹：.deploy</p>
-<p>然后我们把这个文件夹里面的文件都push到刚才新建那个项目就OK了。几分钟过后，就可以打开：你的用户名.github.io 看到你的博客了。</p>
-<h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p>在项目的根目录，新建名为CNAME的文件，内容为：你的域名，例如我的就是：jdsheng.cn<br>再到把你的域名指向你的用户名.github.io，几分钟过后，就可以看到成功的诞生了。</p>
-<h2 id="NexT主题与第三方服务"><a href="#NexT主题与第三方服务" class="headerlink" title="NexT主题与第三方服务"></a>NexT主题与第三方服务</h2><p>我使用的主题是next，在你的博客根目录下gitbash，安装next主题</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
-<p>打开<strong><em>站点配置文件</em></strong>(_config.yml)，增加一行：</p>
-<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: <span class="keyword">next</span></span><br></pre></td></tr></table></figure>
-<p>进入themes/next，修改<strong><em>主题配置文件</em></strong> _config.yml 定位到scheme参数来选择自己喜欢的主题风格：</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">scheme:</span> Mist</span><br></pre></td></tr></table></figure>
-<p>关于next主题更多的配置（添加评论，分享，喜欢，添加头像等功能）可以参考<a href="https://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT使用文档</a></p>
-<h2 id="关于更换电脑，如何继续写博客"><a href="#关于更换电脑，如何继续写博客" class="headerlink" title="关于更换电脑，如何继续写博客"></a>关于更换电脑，如何继续写博客</h2><p>1.将你原来的电脑上已经配置好的源代码项目拷贝到你新的电脑，注意，无需拷贝全部，只需要拷贝一下几个目录：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">package.json</span><br><span class="line">scaffolds/</span><br><span class="line">source/</span><br><span class="line">themes/</span><br></pre></td></tr></table></figure>
-<p>将这些目录放在一个目录下，例如：blog/</p>
-<p>2.在你的新电脑上配置hexo环境：安装git、安装node.js<br>3.安装hexo，执行命令：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g hexo</span><br></pre></td></tr></table></figure>
-<p>4.安装好之后，在hexo目录下gitbash，执行命令：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-feed <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p>5.部署，执行命令：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　<span class="attribute">h</span><span class="attribute">e</span><span class="attribute">x</span><span class="attribute">o</span> <span class="attribute">g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在执行第5步时，可能会出错，不知道你们会不会遇到，反正我是遇到了，在部署提交代码的时候出现了这个问题：</p>
-</blockquote>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*** Please tell <span class="keyword">me</span> who you are.</span><br><span class="line">Run</span><br><span class="line">  git config --<span class="keyword">global</span> user.email <span class="string">"you@example.com"</span></span><br><span class="line">  git config --<span class="keyword">global</span> user.name <span class="string">"Your Name"</span></span><br><span class="line"><span class="keyword">to</span> <span class="keyword">set</span> your account<span class="comment">'s default identity.</span></span><br><span class="line">Omit --<span class="keyword">global</span> <span class="keyword">to</span> <span class="keyword">set</span> the identity only <span class="keyword">in</span> this repository.</span><br></pre></td></tr></table></figure>
-<p>所以解决方法是当出现这个上述提示后 接着补充<br>你在命令行中执行</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global user.email  <span class="string">"你的邮箱"</span></span><br><span class="line">git<span class="built_in"> config </span>--global user.name  <span class="string">"你的名字"</span></span><br></pre></td></tr></table></figure>
-<p><em>（注意 “ 前面是有空格的）</em><br>输入后在接着执行hexo g、hexo d即可！</p>
+        <p><div class="_1kh1ihh6_0"><p>文法是编译原理中对语言的写法的一种规定，一般来说，文法分成词法和语法两种。</p><p>词法规定了语言的最小语义单元：token，可以翻译成“标记”或者“词”，在我的专栏文章中，我统一把 token 翻译成词。</p><p>从字符到词的整个过程是没有结构的，只要符合词的规则，就构成词，一般来说，词法设计不会包含冲突。词法分析技术上可以使用状态机或者正则表达式来进行，我们的课程主要是学习词法，关于它们实现的细节就不多谈了。</p><h2>概述</h2><p>我们先来看一看 JavaScript 的词法定义。JavaScript 源代码中的输入可以这样分类：</p><ul></ul></div></p>
+<p><li>WhiteSpace 空白字符</li></p>
+<p><li>LineTerminator 换行符</li></p>
+<p><li>Comment 注释</li></p>
+<p><li>Token 词</li></p>
+<p><ul></ul></p>
+<p><li>IdentifierName 标识符名称，典型案例是我们使用的变量名，注意这里关键字也包含在内了。</li></p>
+<p><li>Punctuator 符号，我们使用的运算符和大括号等符号。</li></p>
+<p><li>NumericLiteral 数字直接量，就是我们写的数字。</li></p>
+<p><li>StringLiteral 字符串直接量，就是我们用单引号或者双引号引起来的直接量。</li></p>
+<p><li>Template 字符串模板，用反引号<code>`</code> 括起来的直接量。</li><br><br><br><!-- [[[read_end]]] --></p><p>这个设计符合比较通用的编程语言设计方式，不过，JavaScript 中有一些特别之处，我下面就来讲讲特别在哪里。</p><p>首先是除法和正则表达式冲突问题。我们都知道，JavaScript 不但支持除法运算符“ / ”和“ /= ”，还支持用斜杠括起来的正则表达式“ /abc/ ”。</p><p>但是，这时候对词法分析来说，其实是没有办法处理的，所以 JavaScript 的解决方案是定义两组词法，然后靠语法分析传一个标志给词法分析器，让它来决定使用哪一套词法。</p><p>JavaScript 词法的另一个特别设计是字符串模板，模板语法大概是这样的：</p><p></p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`Hello, $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
+<p>理论上，“ ${ } ”内部可以放任何 JavaScript 表达式代码，而这些代码是以“ } ” 结尾的，也就是说，这部分词法不允许出现“ } ”运算符。</p><p>是否允许“ } ”的两种情况，与除法和正则表达式的两种情况相乘就是四种词法定义，所以你在 JavaScript 标准中，可以看到四种定义：</p><ul><br><li>InputElementDiv；</li><br><li>InputElementRegExp；</li><br><li>InputElementRegExpOrTemplateTail；</li><br><li>InputElementTemplateTail。</li><br></ul><p>为了解决这两个问题，标准中还不得不把除法、正则表达式直接量和“ } ”从 token 中单独抽出来，用词上，也把原本的 Token 改为 CommonToken。</p><p>但是我认为，从理解的角度上出发，我们不应该受到影响，所以在本课，我们依然把它们归类到 token 来理解。</p><p>对一般的语言的词法分析过程来说，都会丢弃除了 token 之外的输入，但是对 JavaScript 来说，不太一样，换行符和注释还会影响语法分析过程，这个我们将会在语法部分给你详细讲解（所以要实现 JavaScript 的解释器，词法分析和语法分析非常麻烦，需要来回传递信息）。</p><p>接下来我来给你详细介绍一下。</p><h3>空白符号 Whitespace</h3><p>说起空白符号，想必给大家留下的印象就是空格，但是实际上，JavaScript 可以支持更多空白符号。</p><ul><br><li><br><p><code>&lt;HT&gt;</code>(或称<code>&lt;TAB&gt;</code>) 是 U+0009，是缩进 TAB 符，也就是字符串中写的 \t 。</p><br></li><br><li><br><p><code>&lt;VT&gt;</code>是 U+000B，也就是垂直方向的 TAB 符 \v，这个字符在键盘上很难打出来，所以很少用到。</p><br></li><br><li><br><p><code>&lt;FF&gt;</code>是 U+000C，Form Feed，分页符，字符串直接量中写作 \f ，现代已经很少有打印源程序的事情发生了，所以这个字符在 JavaScript 源代码中很少用到。</p><br></li><br><li><br><p><code>&lt;SP&gt;</code>是 U+0020，就是最普通的空格了。</p><br></li><br><li><br><p><code>&lt;NBSP&gt;</code>是 U+00A0，非断行空格，它是 SP 的一个变体，在文字排版中，可以避免因为空格在此处发生断行，其它方面和普通空格完全一样。多数的 JavaScript 编辑环境都会把它当做普通空格（因为一般源代码编辑环境根本就不会自动折行……）。HTML 中，很多人喜欢用的 <code>&amp;nbsp;</code> 最后生成的就是它了。</p><br></li><br><li><br><p><code>&lt;ZWNBSP&gt;</code>(旧称<code>&lt;BOM&gt;</code>) 是 U+FEFF，这是 ES5 新加入的空白符，是 Unicode 中的零宽非断行空格，在以 UTF 格式编码的文件中，常常在文件首插入一个额外的 U+FEFF，解析 UTF 文件的程序可以根据 U+FEFF 的表示方法猜测文件采用哪种 UTF 编码方式。这个字符也叫做“bit order mark”。</p><br></li><br></ul><p>此外，JavaScript 支持所有的 Unicode 中的空格分类下的空格，我们可以看下表：</p><p><img src="https://static001.geekbang.org/resource/image/dd/60/dd26aa9599b61d26e7de807dee2c6360.png" alt=""></p><p>很多公司的编码规范要求 JavaScript 源代码控制在 ASCII 范围内，那么，就只有<code>&lt;TAB&gt;</code> <code>&lt;VT&gt;</code> <code>&lt;FF&gt;</code> <code>&lt;SP&gt;</code> <code>&lt;NBSP&gt;</code>五种空白可用了。</p><h3>换行符 LineTerminator</h3><p>接下来我们来看看换行符，JavaScript 中只提供了 4 种字符作为换行符。</p><ul><br><li><code>&lt;LF&gt;</code></li><br><li><code>&lt;CR&gt;</code></li><br><li><code>&lt;LS&gt;</code></li><br><li><code>&lt;PS&gt;</code></li><br></ul><p>其中，<code>&lt;LF&gt;</code>是 U+000A，就是最正常换行符，在字符串中的<code>\n</code>。</p><p><code>&lt;CR&gt;</code>是 U+000D，这个字符真正意义上的“回车”，在字符串中是<code>\r</code>，在一部分 Windows 风格文本编辑器中，换行是两个字符<code>\r\n</code>。</p><p><code>&lt;LS&gt;</code>是 U+2028，是 Unicode 中的行分隔符。<code>&lt;PS&gt;</code>是 U+2029，是 Unicode 中的段落分隔符。</p><p>大部分 LineTerminator 在被词法分析器扫描出之后，会被语法分析器丢弃，但是换行符会影响 JavaScript 的两个重要语法特性：自动插入分号和“no line terminator”规则。</p><h3>注释 Comment</h3><p>JavaScript 的注释分为单行注释和多行注释两种：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* MultiLineCommentChars */</span> </span><br><span class="line"><span class="comment">// SingleLineCommentChars</span></span><br></pre></td></tr></table></figure>
+<p>多行注释中允许自由地出现<code>MultiLineNotAsteriskChar</code>，也就是除了<code><em></em></code>之外的所有字符。而每一个<code></code>之后，不能出现正斜杠符<code>/</code>。</p><p>除了四种 LineTerminator 之外，所有字符都可以作为单行注释。</p><p>我们需要注意，多行注释中是否包含换行符号，会对 JavaScript 语法产生影响，对于“no line terminator”规则来说，带换行的多行注释与换行符是等效的。</p><h2>标识符名称 IdentifierName</h2><p><code>IdentifierName</code>可以以美元符“<code>$</code>”、下划线“<code>_</code>”或者 Unicode 字母开始，除了开始字符以外，<code>IdentifierName</code>中还可以使用 Unicode 中的连接标记、数字、以及连接符号。</p><p><code>IdentifierName</code>的任意字符可以使用 JavaScript 的 Unicode 转义写法，使用 Unicode 转义写法时，没有任何字符限制。</p><p><code>IdentifierName</code>可以是<code>Identifier</code>、<code>NullLiteral</code>、<code>BooleanLiteral</code>或者<code>keyword</code>，在<code>ObjectLiteral</code>中，<code>IdentifierName</code>还可以被直接当做属性名称使用。</p><p>仅当不是保留字的时候，<code>IdentifierName</code>会被解析为<code>Identifier</code>。</p><p>注意<code>&lt;ZWNJ&gt;</code>和<code>&lt;ZWJ&gt;</code>是 ES5 新加入的两个格式控制字符，它们都是 0 宽的。</p><p>我在前面提到了，关键字也属于这个部分，在 JavaScript 中，关键字有:</p>
+
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">await <span class="keyword">break</span> <span class="keyword">case</span> <span class="keyword">catch</span> <span class="keyword">class</span> <span class="keyword">const</span> <span class="keyword">continue</span> debugger <span class="keyword">default</span> <span class="keyword">delete</span> <span class="keyword">do</span> <span class="keyword">else</span> <span class="keyword">export</span> extends <span class="keyword">finally</span> <span class="keyword">for</span> <span class="built_in">function</span> <span class="keyword">if</span> <span class="keyword">import</span> ininstance of <span class="keyword">new</span> <span class="keyword">return</span> <span class="keyword">super</span> <span class="keyword">switch</span> <span class="keyword">this</span> <span class="keyword">throw</span> <span class="keyword">try</span> <span class="keyword">typeof</span> var <span class="keyword">void</span> <span class="keyword">while</span> <span class="keyword">with</span> yield</span><br></pre></td></tr></table></figure>
+<p>除了上述的内容之外，还有 1 个为了未来使用而保留的关键字:</p>
+
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span></span></span><br></pre></td></tr></table></figure>
+<p>在严格模式下, 有一些额外的为未来使用而保留的关键字:</p>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implements package protected<span class="built_in"> interface </span>private public</span><br></pre></td></tr></table></figure>
+<p>除了这些之外，<code>NullLiteral</code>（<code>null</code>）和<code>BooleanLiteral</code>（<code>true false</code>）也是保留字，不能用于<code>Identifier</code>。</p><h3>符号 Punctuator</h3><p>因为前面提到的除法和正则问题, / 和 /= 两个运算符被拆分为 DivPunctuator，因为前面提到的字符串模板问题，<code>}</code>也被独立拆分。加在一起，所有符号为：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; ( ) [ ] . ... ; , <span class="variable">&lt; &gt;</span> <span class="variable">&lt;= &gt;</span>= == != === !== + - <span class="symbol">*</span> % <span class="symbol">*</span><span class="symbol">*</span> ++ -- <span class="variable">&lt;&lt; &gt;</span>&gt; &gt;&gt;&gt; &amp; |<span class="string"> ^ ! ~ &amp;&amp; </span>||<span class="string"> ? : = += -= *= %= **= &lt;&lt;= &gt;&gt;= &gt;&gt;&gt;= &amp;= </span>|<span class="string">= ^= =&gt; / /= &#125;</span></span><br></pre></td></tr></table></figure>
+<p></p><h3>数字直接量 NumericLiteral</h3><p>我们来看看今天标题提出的问题，JavaScript 规范中规定的数字直接量可以支持四种写法：十进制数、二进制整数、八进制整数和十六进制整数。</p><p>十进制的 Number 可以带小数，小数点前后部分都可以省略，但是不能同时省略，我们看几个例子：</p><p></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">.01</span></span><br><span class="line"><span class="number">12.</span></span><br><span class="line"><span class="number">12.01</span></span><br></pre></td></tr></table></figure>
+<p>这都是合法的数字直接量。这里就有一个问题，也是我们标题提出的问题，我们看一段代码：</p>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12<span class="selector-class">.toString</span>()</span><br></pre></td></tr></table></figure>
+<p>这时候<code>12.</code> 会被当做省略了小数点后面部分的数字而看成一个整体，所以我们要想让点单独成为一个 token，就要加入空格，这样写：</p>
+
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">12 </span>.toString()</span><br></pre></td></tr></table></figure>
+<p>数字直接量还支持科学计数法，例如：</p>
+
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0xFA</span></span><br><span class="line"><span class="number">0o73</span></span><br><span class="line"><span class="number">0b10000</span></span><br></pre></td></tr></table></figure>
+<p>这里 e 后面的部分，只允许使用整数。当以<code>0x</code> <code>0b</code> 或者<code>0o</code> 开头时，表示特定进制的整数：</p>
+
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0xFA</span></span><br><span class="line"><span class="number">0o73</span></span><br><span class="line"><span class="number">0b10000</span></span><br></pre></td></tr></table></figure>
+<p>上面这几种进制都不支持小数，也不支持科学计数法。</p><h3>字符串直接量 StringLiteral</h3><p>JavaScript 中的 StringLiteral 支持单引号和双引号两种写法。</p>
+
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" DoubleStringCharacters "</span></span><br><span class="line">' SingleStringCharacters '</span><br></pre></td></tr></table></figure>
+<p>单双引号的区别仅仅在于写法，在双引号字符串直接量中，双引号必须转义，在单引号字符串直接量中，单引号必须转义。字符串中其他必须转义的字符是<code>\</code>和所有换行符。</p><p>JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，但是大部分实现都支持的八进制转义。</p><p>第一种是单字符转义。 即一个反斜杠<code>\</code>后面跟一个字符这种形式。</p><p>有特别意义的字符包括有<code>SingleEscapeCharacter</code>所定义的 9 种，见下表：</p><p><img src="https://static001.geekbang.org/resource/image/02/75/022c2c77d0a3c846ad0d61b48c4e0e75.png" alt=""></p><p>除了这 9 种字符、数字、x 和 u 以及所有的换行符之外，其它字符经过<code>\</code>转义后都是自身。</p><h3>正则表达式直接量 RegularExpressionLiteral</h3><p>正则表达式由 Body 和 Flags 两部分组成，例如：</p>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/RegularExpressionBody/g</span></span><br></pre></td></tr></table></figure>
+<p>其中 Body 部分至少有一个字符，第一个字符不能是 <em>（因为 /</em> 跟多行注释有词法冲突）。</p><p>正则表达式有自己的语法规则，在词法阶段，仅会对它做简单解析。</p><p>正则表达式并非机械地见到<code>/</code>就停止，在正则表达式<code>[ ]</code>中的<code>/</code>就会被认为是普通字符。我们可以看一个例子：</p>
+
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/[/]/.test(<span class="string">"/"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>除了<code>\</code>、<code>/</code> 和<code>[</code> 三个字符之外，JavaScript 正则表达式中的字符都是普通字符。</p><p>用\和一个非换行符可以组成一个转义，<code>[ ]</code>中也支持转义。正则表达式中的 flag 在词法阶段不会限制字符。</p><p>虽然只有 ig 几个是有效的，但是任何 IdentifierPart（Identifier 中合法的字符）序列在词法阶段都会被认为是合法的。</p><h3>字符串模板 Template</h3><p>从语法结构上，Template 是个整体，其中的 <code>${ }</code> 是并列关系。</p><p>但是实际上，在 JavaScript 词法中，包含 <code>${ }</code> 的 Template，是被拆开分析的，如：</p>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`a<span class="subst">$&#123;b&#125;</span>c<span class="subst">$&#123;d&#125;</span>e`</span></span><br></pre></td></tr></table></figure>
+<p>它在 JavaScript 中被认为是：</p>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`a<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">b</span></span></span><br><span class="line"><span class="string"><span class="subst">&#125;</span>c<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">d</span></span></span><br><span class="line"><span class="string"><span class="subst">&#125;</span>e`</span></span><br></pre></td></tr></table></figure>
+<p>它被拆成了五个部分：</p><ul><br><li><code><code>a${&lt;/code&gt; 这个被称为模板头&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;}c${&lt;/code&gt; 被称为模板中段&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;}e</code></code> 被称为模板尾</li><br><li><code>b</code> 和 <code>d</code> 都是普通标识符</li><br></ul><p>实际上，这里的词法分析过程已经跟语法分析深度耦合了。</p><p>不过我们学习的时候，大可不必按照标准和引擎工程师这样去理解，可以认为模板就是一个由反引号括起来的、可以在中间插入代码的字符串。</p><p>模板支持添加处理函数的写法，这时模板的各段会被拆开，传递给函数当参数：</p>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"world"</span></span><br><span class="line">f<span class="string">`Hello <span class="subst">$&#123;a&#125;</span>!`</span>; <span class="comment">// [["Hello", "!"], world]</span></span><br></pre></td></tr></table></figure>
+<p>模板字符串不需要关心大多数字符的转义，但是至少 <code>${</code> 和 <code>`</code> 还是需要处理的。</p><p>模板中的转义跟字符串几乎完全一样，都是使用 <code>\</code>。</p><h2>总结</h2><p>今天我们一起学习 JavaScript 的词法部分，这部分的内容包括了空白符号、换行符、注释、标识符名称、符号、数字直接量、字符串直接量、正则表达式直接量、字符串模板。掌握词法对我们平时调试代码至关重要。</p><p>最后，留一个问题：用零宽空格和零宽连接符、零宽非连接符，写一段好玩的代码。</p>
 
       
     </div>
@@ -470,11 +484,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
-            <a href="/tags/Next/" rel="tag"># Next</a>
-          
-            <a href="/tags/github/" rel="tag"># github</a>
+            <a href="/tags/前端/" rel="tag"># 前端</a>
           
         </div>
       
@@ -487,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/node.js学习记录/" rel="next" title="node.js学习记录">
-                <i class="fa fa-chevron-left"></i> node.js学习记录
+              <a href="/2019/07/10/vue常见问题及解决方法（一）/" rel="next" title="vue常见问题及解决方法（一）">
+                <i class="fa fa-chevron-left"></i> vue常见问题及解决方法（一）
               </a>
             
           </div>
@@ -497,8 +509,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/29/Hexo博客NexT主题SEO优化/" rel="prev" title="Hexo博客NexT主题SEO优化">
-                Hexo博客NexT主题SEO优化 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/" rel="prev" title="JavaScript语法（预备篇）：到底要不要写分号呢？">
+                JavaScript语法（预备篇）：到底要不要写分号呢？ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -649,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用Hexo-Gitpages的原因"><span class="nav-number">1.</span> <span class="nav-text">用Hexo + Gitpages的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从hexo开始"><span class="nav-number">2.</span> <span class="nav-text">从hexo开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署到Github"><span class="nav-number">3.</span> <span class="nav-text">部署到Github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定域名"><span class="nav-number">4.</span> <span class="nav-text">绑定域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NexT主题与第三方服务"><span class="nav-number">5.</span> <span class="nav-text">NexT主题与第三方服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于更换电脑，如何继续写博客"><span class="nav-number">6.</span> <span class="nav-text">关于更换电脑，如何继续写博客</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">空白符号 Whitespace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">换行符 LineTerminator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">注释 Comment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">标识符名称 IdentifierName</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">符号 Punctuator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">数字直接量 NumericLiteral</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">字符串直接量 StringLiteral</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">正则表达式直接量 RegularExpressionLiteral</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.5.</span> <span class="nav-text">字符串模板 Template</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

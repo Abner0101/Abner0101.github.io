@@ -4,6 +4,63 @@
 
     
   <url>
+    <loc>https://jdsheng.cn/2019/07/25/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E9%A2%84%E5%A4%87%E7%AF%87%EF%BC%89%EF%BC%9A%E5%88%B0%E5%BA%95%E8%A6%81%E4%B8%8D%E8%A6%81%E5%86%99%E5%88%86%E5%8F%B7%E5%91%A2%EF%BC%9F/</loc>
+    <lastmod>2019-07-25T14:37:35.539Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript语法（预备篇）：到底要不要写分号呢？</title>
+        <pubTime>2019-07-25T14:34:54.007Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>前端</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jdsheng.cn/2019/07/25/JavaScript%E8%AF%8D%E6%B3%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%8812.toString%E4%BC%9A%E6%8A%A5%E9%94%99%EF%BC%9F/</loc>
+    <lastmod>2019-07-25T14:17:48.408Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript词法：为什么12.toString会报错？</title>
+        <pubTime>2019-07-25T14:16:36.789Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>前端</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jdsheng.cn/2019/03/25/JavaScript%E5%AF%B9%E8%B1%A1%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%98%E6%98%AF%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1%EF%BC%9F/</loc>
+    <lastmod>2019-07-25T13:43:45.824Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript对象：面向对象还是基于对象？</title>
+        <pubTime>2019-03-25T12:57:08.716Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>前端</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://jdsheng.cn/2019/07/10/vue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     <lastmod>2019-07-11T14:18:14.349Z</lastmod>
     <data>
@@ -48,25 +105,6 @@
         <display>
         <title>JavaScript对象：我们真的需要模拟类吗？</title>
         <pubTime>2019-03-25T13:04:29.033Z</pubTime>
-        
-        <tag>js</tag>
-         
-        <tag>前端</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jdsheng.cn/2019/03/25/JavaScript%E5%AF%B9%E8%B1%A1%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%98%E6%98%AF%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1%EF%BC%9F/</loc>
-    <lastmod>2019-03-25T12:58:01.906Z</lastmod>
-    <data>
-        <display>
-        <title>JavaScript类型：JavaScript对象：面向对象还是基于对象？</title>
-        <pubTime>2019-03-25T12:57:08.716Z</pubTime>
         
         <tag>js</tag>
          
