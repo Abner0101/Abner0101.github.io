@@ -10,20 +10,20 @@
 <title>浏览器：一个浏览器是如何工作的？（阶段三） - Old C</title>
 
 
-    <meta name="description" content="前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。  整体过程">
+    <meta name="description" content="前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器：一个浏览器是如何工作的？（阶段三）">
 <meta property="og:url" content="https://jdsheng.cn/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。  整体过程">
+<meta property="og:description" content="前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jdsheng.cn/images/og_image.png">
-<meta property="og:updated_time" content="2019-08-18T14:59:38.340Z">
+<meta property="og:image" content="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg">
+<meta property="og:updated_time" content="2019-08-19T15:38:36.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器：一个浏览器是如何工作的？（阶段三）">
-<meta name="twitter:description" content="前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。  整体过程">
-<meta name="twitter:image" content="https://jdsheng.cn/images/og_image.png">
+<meta name="twitter:description" content="前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，">
+<meta name="twitter:image" content="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg">
 
 
 
@@ -140,6 +140,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段三）">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -172,7 +178,7 @@
             
         </h1>
         <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。</p><br>  <p>我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，并给这棵朴素的 DOM 树添加上 CSS 属性的。</p><br>  <h2>整体过程</h2><br>  <a id="more"></a><br>  <p>首先我们还是要感性地理解一下这个过程。</p><br>  <p>首先 CSS 选择器这个名称，可能会给你带来一定的误解，觉得好像 CSS 规则是 DOM 树构建好了以后，再进行选择并给它添加样式的。实际上，这个过程并不是这样的。</p><br><br>  <p>我们回忆一下我们在浏览器第一节课讲的内容，浏览器会尽量流式处理整个过程。我们上一节课构建 DOM 的过程是：从父到子，从先到后，一个一个节点构造，并且挂载到 DOM 树上的，那么这个过程中，我们是否能同步把 CSS<br>    属性计算出来呢？</p><br>  <p>答案是肯定的。</p><br>  <p>在这个过程中，我们依次拿到上一部构造好的元素，去检查它匹配到了哪些规则，再根据规则的优先级，做覆盖和调整。所以，从这个角度看，所谓的选择器，应该被理解成“匹配器”才更合适。</p><br>  <p>我在 CSS 语法部分，已经总结了选择器的各种符号，这里再把它列出来，我们回顾一下：</p><br>  <ul><br>    <li>空格: 后代，选中它的子节点和所有子节点的后代节点。</li><br>    <li>&gt;: 子代，选中它的子节点。</li><br>    <li>+：直接后继选择器，选中它的下一个相邻节点。</li><br>    <li>~：后继，选中它之后所有的相邻节点。</li><br>    <li>||：列，选中表格中的一列。</li><br>  </ul><br><br><p>关于选择器的知识，我会在 CSS 的部分继续讲解。这里我们主要介绍浏览器是如何实现这些规则的。</p><br><p>不知道你有没有发现，这里的选择器有个特点，那就是选择器的出现顺序，必定跟构建 DOM 树的顺序一致。这是一个 CSS 设计的原则，即保证选择器在 DOM 树构建到当前节点时，已经可以准确判断是否匹配，不需要后续节点信息。</p><br><p>也就是说，未来也不可能会出现“父元素选择器”这种东西，因为父元素选择器要求根据当前节点的子节点，来判断当前节点是否被选中，而父节点会先于子节点构建。</p><br><p>理解了 CSS 构建的大概过程，我们下面来看看具体的操作。</p><br><p>首先，我们必须把 CSS 规则做一下处理。作为一门语言，CSS 需要先经过词法分析和语法分析，变成计算机能够理解的结构。</p><br><p>这部分具体的做法属于编译原理的内容，这里就不做赘述了。我们这里假设 CSS 已经被解析成了一棵可用的抽象语法树。</p><br><p>我们在之前的 CSS 课程中已经介绍过 compound-selector 的概念，一个 compound-selector 是检查一个元素的规则，而一个复合型选择器，则是由数个 compound-selector<br>  通过前面讲的符号连接起来的。</p><br><h2>后代选择器 “空格”</h2><br><p>我们先来分析一下后代选择器，我们来一起看一个例子：</p><br><br><figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">a</span><span class="hljs-selector-id">#b</span> <span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>可以把一个 CSS 选择器按照 compound-selector 来拆成数段，每当满足一段条件的时候，就前进一段。</p><p>比如，在上面的例子中，当我们找到了匹配 a#b 的元素时，我们才会开始检查它所有的子代是否匹配 .cls。</p><p>除了前进一段的情况，我们还需要处理后退的情况，比如，我们这样一段代码：</p><br><br><figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">b</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>1<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">cls</span>&gt;</span>2<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">cls</span>&gt;</span>3<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>当遇到 &lt;/a&gt; 时，必须使得规则 a#b .cls 回退一步，这样第三个 span 才不会被选中。后代选择器的作用范围是父节点的所有子节点，因此规则是在匹配到本标签的结束标签时回退。</p><br><h2>后继选择器“ ~ ”</h2><br><p>接下来我们看下后继选择器，跟后代选择器不同的地方是，后继选择器只作用于一层，我们来看一个例子：</p><br><br><figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.cls~* &#123;</span><br><span class="line">    border:solid 1px green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>1<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">cls</span>&gt;</span>2<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line">    3</span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>这里 .cls 选中了 span 2 然后 span 3 是它的后继，但是 span 3 的子节点 span 4 并不应该被选中，而 span 5 也是它的后继，因此应该被选中。</p><br><p>按照 DOM 树的构造顺序，4 在 3 和 5 中间，我们就没有办法像前面讲的后代选择器一样通过激活或者关闭规则来实现匹配。</p><br><p>但是这里有个非常方便的思路，就是给选择器的激活，带上一个条件：父元素。</p><br><p>注意，这里后继选择器，当前半段的 .cls 匹配成功时，后续 * 所匹配的所有元素的父元素都已经确定了（后继节点和当前节点父元素相同是充分必要条件）。在我们的例子中，那个 div 就是后继节点的父元素。</p><br><h2>子代选择器“ &gt;”</h2><br><p>我们继续看，子代选择器是如何实现的。</p><br><p>实际上，有了前面讲的父元素这个约束思路，我们很容易实现子代选择器。区别仅仅是拿当前节点作为父元素，还是拿当前节点的父元素作为父元素。</p><br><br><figure class="highlight dts hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">div&gt;.<span class="hljs-class">cls </span>&#123;</span><br><span class="line"><span class="hljs-symbol">    border:</span>solid <span class="hljs-number">1</span>px green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-params">&lt;div&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span><span class="hljs-number">1</span><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span class=cls&gt;</span><span class="hljs-number">2</span><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line">    <span class="hljs-number">3</span></span><br><span class="line">    <span class="hljs-params">&lt;span&gt;</span><span class="hljs-number">4</span><span class="hljs-params">&lt;/span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span><span class="hljs-number">5</span><span class="hljs-params">&lt;/span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;/div&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>我们看这段代码，当 DOM 树构造到 div 时，匹配了 CSS 规则的第一段，因为是子代选择器，我们激活后面的 .cls 选择条件，并且指定父元素必须是当前 div。于是后续的构建 DOM 树构建过程中，span 2 就被选中了。<br></p><br><h2>直接后继选择器“ +”</h2><br><p>直接后继选择器的实现是上述中最为简单的了，因为它只对唯一一个元素生效，所以不需要像前面几种一样反复激活和关闭规则。</p><br><p>一个最简单的思路是，我们可以把它当作检查元素自身的选择器来处理。即我们把 #id+.cls 都当做检查某一个元素的选择器。</p><br><p>另外的一种思路是：给后继选择器加上一个 flag，使它匹配一次后失效。你可以尝试一下，告诉我结果。</p><br><h2>列选择器“ || ”</h2><br><p>列选择器比较特别，它是专门针对表格的选择器，跟表格的模型建立相关，我们这里不详细讲了。</p><br><h2>其它</h2><br><p>我们不要忘记，CSS 选择器还支持逗号分隔，表示“或”的关系。这里最简单的实现是把逗号视为两条规则的一种简易写法。</p><br><p>比如</p><br><br><figure class="highlight stylus hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a<span class="hljs-selector-id">#b</span>, <span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>我们当作两条规则来处理：</p><br><br><figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">a</span><span class="hljs-selector-id">#b</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>还有一个情况，就是选择器可能有重合，这样，我们可以使用树形结构来进行一些合并，来提高效率：</p><br><br><figure class="highlight stylus hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-id">#a</span> <span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#a</span> <span class="hljs-selector-tag">span</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">#a&gt;<span class="hljs-selector-tag">span</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><p>这里实际上可以把选择器构造成一棵树：</p><br><ul><br>  <li>#a<br>    <ul><br>      <li>&lt; 空格 &gt;.cls</li><br>      <li>&lt; 空格 &gt;span</li><br>      <li>&gt;span</li><br>    </ul><br>  </li><br></ul><br><p>需要注意的是，这里的树，必须要带上连接符。</p><br><h2>结语</h2><br><p>这一节我们讲解了 CSS 计算的过程。CSS 计算是把 CSS 规则应用到 DOM 树上，为 DOM 结构添加显示相关属性的过程。在这一节中，我们主要介绍了选择器的几种复合结构应该如何实现。</p><br><p>在这一步骤之后，我们得到了一棵带有 CSS 属性的树，为我们后续继续显式打下了基础。</p><br><p>最后留一个问题，你认为 CSS 语法解析成什么结构，最适合我们进行 CSS 计算。</p><br><p>转自—《重学前端》</p><br></div>
+            <div class="_1kh1ihh6_0"><br>  前面讲了浏览器的 DOM 构建过程，但是这个构建的 DOM，实际上信息是不全的，它只有节点和属性，不包含任何的样式信息。<br>  我们这一节课就来讲讲：浏览器是如何把 CSS 规则应用到节点上，<a id="more"></a>并给这棵朴素的 DOM 树添加上 CSS 属性的。<br><br>  <h2>整体过程</h2><br><br>  首先我们还是要感性地理解一下这个过程。<br><br>  首先 CSS 选择器这个名称，可能会给你带来一定的误解，觉得好像 CSS 规则是 DOM 树构建好了以后，再进行选择并给它添加样式的。实际上，这个过程并不是这样的。<br><br>  我们回忆一下我们在浏览器第一节课讲的内容，浏览器会尽量流式处理整个过程。我们上一节课构建 DOM 的过程是：从父到子，从先到后，一个一个节点构造，并且挂载到 DOM 树上的，那么这个过程中，我们是否能同步把 CSS属性计算出来呢？<br><br>  答案是肯定的。<br><br>  在这个过程中，我们依次拿到上一部构造好的元素，去检查它匹配到了哪些规则，再根据规则的优先级，做覆盖和调整。所以，从这个角度看，所谓的选择器，应该被理解成“匹配器”才更合适。<br><br>  我在 CSS 语法部分，已经总结了选择器的各种符号，这里再把它列出来，我们回顾一下：<br>  <ul><br>    <li>空格: 后代，选中它的子节点和所有子节点的后代节点。</li><br>    <li>&gt;: 子代，选中它的子节点。</li><br>    <li>+：直接后继选择器，选中它的下一个相邻节点。</li><br>    <li>~：后继，选中它之后所有的相邻节点。</li><br>    <li>||：列，选中表格中的一列。</li><br>  </ul><br><br>关于选择器的知识，我会在 CSS 的部分继续讲解。这里我们主要介绍浏览器是如何实现这些规则的。<br><br>不知道你有没有发现，这里的选择器有个特点，那就是选择器的出现顺序，必定跟构建 DOM 树的顺序一致。这是一个 CSS 设计的原则，即保证选择器在 DOM 树构建到当前节点时，已经可以准确判断是否匹配，不需要后续节点信息。<br><br>也就是说，未来也不可能会出现“父元素选择器”这种东西，因为父元素选择器要求根据当前节点的子节点，来判断当前节点是否被选中，而父节点会先于子节点构建。<br><br>理解了 CSS 构建的大概过程，我们下面来看看具体的操作。<br><br>首先，我们必须把 CSS 规则做一下处理。作为一门语言，CSS 需要先经过词法分析和语法分析，变成计算机能够理解的结构。<br>这部分具体的做法属于编译原理的内容，这里就不做赘述了。我们这里假设 CSS 已经被解析成了一棵可用的抽象语法树。<br><br>我们在之前的 CSS 课程中已经介绍过 compound-selector 的概念，一个 compound-selector 是检查一个元素的规则，而一个复合型选择器，则是由数个 compound-selector通过前面讲的符号连接起来的。<br><br><h2>后代选择器 “空格”</h2><br>我们先来分析一下后代选择器，我们来一起看一个例子：<br><br><figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">a</span><span class="hljs-selector-id">#b</span> <span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>可以把一个 CSS 选择器按照 compound-selector 来拆成数段，每当满足一段条件的时候，就前进一段。比如，在上面的例子中，当我们找到了匹配 a#b 的元素时，我们才会开始检查它所有的子代是否匹配 .cls。除了前进一段的情况，我们还需要处理后退的情况，比如，我们这样一段代码：<br><br><figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">b</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>1<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">cls</span>&gt;</span>2<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">cls</span>&gt;</span>3<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br>当遇到 &lt;/a&gt; 时，必须使得规则 a#b .cls 回退一步，这样第三个 span 才不会被选中。后代选择器的作用范围是父节点的所有子节点，因此规则是在匹配到本标签的结束标签时回退。<br><br><h2>后继选择器“ ~ ”</h2><br>接下来我们看下后继选择器，跟后代选择器不同的地方是，后继选择器只作用于一层，我们来看一个例子：<br><br><figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.cls~* &#123;</span><br><span class="line">    border:solid 1px green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>1<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">cls</span>&gt;</span>2<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line">    3</span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br>这里 .cls 选中了 span 2 然后 span 3 是它的后继，但是 span 3 的子节点 span 4 并不应该被选中，而 span 5 也是它的后继，因此应该被选中。<br><br>按照 DOM 树的构造顺序，4 在 3 和 5 中间，我们就没有办法像前面讲的后代选择器一样通过激活或者关闭规则来实现匹配。<br>但是这里有个非常方便的思路，就是给选择器的激活，带上一个条件：父元素。<br><br>注意，这里后继选择器，当前半段的 .cls 匹配成功时，后续 * 所匹配的所有元素的父元素都已经确定了（后继节点和当前节点父元素相同是充分必要条件）。在我们的例子中，那个 div 就是后继节点的父元素。<br><br><h2>子代选择器“ &gt;”</h2><br>我们继续看，子代选择器是如何实现的。<br><br>实际上，有了前面讲的父元素这个约束思路，我们很容易实现子代选择器。区别仅仅是拿当前节点作为父元素，还是拿当前节点的父元素作为父元素。<br><br><figure class="highlight dts hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">div&gt;.<span class="hljs-class">cls </span>&#123;</span><br><span class="line"><span class="hljs-symbol">    border:</span>solid <span class="hljs-number">1</span>px green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-params">&lt;div&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span><span class="hljs-number">1</span><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span class=cls&gt;</span><span class="hljs-number">2</span><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line">    <span class="hljs-number">3</span></span><br><span class="line">    <span class="hljs-params">&lt;span&gt;</span><span class="hljs-number">4</span><span class="hljs-params">&lt;/span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;span&gt;</span><span class="hljs-number">5</span><span class="hljs-params">&lt;/span&gt;</span></span><br><span class="line"><span class="hljs-params">&lt;/div&gt;</span></span><br></pre></td></tr></table></figure><br><br>我们看这段代码，当 DOM 树构造到 div 时，匹配了 CSS 规则的第一段，因为是子代选择器，我们激活后面的 .cls 选择条件，并且指定父元素必须是当前 div。于是后续的构建 DOM 树构建过程中，span 2 就被选中了。<br><br><h2>直接后继选择器“ +”</h2><br>直接后继选择器的实现是上述中最为简单的了，因为它只对唯一一个元素生效，所以不需要像前面几种一样反复激活和关闭规则。<br>一个最简单的思路是，我们可以把它当作检查元素自身的选择器来处理。即我们把 #id+.cls 都当做检查某一个元素的选择器。<br>另外的一种思路是：给后继选择器加上一个 flag，使它匹配一次后失效。你可以尝试一下，告诉我结果。<br><br><h2>列选择器“ || ”</h2><br>列选择器比较特别，它是专门针对表格的选择器，跟表格的模型建立相关，我们这里不详细讲了。<br><br><h2>其它</h2><br>我们不要忘记，CSS 选择器还支持逗号分隔，表示“或”的关系。这里最简单的实现是把逗号视为两条规则的一种简易写法。<br>比如<br><br><figure class="highlight stylus hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a<span class="hljs-selector-id">#b</span>, <span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>我们当作两条规则来处理：<br><br><figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">a</span><span class="hljs-selector-id">#b</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>还有一个情况，就是选择器可能有重合，这样，我们可以使用树形结构来进行一些合并，来提高效率：<br><br><figure class="highlight stylus hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-id">#a</span> <span class="hljs-selector-class">.cls</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#a</span> <span class="hljs-selector-tag">span</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">#a&gt;<span class="hljs-selector-tag">span</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>这里实际上可以把选择器构造成一棵树：<br><ul><br>  <li>#a<br>    <ul><br>      <li>&lt; 空格 &gt;.cls</li><br>      <li>&lt; 空格 &gt;span</li><br>      <li>&gt;span</li><br>    </ul><br>  </li><br></ul><br>需要注意的是，这里的树，必须要带上连接符。<br><br><h2>结语</h2><br>这一节我们讲解了 CSS 计算的过程。CSS 计算是把 CSS 规则应用到 DOM 树上，为 DOM 结构添加显示相关属性的过程。在这一节中，我们主要介绍了选择器的几种复合结构应该如何实现。<br><br>在这一步骤之后，我们得到了一棵带有 CSS 属性的树，为我们后续继续显式打下了基础。<br><br>最后留一个问题，你认为 CSS 语法解析成什么结构，最适合我们进行 CSS 计算。<br><br>转自—《重学前端》<br></div>
 
         </div>
         
@@ -275,7 +281,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        Entradas
                     </p>
                     <p class="title has-text-weight-normal">
                         23
@@ -285,7 +291,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        Categorias
                     </p>
                     <p class="title has-text-weight-normal">
                         5
@@ -295,7 +301,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        Etiquetas
                     </p>
                     <p class="title has-text-weight-normal">
                         12
@@ -305,7 +311,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                Follow</a>
+                SEGUIR</a>
         </div>
         
         
@@ -409,7 +415,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                Categorias
             </h3>
             <ul class="menu-list">
             <li>
@@ -462,7 +468,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Tag Cloud
+            Nube de etiquetas
         </h3>
         <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
@@ -476,14 +482,14 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Recientes
         </h3>
         
         <article class="media">
             
             <a href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
                 </p>
             </a>
             
@@ -502,7 +508,7 @@
             
             <a href="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript词法：为什么12.toString会报错？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcMIPozQniXrq_kW-XRTcfKoeXN-fBTa0nolNt-ly9fPL5wsGNg" alt="JavaScript词法：为什么12.toString会报错？">
                 </p>
             </a>
             
@@ -521,7 +527,7 @@
             
             <a href="/2019/07/10/vue常见问题及解决方法（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue常见问题及解决方法（一）">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
                 </p>
             </a>
             
@@ -540,7 +546,7 @@
             
             <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：你知道全部的对象分类吗？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
                 </p>
             </a>
             
@@ -559,7 +565,7 @@
             
             <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：我们真的需要模拟类吗？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
                 </p>
             </a>
             
@@ -582,7 +588,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -639,7 +645,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -747,14 +753,14 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Recientes
         </h3>
         
         <article class="media">
             
             <a href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
                 </p>
             </a>
             
@@ -773,7 +779,7 @@
             
             <a href="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript词法：为什么12.toString会报错？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcMIPozQniXrq_kW-XRTcfKoeXN-fBTa0nolNt-ly9fPL5wsGNg" alt="JavaScript词法：为什么12.toString会报错？">
                 </p>
             </a>
             
@@ -792,7 +798,7 @@
             
             <a href="/2019/07/10/vue常见问题及解决方法（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue常见问题及解决方法（一）">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
                 </p>
             </a>
             
@@ -811,7 +817,7 @@
             
             <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：你知道全部的对象分类吗？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
                 </p>
             </a>
             
@@ -830,7 +836,7 @@
             
             <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：我们真的需要模拟类吗？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
                 </p>
             </a>
             
@@ -853,7 +859,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -910,7 +916,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -1158,10 +1164,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
+                POSTS: 'Entradas',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Etiquetas',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',

@@ -10,20 +10,20 @@
 <title>vue常见问题及解决方法（一） - Old C</title>
 
 
-    <meta name="description" content="列表进入详情页的传参问题 路由懒加载（也叫延迟加载）  列表进入详情页的传参问题关联知识点  ——路由跳转的方式声明式的跳转： 1234// query通过path切换路由&amp;lt;router-link :to=&quot;&amp;#123;path: &apos;Detail&apos;, query: &amp;#123; id: 1 &amp;#125;&amp;#125;&quot;&amp;gt;前往Detail页面&amp;lt;/router-link&amp;gt;//">
+    <meta name="description" content="列表进入详情页的传参问题 路由懒加载（也叫延迟加载）  列表进入详情页的传参问题关联知识点  ——路由跳转的方式">
 <meta name="keywords" content="前端,VUE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue常见问题及解决方法（一）">
 <meta property="og:url" content="https://jdsheng.cn/2019/07/10/vue常见问题及解决方法（一）/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="列表进入详情页的传参问题 路由懒加载（也叫延迟加载）  列表进入详情页的传参问题关联知识点  ——路由跳转的方式声明式的跳转： 1234// query通过path切换路由&amp;lt;router-link :to=&quot;&amp;#123;path: &apos;Detail&apos;, query: &amp;#123; id: 1 &amp;#125;&amp;#125;&quot;&amp;gt;前往Detail页面&amp;lt;/router-link&amp;gt;//">
+<meta property="og:description" content="列表进入详情页的传参问题 路由懒加载（也叫延迟加载）  列表进入详情页的传参问题关联知识点  ——路由跳转的方式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jdsheng.cn/images/og_image.png">
-<meta property="og:updated_time" content="2019-08-18T15:21:26.703Z">
+<meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg">
+<meta property="og:updated_time" content="2019-08-19T16:21:48.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue常见问题及解决方法（一）">
-<meta name="twitter:description" content="列表进入详情页的传参问题 路由懒加载（也叫延迟加载）  列表进入详情页的传参问题关联知识点  ——路由跳转的方式声明式的跳转： 1234// query通过path切换路由&amp;lt;router-link :to=&quot;&amp;#123;path: &apos;Detail&apos;, query: &amp;#123; id: 1 &amp;#125;&amp;#125;&quot;&amp;gt;前往Detail页面&amp;lt;/router-link&amp;gt;//">
-<meta name="twitter:image" content="https://jdsheng.cn/images/og_image.png">
+<meta name="twitter:description" content="列表进入详情页的传参问题 路由懒加载（也叫延迟加载）  列表进入详情页的传参问题关联知识点  ——路由跳转的方式">
+<meta name="twitter:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg">
 
 
 
@@ -140,6 +140,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -176,9 +182,8 @@
 <li>列表进入详情页的传参问题</li>
 <li>路由懒加载（也叫延迟加载）</li>
 </ul>
-<h2 id="列表进入详情页的传参问题"><a href="#列表进入详情页的传参问题" class="headerlink" title="列表进入详情页的传参问题"></a>列表进入详情页的传参问题</h2><p><em>关联知识点</em>  ——<strong>路由跳转的方式</strong><br>声明式的跳转：</p>
+<h2 id="列表进入详情页的传参问题"><a href="#列表进入详情页的传参问题" class="headerlink" title="列表进入详情页的传参问题"></a>列表进入详情页的传参问题</h2><p><em>关联知识点</em>  ——<strong>路由跳转的方式</strong><a id="more"></a><br>声明式的跳转：</p>
 <figure class="highlight dust hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-xml">// query通过path切换路由</span></span><br><span class="line"><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">:to</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">&#123;path: 'Detail', query: &#123; id: 1 &#125;</span><span class="hljs-xml"><span class="hljs-tag"><span class="hljs-string">&#125;"</span>&gt;</span>前往Detail页面<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="hljs-xml">// params通过name切换路由</span></span><br><span class="line"><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">:to</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">&#123;name: 'Detail', params: &#123; id: 1 &#125;</span><span class="hljs-xml"><span class="hljs-tag"><span class="hljs-string">&#125;"</span>&gt;</span>前往Detail页面<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 <p>编程式的跳转：</p>
 <figure class="highlight kotlin hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//跳转到上一次浏览的页面</span></span><br><span class="line"> <span class="hljs-keyword">this</span>.$router.go(<span class="hljs-number">-1</span>)</span><br><span class="line">           </span><br><span class="line"><span class="hljs-comment">//指定跳转的地址，我们自己设置的路由地址</span></span><br><span class="line"><span class="hljs-keyword">this</span>.$router.replace(<span class="hljs-string">'/pathname'</span>)</span><br><span class="line">           </span><br><span class="line"><span class="hljs-comment">//指定跳转路由的名字下，pathname是我们自身为路由设置的名字</span></span><br><span class="line"><span class="hljs-keyword">this</span>.$router.replace(&#123;name:<span class="hljs-string">"pathname"</span>&#125;)</span><br><span class="line">          </span><br><span class="line"><span class="hljs-comment">//通过push进行跳转，我们自己设置的路由地址或者我们自己设置的名字</span></span><br><span class="line"><span class="hljs-keyword">this</span>.$router.push(<span class="hljs-string">'/pathname'</span>)</span><br><span class="line"><span class="hljs-keyword">this</span>.$router.push(&#123;name:<span class="hljs-string">'pathname'</span>&#125;)</span><br><span class="line"><span class="hljs-keyword">this</span>.$router.push(&#123; path: <span class="hljs-string">'/pathname/$&#123;id&#125;'</span>&#125;) <span class="hljs-comment">//id为参数</span></span><br></pre></td></tr></table></figure>
 <p><strong>传参的方式</strong>：query、params+动态路由传参</p>
@@ -312,7 +317,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        Entradas
                     </p>
                     <p class="title has-text-weight-normal">
                         23
@@ -322,7 +327,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        Categorias
                     </p>
                     <p class="title has-text-weight-normal">
                         5
@@ -332,7 +337,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        Etiquetas
                     </p>
                     <p class="title has-text-weight-normal">
                         12
@@ -342,7 +347,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                Follow</a>
+                SEGUIR</a>
         </div>
         
         
@@ -446,7 +451,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                Categorias
             </h3>
             <ul class="menu-list">
             <li>
@@ -499,7 +504,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Tag Cloud
+            Nube de etiquetas
         </h3>
         <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
@@ -513,14 +518,14 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Recientes
         </h3>
         
         <article class="media">
             
             <a href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
                 </p>
             </a>
             
@@ -539,7 +544,7 @@
             
             <a href="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript词法：为什么12.toString会报错？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcMIPozQniXrq_kW-XRTcfKoeXN-fBTa0nolNt-ly9fPL5wsGNg" alt="JavaScript词法：为什么12.toString会报错？">
                 </p>
             </a>
             
@@ -558,7 +563,7 @@
             
             <a href="/2019/07/10/vue常见问题及解决方法（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue常见问题及解决方法（一）">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
                 </p>
             </a>
             
@@ -577,7 +582,7 @@
             
             <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：你知道全部的对象分类吗？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
                 </p>
             </a>
             
@@ -596,7 +601,7 @@
             
             <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：我们真的需要模拟类吗？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
                 </p>
             </a>
             
@@ -619,7 +624,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -676,7 +681,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -784,14 +789,14 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Recientes
         </h3>
         
         <article class="media">
             
             <a href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
                 </p>
             </a>
             
@@ -810,7 +815,7 @@
             
             <a href="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript词法：为什么12.toString会报错？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcMIPozQniXrq_kW-XRTcfKoeXN-fBTa0nolNt-ly9fPL5wsGNg" alt="JavaScript词法：为什么12.toString会报错？">
                 </p>
             </a>
             
@@ -829,7 +834,7 @@
             
             <a href="/2019/07/10/vue常见问题及解决方法（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue常见问题及解决方法（一）">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
                 </p>
             </a>
             
@@ -848,7 +853,7 @@
             
             <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：你知道全部的对象分类吗？">
+                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
                 </p>
             </a>
             
@@ -867,7 +872,7 @@
             
             <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript对象：我们真的需要模拟类吗？">
+                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
                 </p>
             </a>
             
@@ -890,7 +895,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -947,7 +952,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -1195,10 +1200,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
+                POSTS: 'Entradas',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Etiquetas',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
