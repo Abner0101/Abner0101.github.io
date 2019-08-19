@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://jdsheng.cn/2018/07/27/%E8%AE%B0Hexo%20+%20Github%20pages%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2019-08-19T15:06:55.808Z</lastmod>
+    <data>
+        <display>
+        <title>记Hexo + Github Pages博客搭建</title>
+        <pubTime>2018-07-27T15:18:24.417Z</pubTime>
+        
+        <tag>hexo</tag>
+         
+        <tag>Next</tag>
+         
+        <tag>github</tag>
+         
+         
+           
+             
+              <breadCrumb title="BLOG" url="https://jdsheng.cn/categories/BLOG/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://jdsheng.cn/2019/03/25/JavaScript%E5%AF%B9%E8%B1%A1%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%98%E6%98%AF%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1%EF%BC%9F/</loc>
     <lastmod>2019-08-18T15:27:12.991Z</lastmod>
     <data>
@@ -447,30 +471,6 @@
            
              
               <breadCrumb title="WEB" url="https://jdsheng.cn/categories/WEB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jdsheng.cn/2018/07/27/%E8%AE%B0Hexo%20+%20Github%20pages%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2019-08-18T14:58:04.542Z</lastmod>
-    <data>
-        <display>
-        <title>记Hexo + Github Pages博客搭建</title>
-        <pubTime>2018-07-27T15:18:24.417Z</pubTime>
-        
-        <tag>hexo</tag>
-         
-        <tag>Next</tag>
-         
-        <tag>github</tag>
-         
-         
-           
-             
-              <breadCrumb title="BLOG" url="https://jdsheng.cn/categories/BLOG/"/>
           
         </display>
     </data>
