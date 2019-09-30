@@ -137,6 +137,205 @@
     <div class="card">
     
     <div class="card-image">
+        <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="image is-7by1">
+            <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    36 minutes read (About 5381 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/10/01/vue中axios的封装和API接口的管理/">vue中axios的封装和API接口的管理</a>
+            
+        </h1>
+        <div class="content">
+            <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png" alt="面对一团糟代码的你"></p>
+<h1 id="一、axios的封装"><a href="#一、axios的封装" class="headerlink" title="一、axios的封装"></a>一、axios的封装</h1><p>在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步<a href="https://www.npmjs.com/package/axios" target="_blank" rel="noopener">axios文档</a>。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight mipsasm hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="hljs-keyword">install </span>axios<span class="hljs-comment">; // 安装axios</span></span><br></pre></td></tr></table></figure>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>一般我会在项目的src目录中，新建一个request文件夹，然后在里面新建一个http.js和一个api.js文件。http.js文件用来封装我们的axios，api.js用来统一管理我们的接口。<br><figure class="highlight clean hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 在http.js中引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>; <span class="hljs-comment">// 引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> QS <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>; <span class="hljs-comment">// 引入qs模块，用来序列化post类型的数据，后面会提到</span></span><br><span class="line"><span class="hljs-comment">// vant的toast提示框组件，大家可根据自己的ui组件更改。</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; Toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vant'</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="环境的切换"><a href="#环境的切换" class="headerlink" title="环境的切换"></a>环境的切换</h3><p>我们的项目环境可能有开发环境、测试环境和生产环境。我们通过node的环境变量来匹配我们的默认的接口url前缀。axios.defaults.baseURL可以设置axios的默认请求地址就不多说了。</p>
+<figure class="highlight arduino hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 环境的切换</span></span><br><span class="line"><span class="hljs-built_in">if</span> (<span class="hljs-built_in">process</span>.env.NODE_ENV == <span class="hljs-string">'development'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'https://www.baidu.com'</span>;&#125; </span><br><span class="line"><span class="hljs-built_in">else</span> <span class="hljs-built_in">if</span> (<span class="hljs-built_in">process</span>.env.NODE_ENV == <span class="hljs-string">'debug'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'https://www.ceshi.com'</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-built_in">else</span> <span class="hljs-built_in">if</span> (<span class="hljs-built_in">process</span>.env.NODE_ENV == <span class="hljs-string">'production'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'https://www.production.com'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="设置请求超时"><a href="#设置请求超时" class="headerlink" title="设置请求超时"></a>设置请求超时</h3><p>通过axios.defaults.timeout设置默认的请求超时时间。例如超过了10s，就会告知用户当前请求超时，请刷新等。</p>
+<figure class="highlight abnf hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.timeout = <span class="hljs-number">10000</span><span class="hljs-comment">;</span></span><br></pre></td></tr></table></figure>
+<h3 id="post请求头的设置"><a href="#post请求头的设置" class="headerlink" title="post请求头的设置"></a>post请求头的设置</h3><p>post请求的时候，我们需要加上一个请求头，所以可以在这里进行一个默认的设置，即设置post的请求头为<code>application/x-www-form-urlencoded;charset=UTF-8</code></p>
+<figure class="highlight ada hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.headers.post[<span class="hljs-symbol">'Content</span>-<span class="hljs-keyword">Type</span>'] = <span class="hljs-symbol">'application</span>/x-www-form-urlencoded;charset=UTF-<span class="hljs-number">8</span>';</span><br></pre></td></tr></table></figure>
+<h3 id="请求拦截"><a href="#请求拦截" class="headerlink" title="请求拦截"></a>请求拦截</h3><p>我们在发送请求前可以进行一个请求的拦截，为什么要拦截呢，我们拦截请求是用来做什么的呢？比如，有些请求是需要用户登录之后才能访问的，或者post请求的时候，我们需要序列化我们提交的数据。这时候，我们可以在请求被发送之前进行一个拦截，从而进行我们想要的操作。</p>
+<figure class="highlight stata hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 先导入vuex,因为我们要使用到里面的状态对象</span></span><br><span class="line"><span class="hljs-comment">// vuex的路径根据自己的路径去写</span></span><br><span class="line">import store from '@/store/index';</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 请求拦截器axios.interceptors.request.use(    </span></span><br><span class="line">    config =&gt; &#123;        </span><br><span class="line">        <span class="hljs-comment">// 每次发送请求之前判断vuex中是否存在token        </span></span><br><span class="line">        <span class="hljs-comment">// 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况</span></span><br><span class="line">        <span class="hljs-comment">// 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断 </span></span><br><span class="line">        <span class="hljs-keyword">const</span> <span class="hljs-keyword">token</span> = store.state.<span class="hljs-keyword">token</span>;        </span><br><span class="line">        <span class="hljs-keyword">token</span> &amp;&amp; (config.headers.Authorization = <span class="hljs-keyword">token</span>);        </span><br><span class="line">        <span class="hljs-keyword">return</span> config;    </span><br><span class="line">    &#125;,    </span><br><span class="line">    <span class="hljs-keyword">error</span> =&gt; &#123;        </span><br><span class="line">        <span class="hljs-keyword">return</span> Promise.<span class="hljs-keyword">error</span>(<span class="hljs-keyword">error</span>);    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这里说一下token，一般是在登录完成之后，将用户的token通过localStorage或者cookie存在本地，然后用户每次在进入页面的时候（即在main.js中），会首先从本地存储中读取token，如果token存在说明用户已经登陆过，则更新vuex中的token状态。</p>
+<p>然后，在每次请求接口的时候，都会在请求的header中携带token，后台人员就可以根据你携带的token来判断你的登录是否过期，如果没有携带，则说明没有登录过。这时候或许有些小伙伴会有疑问了，就是每个请求都携带token，那么要是一个页面不需要用户登录就可以访问的怎么办呢？其实，你前端的请求可以携带token，但是后台可以选择不接收啊。</p>
+<h3 id="响应的拦截"><a href="#响应的拦截" class="headerlink" title="响应的拦截"></a>响应的拦截</h3><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(    </span><br><span class="line">    response =&gt; &#123;   </span><br><span class="line">        <span class="hljs-comment">// 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据     </span></span><br><span class="line">        <span class="hljs-comment">// 否则的话抛出错误</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (response.status === <span class="hljs-number">200</span>) &#123;            </span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(response);        </span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;            </span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(response);        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;,    </span><br><span class="line">    <span class="hljs-comment">// 服务器状态码不是2开头的的情况</span></span><br><span class="line">    <span class="hljs-comment">// 这里可以跟你们的后台开发人员协商好统一的错误状态码    </span></span><br><span class="line">    <span class="hljs-comment">// 然后根据返回的状态码进行一些操作，例如登录过期提示，错误提示等等</span></span><br><span class="line">    <span class="hljs-comment">// 下面列举几个常见的操作，其他需求可自行扩展</span></span><br><span class="line">    error =&gt; &#123;            </span><br><span class="line">        <span class="hljs-keyword">if</span> (error.response.status) &#123;            </span><br><span class="line">            <span class="hljs-keyword">switch</span> (error.response.status) &#123;                </span><br><span class="line">                <span class="hljs-comment">// 401: 未登录</span></span><br><span class="line">                <span class="hljs-comment">// 未登录则跳转登录页面，并携带当前页面的路径</span></span><br><span class="line">                <span class="hljs-comment">// 在登录成功后返回当前页面，这一步需要在登录页操作。                </span></span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">401</span>:                    </span><br><span class="line">                    router.replace(&#123;                        </span><br><span class="line">                        path: <span class="hljs-string">'/login'</span>,                        </span><br><span class="line">                        query: &#123; </span><br><span class="line">                            redirect: router.currentRoute.fullPath </span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="hljs-comment">// 403 token过期</span></span><br><span class="line">                <span class="hljs-comment">// 登录过期对用户进行提示</span></span><br><span class="line">                <span class="hljs-comment">// 清除本地token和清空vuex中token对象</span></span><br><span class="line">                <span class="hljs-comment">// 跳转登录页面                </span></span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">403</span>:</span><br><span class="line">                     Toast(&#123;</span><br><span class="line">                        message: <span class="hljs-string">'登录过期，请重新登录'</span>,</span><br><span class="line">                        duration: <span class="hljs-number">1000</span>,</span><br><span class="line">                        forbidClick: <span class="hljs-literal">true</span></span><br><span class="line">                    &#125;);</span><br><span class="line">                    <span class="hljs-comment">// 清除token</span></span><br><span class="line">                    localStorage.removeItem(<span class="hljs-string">'token'</span>);</span><br><span class="line">                    store.commit(<span class="hljs-string">'loginSuccess'</span>, <span class="hljs-literal">null</span>);</span><br><span class="line">                    <span class="hljs-comment">// 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面 </span></span><br><span class="line">                    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;                        </span><br><span class="line">                        router.replace(&#123;                            </span><br><span class="line">                            path: <span class="hljs-string">'/login'</span>,                            </span><br><span class="line">                            query: &#123; </span><br><span class="line">                                redirect: router.currentRoute.fullPath </span><br><span class="line">                            &#125;                        </span><br><span class="line">                        &#125;);                    </span><br><span class="line">                    &#125;, <span class="hljs-number">1000</span>);                    </span><br><span class="line">                    <span class="hljs-keyword">break</span>; </span><br><span class="line"></span><br><span class="line">                <span class="hljs-comment">// 404请求不存在</span></span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">404</span>:</span><br><span class="line">                    Toast(&#123;</span><br><span class="line">                        message: <span class="hljs-string">'网络请求不存在'</span>,</span><br><span class="line">                        duration: <span class="hljs-number">1500</span>,</span><br><span class="line">                        forbidClick: <span class="hljs-literal">true</span></span><br><span class="line">                    &#125;);</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                <span class="hljs-comment">// 其他错误，直接抛出错误提示</span></span><br><span class="line">                <span class="hljs-keyword">default</span>:</span><br><span class="line">                    Toast(&#123;</span><br><span class="line">                        message: error.response.data.message,</span><br><span class="line">                        duration: <span class="hljs-number">1500</span>,</span><br><span class="line">                        forbidClick: <span class="hljs-literal">true</span></span><br><span class="line">                    &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error.response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>响应拦截器很好理解，就是服务器返回给我们的数据，我们在拿到之前可以对他进行一些处理。例如上面的思想：如果后台返回的状态码是200，则正常返回数据，否则的根据错误的状态码类型进行一些我们需要的错误，其实这里主要就是进行了错误的统一处理和没登录或登录过期后调整登录页的一个操作。</p>
+<blockquote>
+<p>要注意的是，上面的Toast()方法，是我引入的vant库中的toast轻提示组件，你根据你的ui库，对应使用你的一个提示组件。</p>
+</blockquote>
+<h3 id="封装get方法和post方法"><a href="#封装get方法和post方法" class="headerlink" title="封装get方法和post方法"></a>封装get方法和post方法</h3><p>我们常用的ajax请求方法有get、post、put等方法，相信小伙伴都不会陌生。axios对应的也有很多类似的方法，不清楚的可以看下文档。但是为了简化我们的代码，我们还是要对其进行一个简单的封装。下面我们主要封装两个方法：<strong>get和post</strong>。</p>
+<p><strong>get方法</strong>：我们通过定义一个get函数，get函数有两个参数，第一个参数表示我们要请求的url地址，第二个参数是我们要携带的请求参数。get函数返回一个promise对象，当axios其请求成功时resolve服务器返回 值，请求失败时reject错误值。最后通过export抛出get函数</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * get方法，对应get请求</span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;String&#125; url [请求的url地址]</span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;Object&#125; params [请求时携带的参数]</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params">url, params</span>)</span>&#123;    </span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span>&#123;        </span><br><span class="line">        axios.get(url, &#123;            </span><br><span class="line">            params: params        </span><br><span class="line">        &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(res.data);</span><br><span class="line">        &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span>&#123;</span><br><span class="line">            reject(err.data)        </span><br><span class="line">    &#125;)    </span><br><span class="line">&#125;);&#125;</span><br></pre></td></tr></table></figure>
+<p>post方法：原理同get基本一样，但是要注意的是，post方法必须要使用对提交从参数对象进行序列化的操作，所以这里我们通过node的qs模块来序列化我们的参数。这个很重要，如果没有序列化操作，后台是拿不到你提交的数据的。这就是文章开头我们<code>import QS from &#39;qs&#39;</code>;的原因。如果不明白序列化是什么意思的，就百度一下吧，答案一大堆。</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * post方法，对应post请求 </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;String&#125; url [请求的url地址] </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;Object&#125; params [请求时携带的参数] </span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">post</span>(<span class="hljs-params">url, params</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">         axios.post(url, QS.stringify(params))</span><br><span class="line">        .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(res.data);</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span>&#123;</span><br><span class="line">            reject(err.data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有个小细节说下，<code>axios.get()</code>方法和<code>axios.post()</code>在提交数据时参数的书写方式还是有区别的。区别就是，get的第二个参数是一个{}，然后这个对象的params属性值是一个参数对象的。而post的第二个参数就是一个参数对象。两者略微的区别要留意哦！</p>
+<h1 id="二、api的统一管理"><a href="#二、api的统一管理" class="headerlink" title="二、api的统一管理"></a>二、api的统一管理</h1><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC84LzcvMTY1MTM0OWUwODY0YmVlNA?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>整齐的api就像电路板一样，即使再复杂也能很清晰整个线路。上面说了，我们会新建一个api.js,然后在这个文件中存放我们所有的api接口。</p>
+<p>首先我们在api.js中引入我们封装的get和post方法</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**   </span></span><br><span class="line"><span class="hljs-comment"> * api接口统一管理</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">get</span>, post &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./http'</span></span><br></pre></td></tr></table></figure>
+<p>现在，例如我们有这样一个接口，是一个post请求：</p>
+<figure class="highlight awk hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="hljs-regexp">//</span>www.baiodu.com<span class="hljs-regexp">/api/</span>v1<span class="hljs-regexp">/users/my</span>_address<span class="hljs-regexp">/address_edit_before</span></span><br></pre></td></tr></table></figure>
+<p>我们可以在api.js中这样封装：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> apiAddress = <span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> post(<span class="hljs-string">'api/v1/users/my_address/address_edit_before'</span>, p);</span><br></pre></td></tr></table></figure>
+<p>我们定义了一个<code>apiAddress</code>方法，这个方法有一个参数p，p是我们请求接口时携带的参数对象。而后调用了我们封装的<code>post</code>方法，<code>post</code>方法的第一个参数是我们的接口地址，第二个参数是<code>apiAddress</code>的p参数，即请求接口时携带的参数对象。最后通过<code>export</code>导出<code>apiAddress</code>。</p>
+<p>然后在我们的页面中可以这样调用我们的api接口：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> &#123; apiAddress &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/request/api'</span>;<span class="hljs-comment">// 导入我们的api接口</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;        </span><br><span class="line">    name: <span class="hljs-string">'Address'</span>,    </span><br><span class="line">    created () &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.onLoad();</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;            </span><br><span class="line">        <span class="hljs-comment">// 获取数据            </span></span><br><span class="line">        onLoad() &#123;</span><br><span class="line">            <span class="hljs-comment">// 调用api接口，并且提供了两个参数                </span></span><br><span class="line">            apiAddress(&#123;                    </span><br><span class="line">                <span class="hljs-keyword">type</span>: <span class="hljs-number">0</span>,                    </span><br><span class="line">                sort: <span class="hljs-number">1</span>                </span><br><span class="line">            &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="hljs-comment">// 获取数据成功后的其他操作</span></span><br><span class="line">                ………………                </span><br><span class="line">            &#125;)            </span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他的api接口，就在pai.js中继续往下面扩展就可以了。</p>
+<blockquote>
+<p>友情提示，为每个接口写好注释哦！！！api接口管理的一个好处就是，我们把api统一集中起来，如果后期需要修改接口，我们就直接在api.js中找到对应的修改就好了，而不用去每一个页面查找我们的接口然后再修改会很麻烦。关键是，万一修改的量比较大，就规格gg了。还有就是如果直接在我们的业务代码修改接口，一不小心还容易动到我们的业务代码造成不必要的麻烦。</p>
+</blockquote>
+<p><strong>好了，最后把完成的<code>axios</code>封装代码奉上。</strong></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**axios封装</span></span><br><span class="line"><span class="hljs-comment"> * 请求拦截、相应拦截、错误统一处理</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> QS <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> &#123; Toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vant'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'../store/index'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 环境的切换</span></span><br><span class="line"><span class="hljs-keyword">if</span> (process.env.NODE_ENV == <span class="hljs-string">'development'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'/api'</span>;</span><br><span class="line">&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (process.env.NODE_ENV == <span class="hljs-string">'debug'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">''</span>;</span><br><span class="line">&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (process.env.NODE_ENV == <span class="hljs-string">'production'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'http://api.123dailu.com/'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 请求超时时间</span></span><br><span class="line">axios.defaults.timeout = <span class="hljs-number">10000</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// post请求头</span></span><br><span class="line">axios.defaults.headers.post[<span class="hljs-string">'Content-Type'</span>] = <span class="hljs-string">'application/x-www-form-urlencoded;charset=UTF-8'</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(    </span><br><span class="line">    config =&gt; &#123;</span><br><span class="line">        <span class="hljs-comment">// 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了</span></span><br><span class="line">        <span class="hljs-comment">// 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断</span></span><br><span class="line">        <span class="hljs-keyword">const</span> token = store.state.token;        </span><br><span class="line">        token &amp;&amp; (config.headers.Authorization = token);        </span><br><span class="line">        <span class="hljs-keyword">return</span> config;    </span><br><span class="line">    &#125;,    </span><br><span class="line">    error =&gt; &#123;        </span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.error(error);    </span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(    </span><br><span class="line">    response =&gt; &#123;        </span><br><span class="line">        <span class="hljs-keyword">if</span> (response.status === <span class="hljs-number">200</span>) &#123;            </span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(response);        </span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;            </span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(response);        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// 服务器状态码不是200的情况    </span></span><br><span class="line">    error =&gt; &#123;        </span><br><span class="line">        <span class="hljs-keyword">if</span> (error.response.status) &#123;            </span><br><span class="line">            <span class="hljs-keyword">switch</span> (error.response.status) &#123;                </span><br><span class="line">                <span class="hljs-comment">// 401: 未登录                </span></span><br><span class="line">                <span class="hljs-comment">// 未登录则跳转登录页面，并携带当前页面的路径                </span></span><br><span class="line">                <span class="hljs-comment">// 在登录成功后返回当前页面，这一步需要在登录页操作。                </span></span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">401</span>:                    </span><br><span class="line">                    router.replace(&#123;                        </span><br><span class="line">                        path: <span class="hljs-string">'/login'</span>,                        </span><br><span class="line">                        query: &#123; <span class="hljs-attr">redirect</span>: router.currentRoute.fullPath &#125; </span><br><span class="line">                    &#125;);</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                <span class="hljs-comment">// 403 token过期                </span></span><br><span class="line">                <span class="hljs-comment">// 登录过期对用户进行提示                </span></span><br><span class="line">                <span class="hljs-comment">// 清除本地token和清空vuex中token对象                </span></span><br><span class="line">                <span class="hljs-comment">// 跳转登录页面                </span></span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">403</span>:                     </span><br><span class="line">                    Toast(&#123;                        </span><br><span class="line">                        message: <span class="hljs-string">'登录过期，请重新登录'</span>,                        </span><br><span class="line">                        duration: <span class="hljs-number">1000</span>,                        </span><br><span class="line">                        forbidClick: <span class="hljs-literal">true</span>                    </span><br><span class="line">                    &#125;);                    </span><br><span class="line">                    <span class="hljs-comment">// 清除token                    </span></span><br><span class="line">                    localStorage.removeItem(<span class="hljs-string">'token'</span>);                    </span><br><span class="line">                    store.commit(<span class="hljs-string">'loginSuccess'</span>, <span class="hljs-literal">null</span>);                    </span><br><span class="line">                    <span class="hljs-comment">// 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面</span></span><br><span class="line">                    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;                        </span><br><span class="line">                        router.replace(&#123;                            </span><br><span class="line">                            path: <span class="hljs-string">'/login'</span>,                            </span><br><span class="line">                            query: &#123; </span><br><span class="line">                                redirect: router.currentRoute.fullPath </span><br><span class="line">                            &#125;                        </span><br><span class="line">                        &#125;);                    </span><br><span class="line">                    &#125;, <span class="hljs-number">1000</span>);                    </span><br><span class="line">                    <span class="hljs-keyword">break</span>; </span><br><span class="line">                <span class="hljs-comment">// 404请求不存在                </span></span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">404</span>:                    </span><br><span class="line">                    Toast(&#123;                        </span><br><span class="line">                        message: <span class="hljs-string">'网络请求不存在'</span>,                        </span><br><span class="line">                        duration: <span class="hljs-number">1500</span>,                        </span><br><span class="line">                        forbidClick: <span class="hljs-literal">true</span>                    </span><br><span class="line">                    &#125;);                    </span><br><span class="line">                <span class="hljs-keyword">break</span>;                </span><br><span class="line">                <span class="hljs-comment">// 其他错误，直接抛出错误提示                </span></span><br><span class="line">                <span class="hljs-keyword">default</span>:                    </span><br><span class="line">                    Toast(&#123;                        </span><br><span class="line">                        message: error.response.data.message,                        </span><br><span class="line">                        duration: <span class="hljs-number">1500</span>,                        </span><br><span class="line">                        forbidClick: <span class="hljs-literal">true</span>                    </span><br><span class="line">                    &#125;);            </span><br><span class="line">            &#125;            </span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error.response);        </span><br><span class="line">        &#125;       </span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * get方法，对应get请求 </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;String&#125; url [请求的url地址] </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;Object&#125; params [请求时携带的参数] </span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params">url, params</span>)</span>&#123;    </span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span>&#123;        </span><br><span class="line">        axios.get(url, &#123;            </span><br><span class="line">            params: params        </span><br><span class="line">        &#125;)        </span><br><span class="line">        .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;            </span><br><span class="line">            resolve(res.data);        </span><br><span class="line">        &#125;)        </span><br><span class="line">        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;            </span><br><span class="line">            reject(err.data)        </span><br><span class="line">        &#125;)    </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * post方法，对应post请求 </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;String&#125; url [请求的url地址] </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;Object&#125; params [请求时携带的参数] </span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">post</span>(<span class="hljs-params">url, params</span>) </span>&#123;    </span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;         </span><br><span class="line">        axios.post(url, QS.stringify(params))        </span><br><span class="line">        .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;            </span><br><span class="line">            resolve(res.data);        </span><br><span class="line">        &#125;)        </span><br><span class="line">        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;            </span><br><span class="line">            reject(err.data)        </span><br><span class="line">        &#125;)    </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>axios的封装根据需求的不同而不同。我也对此进行了思考和针对不同需求的改善。主要有以下改变：</p>
+<ol>
+<li>优化axios封装，去掉之前的get和post</li>
+<li>断网情况处理</li>
+<li>更加模块化的api管理</li>
+<li>接口域名有多个的情况</li>
+<li>api挂载到vue.prototype上省去引入的步骤</li>
+</ol>
+<p>http.js中axios封装的优化，先直接贴代码：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * axios封装</span></span><br><span class="line"><span class="hljs-comment"> * 请求拦截、响应拦截、错误统一处理</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">'../router'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'../store/index'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> &#123; Toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vant'</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * 提示函数 </span></span><br><span class="line"><span class="hljs-comment"> * 禁止点击蒙层、显示一秒后关闭</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">const</span> tip = <span class="hljs-function"><span class="hljs-params">msg</span> =&gt;</span> &#123;    </span><br><span class="line">    Toast(&#123;        </span><br><span class="line">        message: msg,        </span><br><span class="line">        duration: <span class="hljs-number">1000</span>,        </span><br><span class="line">        forbidClick: <span class="hljs-literal">true</span>    </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * 跳转登录页</span></span><br><span class="line"><span class="hljs-comment"> * 携带当前页面路由，以期在登录页面完成登录后返回当前页面</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">const</span> toLogin = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">    router.replace(&#123;</span><br><span class="line">        path: <span class="hljs-string">'/login'</span>,        </span><br><span class="line">        query: &#123;</span><br><span class="line">            redirect: router.currentRoute.fullPath</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * 请求失败后的错误统一处理 </span></span><br><span class="line"><span class="hljs-comment"> * @param &#123;Number&#125; status 请求失败的状态码</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">const</span> errorHandle = <span class="hljs-function">(<span class="hljs-params">status, other</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-comment">// 状态码判断</span></span><br><span class="line">    <span class="hljs-keyword">switch</span> (status) &#123;</span><br><span class="line">        <span class="hljs-comment">// 401: 未登录状态，跳转登录页</span></span><br><span class="line">        <span class="hljs-keyword">case</span> <span class="hljs-number">401</span>:</span><br><span class="line">            toLogin();</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        <span class="hljs-comment">// 403 token过期</span></span><br><span class="line">        <span class="hljs-comment">// 清除token并跳转登录页</span></span><br><span class="line">        <span class="hljs-keyword">case</span> <span class="hljs-number">403</span>:</span><br><span class="line">            tip(<span class="hljs-string">'登录过期，请重新登录'</span>);</span><br><span class="line">            localStorage.removeItem(<span class="hljs-string">'token'</span>);</span><br><span class="line">            store.commit(<span class="hljs-string">'loginSuccess'</span>, <span class="hljs-literal">null</span>);</span><br><span class="line">            setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">                toLogin();</span><br><span class="line">            &#125;, <span class="hljs-number">1000</span>);</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        <span class="hljs-comment">// 404请求不存在</span></span><br><span class="line">        <span class="hljs-keyword">case</span> <span class="hljs-number">404</span>:</span><br><span class="line">            tip(<span class="hljs-string">'请求的资源不存在'</span>); </span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        <span class="hljs-keyword">default</span>:</span><br><span class="line">            <span class="hljs-built_in">console</span>.log(other);   </span><br><span class="line">        &#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 创建axios实例</span></span><br><span class="line"><span class="hljs-keyword">var</span> instance = axios.create(&#123;    timeout: <span class="hljs-number">1000</span> * <span class="hljs-number">12</span>&#125;);</span><br><span class="line"><span class="hljs-comment">// 设置post请求头</span></span><br><span class="line">instance.defaults.headers.post[<span class="hljs-string">'Content-Type'</span>] = <span class="hljs-string">'application/x-www-form-urlencoded'</span>;</span><br><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * 请求拦截器 </span></span><br><span class="line"><span class="hljs-comment"> * 每次请求前，如果存在token则在请求头中携带token </span></span><br><span class="line"><span class="hljs-comment"> */</span> </span><br><span class="line">instance.interceptors.request.use(    </span><br><span class="line">    config =&gt; &#123;        </span><br><span class="line">        <span class="hljs-comment">// 登录流程控制中，根据本地是否存在token判断用户的登录情况        </span></span><br><span class="line">        <span class="hljs-comment">// 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token        </span></span><br><span class="line">        <span class="hljs-comment">// 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码        </span></span><br><span class="line">        <span class="hljs-comment">// 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。        </span></span><br><span class="line">        <span class="hljs-keyword">const</span> token = store.state.token;        </span><br><span class="line">        token &amp;&amp; (config.headers.Authorization = token);        </span><br><span class="line">        <span class="hljs-keyword">return</span> config;    </span><br><span class="line">    &#125;,    </span><br><span class="line">    error =&gt; <span class="hljs-built_in">Promise</span>.error(error))</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 响应拦截器</span></span><br><span class="line">instance.interceptors.response.use(    </span><br><span class="line">    <span class="hljs-comment">// 请求成功</span></span><br><span class="line">    res =&gt; res.status === <span class="hljs-number">200</span> ? <span class="hljs-built_in">Promise</span>.resolve(res) : <span class="hljs-built_in">Promise</span>.reject(res),    </span><br><span class="line">    <span class="hljs-comment">// 请求失败</span></span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        <span class="hljs-keyword">const</span> &#123; response &#125; = error;</span><br><span class="line">        <span class="hljs-keyword">if</span> (response) &#123;</span><br><span class="line">            <span class="hljs-comment">// 请求已发出，但是不在2xx的范围 </span></span><br><span class="line">            errorHandle(response.status, response.data.message);</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(response);</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-comment">// 处理断网的情况</span></span><br><span class="line">            <span class="hljs-comment">// eg:请求超时或断网时，更新state的network状态</span></span><br><span class="line">            <span class="hljs-comment">// network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏</span></span><br><span class="line">            <span class="hljs-comment">// 关于断网组件中的刷新重新获取数据，会在断网组件中说明</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">window</span>.navigator.onLine) &#123;</span><br><span class="line">               store.commit(<span class="hljs-string">'changeNetwork'</span>, <span class="hljs-literal">false</span>);</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> instance;</span><br></pre></td></tr></table></figure>
+<p>这个axios和之前的大同小异，做了如下几点改变：</p>
+<ul>
+<li>去掉了之前get和post方法的封装，通过创建一个axios实例然后export default方法导出，这样使用起来更灵活一些。</li>
+<li>去掉了通过环境变量控制baseUrl的值。考虑到接口会有多个不同域名的情况，所以准备通过js变量来控制接口域名。这点具体在api里会介绍。</li>
+<li>增加了请求超时，即断网状态的处理。说下思路，当断网时，通过更新vuex中network的状态来控制断网提示组件的显示隐藏。断网提示一般会有重新加载数据的操作，这步会在后面对应的地方介绍。</li>
+<li><p>公用函数进行抽出，简化代码，尽量保证单一职责原则。</p>
+<p><strong>下面说下api这块，考虑到一下需求：</strong></p>
+</li>
+<li><p>更加模块化</p>
+</li>
+<li>更方便多人开发，有效减少解决命名冲突</li>
+<li><p>处理接口域名有多个情况</p>
+<p>这里这里呢新建了一个api文件夹，里面有一个index.js和一个base.js，以及多个根据模块划分的接口js文件。index.js是一个api的出口，base.js管理接口域名，其他js则用来管理各个模块的接口。</p>
+</li>
+</ul>
+<p>先放index.js代码：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * api接口的统一出口</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-comment">// 文章模块接口</span></span><br><span class="line"><span class="hljs-keyword">import</span> article <span class="hljs-keyword">from</span> <span class="hljs-string">'@/api/article'</span>;</span><br><span class="line"><span class="hljs-comment">// 其他模块的接口……</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 导出接口</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;    </span><br><span class="line">    article,</span><br><span class="line">    <span class="hljs-comment">// ……</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>index.js是一个api接口的出口，这样就可以把api接口根据功能划分为多个模块，利于多人协作开发，比如一个人只负责一个模块的开发等，还能方便每个模块中接口的命名哦。</p>
+<p>base.js:</p>
+<figure class="highlight cs hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 接口域名的管理</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">base</span> = &#123;    </span><br><span class="line">    sq: <span class="hljs-string">'https://xxxx111111.com/api/v1'</span>,    </span><br><span class="line">    bd: <span class="hljs-string">'http://xxxxx22222.com/api'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export <span class="hljs-keyword">default</span> <span class="hljs-keyword">base</span>;</span><br></pre></td></tr></table></figure>
+<p>通过base.js来管理我们的接口域名，不管有多少个都可以通过这里进行接口的定义。即使修改起来，也是很方便的。</p>
+<p>最后就是接口模块的说明，例如上面的article.js:</p>
+<figure class="highlight cs hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * article模块接口列表</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"></span><br><span class="line">import <span class="hljs-keyword">base</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'./base'</span>; <span class="hljs-comment">// 导入接口域名列表</span></span><br><span class="line">import axios <span class="hljs-keyword">from</span> <span class="hljs-string">'@/utils/http'</span>; <span class="hljs-comment">// 导入http中创建的axios实例</span></span><br><span class="line">import qs <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>; <span class="hljs-comment">// 根据需求是否导入qs模块</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> article = &#123;    </span><br><span class="line">    <span class="hljs-comment">// 新闻列表    </span></span><br><span class="line">    articleList () &#123;        </span><br><span class="line">        <span class="hljs-keyword">return</span> axios.<span class="hljs-keyword">get</span>(`$&#123;<span class="hljs-keyword">base</span>.sq&#125;/topics`);    </span><br><span class="line">    &#125;,    </span><br><span class="line">    <span class="hljs-comment">// 新闻详情,演示    </span></span><br><span class="line">    articleDetail (id, <span class="hljs-keyword">params</span>) &#123;        </span><br><span class="line">        <span class="hljs-keyword">return</span> axios.<span class="hljs-keyword">get</span>(`$&#123;<span class="hljs-keyword">base</span>.sq&#125;/topic/$&#123;id&#125;`, &#123;            </span><br><span class="line">            <span class="hljs-keyword">params</span>: <span class="hljs-keyword">params</span>        </span><br><span class="line">        &#125;);    </span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// post提交    </span></span><br><span class="line">    login (<span class="hljs-keyword">params</span>) &#123;        </span><br><span class="line">        <span class="hljs-keyword">return</span> axios.post(`$&#123;<span class="hljs-keyword">base</span>.sq&#125;/accesstoken`, qs.stringify(<span class="hljs-keyword">params</span>));    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">// 其他接口…………</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export <span class="hljs-keyword">default</span> article;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>通过直接引入我们封装好的axios实例，然后定义接口、调用axios实例并返回，可以更灵活的使用axios，比如你可以对<code>post</code>请求时提交的数据进行一个qs序列化的处理等。</li>
+<li>请求的配置更灵活，你可以针对某个需求进行一个不同的配置。关于配置的优先级，<code>axios</code>文档说的很清楚，这个顺序是：在 <code>lib/defaults.js</code> 找到的库的默认值，然后是实例的 <code>defaults</code> 属性，最后是请求的 <code>config</code> 参数。后者将优先于前者。</li>
+<li>restful风格的接口，也可以通过这种方式灵活的设置api接口地址。</li>
+</ol>
+<p>最后，为了方便api的调用，我们需要将其挂载到vue的原型上。在main.js中：</p>
+<figure class="highlight clean hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span></span><br><span class="line"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">'./router'</span> <span class="hljs-comment">// 导入路由文件</span></span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'./store'</span> <span class="hljs-comment">// 导入vuex文件</span></span><br><span class="line"><span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">'./api'</span> <span class="hljs-comment">// 导入api接口</span></span><br><span class="line"></span><br><span class="line">Vue.prototype.$api = api; <span class="hljs-comment">// 将api挂载到vue的原型上</span></span><br></pre></td></tr></table></figure>
+<p>然后我们可以在页面中这样调用接口，eg：</p>
+<figure class="highlight stylus hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;    </span><br><span class="line">    onLoad(id) &#123;      </span><br><span class="line">        this.<span class="hljs-variable">$api</span><span class="hljs-selector-class">.article</span><span class="hljs-selector-class">.articleDetail</span>(id, &#123;        </span><br><span class="line">            api: <span class="hljs-number">123</span>      </span><br><span class="line">        &#125;).then(res=&gt; &#123;</span><br><span class="line">            <span class="hljs-comment">// 执行某些操作      </span></span><br><span class="line">        &#125;)    </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再提一下断网的处理，这里只做一个简单的示例：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>  </span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>    </span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"!network"</span>&gt;</span>      </span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>我没网了<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>      </span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"onRefresh"</span>&gt;</span>刷新<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>      </span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>    </span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>/&gt;</span>      </span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="hljs-undefined"></span></span><br><span class="line"><span class="hljs-javascript">    <span class="hljs-keyword">import</span> &#123; mapState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span>;</span></span><br><span class="line"><span class="hljs-javascript">    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;  </span></span><br><span class="line"><span class="hljs-actionscript">        name: <span class="hljs-string">'App'</span>,  </span></span><br><span class="line"><span class="hljs-undefined">        computed: &#123;    </span></span><br><span class="line"><span class="hljs-actionscript">            ...mapState([<span class="hljs-string">'network'</span>])  </span></span><br><span class="line"><span class="hljs-undefined">        &#125;,  </span></span><br><span class="line"><span class="hljs-undefined">        methods: &#123;    </span></span><br><span class="line"><span class="hljs-actionscript">            <span class="hljs-comment">// 通过跳转一个空页面再返回的方式来实现刷新当前页面数据的目的</span></span></span><br><span class="line"><span class="hljs-undefined">            onRefresh () &#123;      </span></span><br><span class="line"><span class="hljs-actionscript">                <span class="hljs-keyword">this</span>.$router.replace(<span class="hljs-string">'/refresh'</span>)    </span></span><br><span class="line"><span class="hljs-undefined">            &#125;  </span></span><br><span class="line"><span class="hljs-undefined">        &#125;</span></span><br><span class="line"><span class="hljs-undefined">    &#125;</span></span><br><span class="line"><span class="hljs-undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是app.vue，这里简单演示一下断网。在http.js中介绍了，我们会在断网的时候，来更新vue中network的状态，那么这里我们根据network的状态来判断是否需要加载这个断网组件。断网情况下，加载断网组件，不加载对应页面的组件。当点击刷新的时候，我们通过跳转refesh页面然后立即返回的方式来实现重新获取数据的操作。因此我们需要新建一个refresh.vue页面，并在其<code>beforeRouteEnter</code>钩子中再返回当前页面。</p>
+<figure class="highlight gradle hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// refresh.vue</span></span><br><span class="line">beforeRouteEnter (to, <span class="hljs-keyword">from</span>, <span class="hljs-keyword">next</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">next</span>(vm =&gt; &#123;            </span><br><span class="line">        vm.$router.replace(<span class="hljs-keyword">from</span>.fullPath)        </span><br><span class="line">    &#125;)    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一种全局通用的断网提示，当然了，也可以根据自己的项目需求操作。具体操作就仁者见仁智者见智了。</p>
+<p>如果更多的需求，或者说是不一样的需求，可以根据自己的需求进行一个改进。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/2019/10/01/Git 基本知识与常用指令/" class="image is-7by1">
+            <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/git/">git</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 minutes read (About 1649 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/10/01/Git 基本知识与常用指令/">Git 基本知识与常用指令</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="一、Git代码状态转换图"><a href="#一、Git代码状态转换图" class="headerlink" title="一、Git代码状态转换图"></a>一、Git代码状态转换图</h2><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTM3NTAzOC8yMDE4MDUvMTM3NTAzOC0yMDE4MDUyMjE2MDk0Mjc2NS0xNDg4MjU0MzkyLnBuZw?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>其中：</p>
+<ul>
+<li>未被Git跟踪的状态为unstage状态；</li></ul>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/10/01/Git 基本知识与常用指令/#more">Read More</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
         <a href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/" class="image is-7by1">
             <img class="thumbnail" src="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg" alt="JavaScript语法（预备篇）：到底要不要写分号呢？">
         </a>
@@ -169,7 +368,7 @@
             
         </h1>
         <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>在我们介绍 JavaScript 语法的全局结构之前，我们先要探讨一个语言风格问题：究竟要不要写分号。</p><br>  <p>这是一个非常经典的口水问题，“加分号”党和“不写分号”党之间的战争，可谓是经久不息。</p><br>  <p>实际上，行尾使用分号的风格来自于 Java，也来自于 C 语言和 C++，这一设计最初是为了降低编译器的工作负担。</p><br></div>
+            <div class="_1kh1ihh6_0"><br>  <p>在我们介绍 JavaScript 语法的全局结构之前，我们先要探讨一个语言风格问题：究竟要不要写分号。</p><br>  <p>这是一个非常经典的口水问题，“加分号”党和“不写分号”党之间的战争，可谓是经久不息。</p></div>
         </div>
         
         
@@ -288,9 +487,7 @@
         <div class="content">
             <ul>
 <li>列表进入详情页的传参问题</li>
-<li>路由懒加载（也叫延迟加载）</li>
-</ul>
-<h2 id="列表进入详情页的传参问题"><a href="#列表进入详情页的传参问题" class="headerlink" title="列表进入详情页的传参问题"></a>列表进入详情页的传参问题</h2><p><em>关联知识点</em>  ——<strong>路由跳转的方式</strong></p>
+<li>路由懒加载（也叫延迟加载）</li></ul>
         </div>
         
         
@@ -348,7 +545,7 @@
             
         </h1>
         <div class="content">
-            <div class="_1kh1ihh6_0"><p>前面讲解了 JavaScript 对象的一些基础知识。但是，我们所讲解的对象，只是特定的一部分，并不能涵盖全部的 JavaScript 对象。</p><p>比如说，我们不论怎样编写代码，都没法绕开 Array，实现一个跟原生的数组行为一模一样的对象，这是由于原生数组的底层实现了一个自动随着下标变化的 length 属性。</p></div>
+            <div class="_1kh1ihh6_0"><p>前面讲解了 JavaScript 对象的一些基础知识。但是，我们所讲解的对象，只是特定的一部分，并不能涵盖全部的 JavaScript 对象。</p><p>比如说，</p></div>
         </div>
         
         
@@ -406,7 +603,7 @@
             
         </h1>
         <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>早期的 JavaScript 程序员一般都有过使用 JavaScript“模拟面向对象”的经历。</p><br>  <p>在上一篇文章我们已经讲到，JavaScript 本身就是面向对象的，它并不需要模拟，只是它实现面向对象的方式和主流的流派不太一样，所以才让很多人产生了误会。</p><br></div>
+            <div class="_1kh1ihh6_0"><br>  <p>早期的 JavaScript 程序员一般都有过使用 JavaScript“模拟面向对象”的经历。</p><br>  <p>在上一篇文章我们已经讲到，JavaScript</p></div>
         </div>
         
         
@@ -464,7 +661,7 @@
             
         </h1>
         <div class="content">
-            <div class="_1kh1ihh6_0"><br>  与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。<br><br>  一些新人在学习 JavaScript 面向对象时，往往也会有疑惑：<br>  <ul><br>    <li>为什么 JavaScript（直到 ES6）有对象的概念，</li></ul></div>
+            <div class="_1kh1ihh6_0"><br>  与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。</div>
         </div>
         
         
@@ -522,7 +719,7 @@
             
         </h1>
         <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>这次我们来讲讲 JavaScript 的内容，在这个部分，我首先想跟你聊一聊类型。</p><br>  <p>JavaScript 类型对每个前端程序员来说，几乎都是最为熟悉的概念了。但是你真的很了解它们吗？我们不妨来看看下面的几个问题。</p><br></div>
+            <div class="_1kh1ihh6_0"><br>  <p>这次我们来讲讲 JavaScript 的内容，在这个部分，我首先想跟你聊一聊类型。</p></div>
         </div>
         
         
@@ -603,131 +800,15 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/03/25/JavaScript执行（三）：你知道现在有多少种函数吗？/" class="image is-7by1">
-            <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE5Y6Sj2_2OWjm6f0o7_jCgvsLo28r7bYUNplCF4EWTCkLARXBAA" alt="JavaScript执行（三）：你知道现在有多少种函数吗？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-25T11:57:23.693Z">2019-03-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 minutes read (About 442 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/25/JavaScript执行（三）：你知道现在有多少种函数吗？/">JavaScript执行（三）：你知道现在有多少种函数吗？</a>
-            
-        </h1>
-        <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>在前一篇文章中，我们大致了解了执行上下文是什么，也知道了任何语句的执行都会依赖特定的上下文。</p><br>  <p>一旦上下文被切换，整个语句的效果可能都会发生改变。那么，切换上下文的时机就显得非常重要了。</p><br></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/03/25/JavaScript执行（三）：你知道现在有多少种函数吗？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/" class="image is-7by1">
-            <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE5Y6Sj2_2OWjm6f0o7_jCgvsLo28r7bYUNplCF4EWTCkLARXBAA" alt="JavaScript执行（二）：闭包和执行上下文到底是怎么回事？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-23T01:38:38.957Z">2019-03-23</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    23 minutes read (About 3383 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/">JavaScript执行（二）：闭包和执行上下文到底是怎么回事？</a>
-            
-        </h1>
-        <div class="content">
-            <div class=""><br>  <p>在上一课，我们了解了 JavaScript 执行中最粗粒度的任务：传给引擎执行的代码段。并且，我们还根据“由 JavaScript 引擎发起”还是“由宿主发起”，分成了宏观任务和微观任务，接下来我们继续去看一看更细的执行粒度。<br>  </p></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
         <div class="pagination-previous is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/page/0/">Anterior</a>
+            <a class="is-flex-grow has-text-black-ter" href="/page/0/">Previous</a>
         </div>
         <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/page/2/">Siguiente</a>
+            <a class="is-flex-grow has-text-black-ter" href="/page/2/">Next</a>
         </div>
         <ul class="pagination-list is-hidden-mobile">
             
@@ -780,37 +861,37 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        25
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        6
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -914,7 +995,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -950,12 +1031,20 @@
                 <span class="level-item tag">5</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/前端/">
             <span class="level-start">
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -967,9 +1056,9 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nube de etiquetas
+            Tag Cloud
         </h3>
-        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
 </div>
 
@@ -981,8 +1070,46 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue中axios的封装和API接口的管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/Git 基本知识与常用指令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/Git 基本知识与常用指令/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Git 基本知识与常用指令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/git/">git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1041,44 +1168,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:23:21.397Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：你知道全部的对象分类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:04:29.033Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：我们真的需要模拟类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1087,9 +1176,20 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -1144,7 +1244,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -1165,6 +1265,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1207,6 +1314,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/seo优化/">
                         <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1252,8 +1366,46 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue中axios的封装和API接口的管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/Git 基本知识与常用指令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/Git 基本知识与常用指令/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Git 基本知识与常用指令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/git/">git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1312,44 +1464,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:23:21.397Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：你知道全部的对象分类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:04:29.033Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：我们真的需要模拟类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1358,9 +1472,20 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -1415,7 +1540,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -1436,6 +1561,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1478,6 +1610,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/seo优化/">
                         <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1663,10 +1802,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',

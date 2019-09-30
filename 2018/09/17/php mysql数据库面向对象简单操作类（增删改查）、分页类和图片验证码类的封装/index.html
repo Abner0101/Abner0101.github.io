@@ -10,19 +10,19 @@
 <title>PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装 - Old C</title>
 
 
-    <meta name="description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，造成了代码冗余，不仅不利于维护也不利于代码的重用性，那么在这篇文章中将用面向对象的知识对数据库的连接和基本操作方法进行封装，">
+    <meta name="description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，">
 <meta name="keywords" content="PHP,数据库,验证码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装">
 <meta property="og:url" content="https://jdsheng.cn/2018/09/17/php mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，造成了代码冗余，不仅不利于维护也不利于代码的重用性，那么在这篇文章中将用面向对象的知识对数据库的连接和基本操作方法进行封装，">
+<meta property="og:description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyONb6mdVh7kqwMSaEyNbD6laVsBxKvVSrDQ2pSg4hi-jI1vCQEQ">
-<meta property="og:updated_time" content="2019-08-19T15:51:09.762Z">
+<meta property="og:updated_time" content="2019-09-30T16:27:41.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装">
-<meta name="twitter:description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，造成了代码冗余，不仅不利于维护也不利于代码的重用性，那么在这篇文章中将用面向对象的知识对数据库的连接和基本操作方法进行封装，">
+<meta name="twitter:description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，">
 <meta name="twitter:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyONb6mdVh7kqwMSaEyNbD6laVsBxKvVSrDQ2pSg4hi-jI1vCQEQ">
 
 
@@ -178,7 +178,7 @@
             
         </h1>
         <div class="content">
-            <p>这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，造成了代码冗余，不仅不利于维护也不利于代码的重用性，那么在这篇文章中将用面向对象的知识对数据库的连接和基本操作方法进行封装，<a id="more"></a>也简单地对地分页功能进行了封装，这样就大大避免了代码的重复。</p>
+            <p>这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，<a id="more"></a>造成了代码冗余，不仅不利于维护也不利于代码的重用性，那么在这篇文章中将用面向对象的知识对数据库的连接和基本操作方法进行封装，也简单地对地分页功能进行了封装，这样就大大避免了代码的重复。</p>
 <blockquote>
 <p>以下文件放置于space文件夹中</p>
 </blockquote>
@@ -312,37 +312,37 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        25
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        6
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -446,7 +446,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -482,12 +482,20 @@
                 <span class="level-item tag">5</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/前端/">
             <span class="level-start">
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -499,9 +507,9 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nube de etiquetas
+            Tag Cloud
         </h3>
-        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
 </div>
 
@@ -513,8 +521,46 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue中axios的封装和API接口的管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/Git 基本知识与常用指令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/Git 基本知识与常用指令/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Git 基本知识与常用指令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/git/">git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -573,44 +619,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:23:21.397Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：你知道全部的对象分类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:04:29.033Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：我们真的需要模拟类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -619,9 +627,20 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -676,7 +695,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -697,6 +716,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -739,6 +765,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/seo优化/">
                         <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -784,8 +817,46 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue中axios的封装和API接口的管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/Git 基本知识与常用指令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/Git 基本知识与常用指令/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Git 基本知识与常用指令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/git/">git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -844,44 +915,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:23:21.397Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：你知道全部的对象分类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:04:29.033Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：我们真的需要模拟类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -890,9 +923,20 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -947,7 +991,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -968,6 +1012,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1010,6 +1061,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/seo优化/">
                         <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1195,10 +1253,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',

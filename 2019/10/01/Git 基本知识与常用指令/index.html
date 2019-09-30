@@ -7,18 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Archives: 2019 - Old C</title>
+<title>Git 基本知识与常用指令 - Old C</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Old C">
-<meta property="og:url" content="https://jdsheng.cn/archives/2019/page/2/index.html">
+    <meta name="description" content="一、Git代码状态转换图其中：  未被Git跟踪的状态为unstage状态；">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 基本知识与常用指令">
+<meta property="og:url" content="https://jdsheng.cn/2019/10/01/Git 基本知识与常用指令/index.html">
 <meta property="og:site_name" content="Old C">
+<meta property="og:description" content="一、Git代码状态转换图其中：  未被Git跟踪的状态为unstage状态；">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jdsheng.cn/images/og_image.png">
+<meta property="og:image" content="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&fm=26&gp=0.jpg">
+<meta property="og:updated_time" content="2019-09-30T16:27:57.543Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Old C">
-<meta name="twitter:image" content="https://jdsheng.cn/images/og_image.png">
+<meta name="twitter:title" content="Git 基本知识与常用指令">
+<meta name="twitter:description" content="一、Git代码状态转换图其中：  未被Git跟踪的状态为unstage状态；">
+<meta name="twitter:image" content="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&fm=26&gp=0.jpg">
 
 
 
@@ -92,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/touch-icon.png" alt="Old C" height="28">
+                <img src="/images/touch-icon.png" alt="Git 基本知识与常用指令" height="28">
             
             </a>
         </div>
@@ -133,239 +138,201 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/git/">git</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 minutes read (About 1649 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Git 基本知识与常用指令
+            
+        </h1>
+        <div class="content">
+            <h2 id="一、Git代码状态转换图"><a href="#一、Git代码状态转换图" class="headerlink" title="一、Git代码状态转换图"></a>一、Git代码状态转换图</h2><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTM3NTAzOC8yMDE4MDUvMTM3NTAzOC0yMDE4MDUyMjE2MDk0Mjc2NS0xNDg4MjU0MzkyLnBuZw?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>其中：</p>
+<ul>
+<li>未被Git跟踪的状态为unstage状态；<a id="more"></a></li>
+<li><p>已被Git跟踪的状态为stage状态（stage：阶段），因此包括staging状态和staged状态。</p>
+<p>untrack files：是指<strong>尚未被git所管理的文件</strong>；</p>
+<p>changed but not updated：是指文件被git管理，并且发生了改变，但改动还没被git管理；这两种状态，都可以看成是改动还没被git管理的状态，我们这里称unstage状态。</p>
+<p>staging是commit和未管理之间的一个状态，也有别名叫index状态，也就是git已经管理了这些改动，但是还没完成提交。</p>
+</li>
+</ul>
+<p>changes to be commited是指进入staged状态的文件。</p>
+<p><code>.gitignore</code>中的文件，不会出现在以上三个状态中。</p>
+<blockquote>
+<p>注：</p>
+<ul>
+<li>这个图也解释了为啥从远端库拉代码，不需要add、commit。</li>
+<li>代码一旦修改，就会成为未被git库跟踪的状态。需要add、commit。</li>
+</ul>
+</blockquote>
+<h2 id="二、大白话Git"><a href="#二、大白话Git" class="headerlink" title="二、大白话Git"></a>二、大白话Git</h2><ol>
+<li>Git 管理代码，保证代码版本迭代连续性，即：向A分支merge或者push代码时，A分支代码必须是当前代码的上一个版本，不然会产生冲突。（换句话说：Git确保当前的本地的代码为最新）</li>
+<li>Git有修改就有提交，就有新的代码版本，git管理维护的是修改。</li>
+<li>Git分支存储的是代码副本。</li>
+<li><p>push ：实际上就是将本地分支合并到远端库分支；pull：实际就是将远端分支合并到本地分支。</p>
+<h2 id="三、Git本地常用操作指令"><a href="#三、Git本地常用操作指令" class="headerlink" title="三、Git本地常用操作指令"></a>三、Git本地常用操作指令</h2></li>
+</ol>
+<p><strong>1、创建git库</strong></p>
+<p>　<code>git init</code>   #在当前目录中生成一个.git 目录（含有.git目录的目录即是git仓库）</p>
+<p><strong>2、注册git用户</strong></p>
+<p>—&gt;用于在团队合作开发中，表明代码作者。</p>
+<p>　　</p>
+<figure class="highlight routeros hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git<span class="hljs-built_in"> config </span>--global user.name XXX  #用户名</span><br><span class="line"></span><br><span class="line">git<span class="hljs-built_in"> config </span>--global user.email XXX   #用户邮箱</span><br><span class="line"></span><br><span class="line">git<span class="hljs-built_in"> config </span>--list  #查看用户信息</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：加–global，全局设置。</p>
+</blockquote>
+<p><strong>3、向git库添加修改</strong></p>
+<p><code>git add [path］</code> #会把对应目录或文件，添加到stage状态<br><code>git add .</code>  #会把当前所有的untrack files和changed but not updated添加到stage状态</p>
+<p>实际上是为修改内容添加index索引。</p>
+<p><strong>4、向版本库提交修改</strong></p>
+<p><code>git commit –m “XXXX”</code>     #提交修改,添加注释</p>
+<blockquote>
+<p>注：git 提示： 未有add红色字体，未有commit绿色字体，已提交则worktree是干净的</p>
+</blockquote>
+<p><strong>5、查看当前代码库的状态</strong></p>
+<figure class="highlight ebnf hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">git status</span></span><br></pre></td></tr></table></figure>
+<p><strong>6、查看版本信息</strong></p>
+<p>—&gt;实际是查看修改提交信息</p>
+<figure class="highlight 1c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="hljs-built_in">log</span></span><br></pre></td></tr></table></figure>
+<p><code>git log --graph</code>  #以图形化（节点）展示当前git库的提交信息。</p>
+<p><strong>7、查看指定版本信息</strong></p>
+<p><code>git show sdjf974654dd….</code>  #(show后面为每次提交系统自动生成的一串哈希值)</p>
+<p><code>git show sdji97</code> #一般只使用版本号的前几个字符即可</p>
+<p><strong>8、撤销修改</strong></p>
+<figure class="highlight ebnf hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">git reset</span></span><br></pre></td></tr></table></figure>
+<p>（1）撤销整体修改</p>
+<p><code>git reset --hard</code>  #回到原来编辑的地方,改动会丢失。（同样适用于团队对于其他人的修改恢复）<br><code>git reset --hard sdv143kvf…...</code> #可回到指定的版本#(hard后面为每次提交系统自动生成的一串哈希值)<br><code>git reset [path]</code> 会改变path指定的文件或目录的stage状态，到非stage状态。<br><code>git reset</code> 会将所有stage的文件状态，都改变成非stage状态。</p>
+<p>（2）撤销某次修改</p>
+<p>回退1个change的写法就是git reset HEAD^，<br>2个为HEAD^^，<br>3个为HEAD~3，以此类推。</p>
+<p><strong>9、向远端库推送修改（提交修改）</strong></p>
+<p><code>git push origin</code> 分支名</p>
+<p><strong>10、暂存修改</strong></p>
+<p>git stash可以把当前的改动（stage和unstage，但不包括untrack的文件）暂存。</p>
+<p>然后通过git stash list查看。</p>
+<p>并通过git stash apply重新取出来。但apply之前要保证worktree是干净的。</p>
+<h2 id="四、Git团队开发常用操作指令"><a href="#四、Git团队开发常用操作指令" class="headerlink" title="四、Git团队开发常用操作指令"></a>四、Git团队开发常用操作指令</h2><p><strong>1、获取远端库项目</strong></p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  <span class="hljs-built_in">clone</span>/pull</span><br></pre></td></tr></table></figure>
+<p><strong>2、团队开发的基本流程（多分支合并一个分支）</strong></p>
+<p><code>git add .</code>   #添加改动的文件<br><code>git commit</code>  #（提交至本地）<br><code>git pull --rebase</code>  #（将服务器项目与本地项目合并）<br><code>git push</code>    #（将本地项目上传至远端库）<br>（在提交前要git pull –rebase 一下，确保当前的本地的代码为最新。）</p>
+<h2 id="五、Git-分支管理"><a href="#五、Git-分支管理" class="headerlink" title="五、Git 分支管理"></a>五、Git 分支管理</h2><p><strong>1、建立分支</strong></p>
+<p><code>git branch AAA</code>   #建立分支AAA</p>
+<p><strong>2、分支切换</strong></p>
+<p><code>git checkout AAA</code>   #从当前分支切换到AAA分支 (若AAA分支不存在，则自动新建)</p>
+<p><strong>3、将分支与主枝master合并</strong></p>
+<p><code>git checkout master</code>   #（首先切换回主枝）<br><code>git merge AAA</code>    #（将分支AAA与主枝合并）</p>
+<blockquote>
+<p>注：git merge：默认情况下，Git执行”快进式合并”（fast-farward<br>merge），会直接将Master分支指向Develop分支。</p>
+</blockquote>
+<p>使用–no-ff参数后，会执行正常合并，在Master分支上生成一个新节点。为了保证版本演进的清晰（保持提交曲线为直线），建议采用这种方法。</p>
+<p><strong>4、当前分支查看</strong></p>
+<p><code>git branch</code>    #默认有master（也称为主枝）<br><code>git branch -r</code>  #查看远端库分支<br><code>git branch –a</code>  #查看当前所有分支（包括本地分支和远端库分支）</p>
+<p><strong>5、删除分支</strong></p>
+<p><code>git branch –d  AAA</code>   #删除分支AAA</p>
+<p><strong>6、切下远端库A分支到本地库A分支</strong></p>
+<p><code>git checkout -b  A origin/A</code>  （若本地A分支不存在，则自动新建）</p>
+<blockquote>
+<p>注：上面只是一些基本的操作命令，更多的命令可通过帮助文档查询。</p>
+</blockquote>
+<p>帮助文档的使用：<br><code>man git-</code>&lt;需查询的指令&gt;  #（git后面有“-”）<br>如commit的查询为  <code>man git-commit</code></p>
+<h2 id="六、本地代码上传Github"><a href="#六、本地代码上传Github" class="headerlink" title="六、本地代码上传Github"></a>六、本地代码上传Github</h2><ol>
+<li>Gtthub上建立远端仓库，复制下载链接。</li>
+<li>本地指定目录下，Gitbash粘贴远端仓库下载链接拉取远端仓库代码</li>
+<li>复制本地需要提交的代码到远端仓库目录。</li>
+<li><code>Git add、commit、push</code> 提交本地代码至Github远端仓库。</li>
+</ol>
 
-<div class="card widget">
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/git/">git</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
                 
-                <a href="/2019/03/25/JavaScript执行（三）：你知道现在有多少种函数吗？/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE5Y6Sj2_2OWjm6f0o7_jCgvsLo28r7bYUNplCF4EWTCkLARXBAA" alt="JavaScript执行（三）：你知道现在有多少种函数吗？">
-                    </p>
-                </a>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-25T11:57:23.693Z">2019-03-25</time>
-                        <a href="/2019/03/25/JavaScript执行（三）：你知道现在有多少种函数吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript执行（三）：你知道现在有多少种函数吗？</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE5Y6Sj2_2OWjm6f0o7_jCgvsLo28r7bYUNplCF4EWTCkLARXBAA" alt="JavaScript执行（二）：闭包和执行上下文到底是怎么回事？">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-23T01:38:38.957Z">2019-03-23</time>
-                        <a href="/2019/03/23/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript执行（二）：闭包和执行上下文到底是怎么回事？</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/23/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-23T01:09:46.219Z">2019-03-23</time>
-                        <a href="/2019/03/23/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/23/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-23T01:06:26.862Z">2019-03-23</time>
-                        <a href="/2019/03/23/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段三）">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-23T01:02:09.473Z">2019-03-23</time>
-                        <a href="/2019/03/23/浏览器：一个浏览器是如何工作的（阶段三）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段三）</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/23/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE5Y6Sj2_2OWjm6f0o7_jCgvsLo28r7bYUNplCF4EWTCkLARXBAA" alt="JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-22T16:25:15.144Z">2019-03-23</time>
-                        <a href="/2019/03/23/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/22/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-22T15:57:01.335Z">2019-03-22</time>
-                        <a href="/2019/03/22/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/03/22/浏览器：一个浏览器是如何工作的？（阶段一）/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段一）">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-22T15:18:19.918Z">2019-03-22</time>
-                        <a href="/2019/03/22/浏览器：一个浏览器是如何工作的？（阶段一）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段一）</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
 
 
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/">Previous</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/01/vue中axios的封装和API接口的管理/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">vue中axios的封装和API接口的管理</span>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/page/3/">Next</a>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/25/JavaScript语法（预备篇）：到底要不要写分号呢？/">
+                <span class="level-item">JavaScript语法（预备篇）：到底要不要写分号呢？</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/archives/2019/page/2/">2</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
 </div>
                 
 
@@ -1204,7 +1171,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/touch-icon.png" alt="Old C" height="28">
+                    <img src="/images/touch-icon.png" alt="Git 基本知识与常用指令" height="28">
                 
                 </a>
                 <p class="is-size-7">

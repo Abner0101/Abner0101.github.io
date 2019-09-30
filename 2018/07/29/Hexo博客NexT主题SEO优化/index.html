@@ -10,19 +10,19 @@
 <title>Hexo博客NexT主题SEO优化 - Old C</title>
 
 
-    <meta name="description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图">
+    <meta name="description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。">
 <meta name="keywords" content="hexo,Next,seo优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo博客NexT主题SEO优化">
 <meta property="og:url" content="https://jdsheng.cn/2018/07/29/Hexo博客NexT主题SEO优化/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图">
+<meta property="og:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg">
-<meta property="og:updated_time" content="2019-08-19T15:42:25.492Z">
+<meta property="og:updated_time" content="2019-09-30T16:28:08.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客NexT主题SEO优化">
-<meta name="twitter:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。本文主要以谷歌搜索为主。 添加站点地图">
+<meta name="twitter:description" content="刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。">
 <meta name="twitter:image" content="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg">
 
 
@@ -178,9 +178,8 @@
             
         </h1>
         <div class="content">
-            <p>刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。<br><em>本文主要以谷歌搜索为主。</em></p>
-<h2 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h2><a id="more"></a>
-<p><strong>–安装sitemap站点地图自动生成插件</strong></p>
+            <p>刚搭建完博客，发现自己发表的文章在谷歌或者百度都搜索不到，今天看了一些文章，原来是需要seo优化的，所以就来总结一下seo优化的方法，让自己的博文能在谷歌百度上搜索到。<a id="more"></a><br><em>本文主要以谷歌搜索为主。</em></p>
+<h2 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h2><p><strong>–安装sitemap站点地图自动生成插件</strong></p>
 <figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="hljs-keyword">install</span> hexo-generator-sitemap <span class="hljs-comment">--save</span></span><br><span class="line">npm <span class="hljs-keyword">install</span> hexo-generator-baidu-sitemap <span class="hljs-comment">--save</span></span><br></pre></td></tr></table></figure>
 <p><strong>–修改站点配置文件</strong><br>将sitemap文件添加到站点配置文件_config.yml中，并修改url字段的值，其值默认为<a href="https://yoursite.com" target="_blank" rel="noopener">https://yoursite.com</a>(你的博客域名）。</p>
 <figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">sitemap</span>: </span><br><span class="line">  <span class="hljs-attribute">path</span>: sitemap.xml</span><br><span class="line"><span class="hljs-attribute">baidusitemap</span>:</span><br><span class="line">  <span class="hljs-attribute">path</span>: baidusitemap.xml</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">url</span>: <span class="hljs-attribute">https</span>:<span class="hljs-comment">//abner0101.github.io</span></span><br></pre></td></tr></table></figure>
@@ -314,37 +313,37 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        25
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        6
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -448,7 +447,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -484,12 +483,20 @@
                 <span class="level-item tag">5</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/前端/">
             <span class="level-start">
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li>
             </ul>
@@ -501,9 +508,9 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nube de etiquetas
+            Tag Cloud
         </h3>
-        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
 </div>
 
@@ -515,8 +522,46 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue中axios的封装和API接口的管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/Git 基本知识与常用指令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/Git 基本知识与常用指令/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Git 基本知识与常用指令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/git/">git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -575,44 +620,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:23:21.397Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：你知道全部的对象分类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:04:29.033Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：我们真的需要模拟类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -621,9 +628,20 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -678,7 +696,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -699,6 +717,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -741,6 +766,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/seo优化/">
                         <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -786,8 +818,46 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)" alt="vue中axios的封装和API接口的管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:46.881Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/vue中axios的封装和API接口的管理/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue中axios的封装和API接口的管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/01/Git 基本知识与常用指令/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img5.imgtn.bdimg.com/it/u=456287004,264065015&amp;fm=26&amp;gp=0.jpg" alt="Git 基本知识与常用指令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-30T16:22:19.486Z">2019-10-01</time></div>
+                    <a href="/2019/10/01/Git 基本知识与常用指令/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Git 基本知识与常用指令</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/git/">git</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -846,44 +916,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:23:21.397Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：你知道全部的对象分类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：你知道全部的对象分类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUVmBwhn_i3ibOV8TEHqiXnuFfcjB8zwbq84BviCLYvxuG7gdy" alt="JavaScript对象：我们真的需要模拟类吗？">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-25T13:04:29.033Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/JavaScript对象：我们真的需要模拟类吗？/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript对象：我们真的需要模拟类吗？</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -892,9 +924,20 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -949,7 +992,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -970,6 +1013,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1012,6 +1062,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/seo优化/">
                         <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1197,10 +1254,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
