@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://jdsheng.cn/2019/10/01/vue%E4%B8%ADaxios%E7%9A%84%E5%B0%81%E8%A3%85%E5%92%8CAPI%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2019-10-02T03:18:39.432Z</lastmod>
+    <data>
+        <display>
+        <title>vue中axios的封装和API接口的管理</title>
+        <pubTime>2019-09-30T16:22:46.881Z</pubTime>
+        
+        <tag>vue</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://jdsheng.cn/2019/07/10/vue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     <lastmod>2019-10-02T03:13:44.333Z</lastmod>
     <data>
@@ -294,26 +314,6 @@
         <tag>js</tag>
          
         <tag>前端</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jdsheng.cn/2019/10/01/vue%E4%B8%ADaxios%E7%9A%84%E5%B0%81%E8%A3%85%E5%92%8CAPI%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2019-10-02T02:48:58.826Z</lastmod>
-    <data>
-        <display>
-        <title>vue中axios的封装和API接口的管理</title>
-        <pubTime>2019-09-30T16:22:46.881Z</pubTime>
-        
-        <tag>vue</tag>
          
          
            
