@@ -10,19 +10,19 @@
 <title>vue中axios的封装和API接口的管理 - Old C</title>
 
 
-    <meta name="description" content="一、axios的封装在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步axios文">
+    <meta name="description" content="一、axios的封装在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，">
 <meta name="keywords" content="vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue中axios的封装和API接口的管理">
 <meta property="og:url" content="https://jdsheng.cn/2019/10/01/vue中axios的封装和API接口的管理/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="一、axios的封装在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步axios文">
+<meta property="og:description" content="一、axios的封装在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)">
-<meta property="og:updated_time" content="2019-09-30T16:31:35.523Z">
+<meta property="og:updated_time" content="2019-10-02T02:48:58.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue中axios的封装和API接口的管理">
-<meta name="twitter:description" content="一、axios的封装在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步axios文">
+<meta name="twitter:description" content="一、axios的封装在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，">
 <meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png)">
 
 
@@ -160,7 +160,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    36 minutes read (About 5381 words)
+                    36 minutes read (About 5382 words)
                 </span>
                 
                 
@@ -178,8 +178,8 @@
             
         </h1>
         <div class="content">
-            <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png" alt="面对一团糟代码的你"></p>
-<h1 id="一、axios的封装"><a href="#一、axios的封装" class="headerlink" title="一、axios的封装"></a>一、axios的封装</h1><p>在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步<a href="https://www.npmjs.com/package/axios" target="_blank" rel="noopener">axios文档</a>。</p>
+            <h1 id="一、axios的封装"><a href="#一、axios的封装" class="headerlink" title="一、axios的封装"></a>一、axios的封装</h1><p>在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，<a id="more"></a>它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步<a href="https://www.npmjs.com/package/axios" target="_blank" rel="noopener">axios文档</a>。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png" alt="面对一团糟代码的你"></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight mipsasm hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="hljs-keyword">install </span>axios<span class="hljs-comment">; // 安装axios</span></span><br></pre></td></tr></table></figure>
 <h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>一般我会在项目的src目录中，新建一个request文件夹，然后在里面新建一个http.js和一个api.js文件。http.js文件用来封装我们的axios，api.js用来统一管理我们的接口。<br><figure class="highlight clean hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 在http.js中引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>; <span class="hljs-comment">// 引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> QS <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>; <span class="hljs-comment">// 引入qs模块，用来序列化post类型的数据，后面会提到</span></span><br><span class="line"><span class="hljs-comment">// vant的toast提示框组件，大家可根据自己的ui组件更改。</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; Toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vant'</span>;</span><br></pre></td></tr></table></figure></p>
 <h3 id="环境的切换"><a href="#环境的切换" class="headerlink" title="环境的切换"></a>环境的切换</h3><p>我们的项目环境可能有开发环境、测试环境和生产环境。我们通过node的环境变量来匹配我们的默认的接口url前缀。axios.defaults.baseURL可以设置axios的默认请求地址就不多说了。</p>
@@ -635,7 +635,7 @@
             
             <a href="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcMIPozQniXrq_kW-XRTcfKoeXN-fBTa0nolNt-ly9fPL5wsGNg" alt="JavaScript词法：为什么12.toString会报错？">
+                    <img class="thumbnail" src="http://img3.imgtn.bdimg.com/it/u=1964089683,1892548668&amp;fm=26&amp;gp=0.jpg" alt="JavaScript词法：为什么12.toString会报错？">
                 </p>
             </a>
             
@@ -654,7 +654,7 @@
             
             <a href="/2019/07/10/vue常见问题及解决方法（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
+                    <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（一）">
                 </p>
             </a>
             
@@ -931,7 +931,7 @@
             
             <a href="/2019/07/25/JavaScript词法：为什么12.toString会报错？/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcMIPozQniXrq_kW-XRTcfKoeXN-fBTa0nolNt-ly9fPL5wsGNg" alt="JavaScript词法：为什么12.toString会报错？">
+                    <img class="thumbnail" src="http://img3.imgtn.bdimg.com/it/u=1964089683,1892548668&amp;fm=26&amp;gp=0.jpg" alt="JavaScript词法：为什么12.toString会报错？">
                 </p>
             </a>
             
@@ -950,7 +950,7 @@
             
             <a href="/2019/07/10/vue常见问题及解决方法（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxTAYFq3a6eHkfwWXAVYNem8_m434Ix5cAHUf9lhteBeHcAIXOmg" alt="vue常见问题及解决方法（一）">
+                    <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（一）">
                 </p>
             </a>
             
