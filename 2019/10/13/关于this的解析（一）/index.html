@@ -7,22 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Old C</title>
+<title>关于this的解析（一） - Old C</title>
 
 
-    <meta name="description" content="1.1 为什么要用this如果对于有经验的 JavaScript 开发者来说 this 都是一种非常复杂的机制，那它到底有用在 哪里呢？真的值得我们付出这么大的代价学习吗？的确，在介绍怎么做之前我们需要先明 白为什么。 下面我们来解释一下为什么要使用 this： 12345678910111213function identify() &amp;#123;	return this.name.toUpper">
+    <meta name="description" content="1.1 为什么要用this如果对于有经验的JavaScript开发者来说this都是一种非常复杂的机制，那它到底有用在哪里呢？">
+<meta name="keywords" content="js,前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Old C">
+<meta property="og:title" content="关于this的解析（一）">
 <meta property="og:url" content="https://jdsheng.cn/2019/10/13/关于this的解析（一）/index.html">
 <meta property="og:site_name" content="Old C">
-<meta property="og:description" content="1.1 为什么要用this如果对于有经验的 JavaScript 开发者来说 this 都是一种非常复杂的机制，那它到底有用在 哪里呢？真的值得我们付出这么大的代价学习吗？的确，在介绍怎么做之前我们需要先明 白为什么。 下面我们来解释一下为什么要使用 this： 12345678910111213function identify() &amp;#123;	return this.name.toUpper">
+<meta property="og:description" content="1.1 为什么要用this如果对于有经验的JavaScript开发者来说this都是一种非常复杂的机制，那它到底有用在哪里呢？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jdsheng.cn/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-13T03:56:25.860Z">
+<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&fm=26&gp=0.jpg">
+<meta property="og:updated_time" content="2019-10-13T04:09:03.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Old C">
-<meta name="twitter:description" content="1.1 为什么要用this如果对于有经验的 JavaScript 开发者来说 this 都是一种非常复杂的机制，那它到底有用在 哪里呢？真的值得我们付出这么大的代价学习吗？的确，在介绍怎么做之前我们需要先明 白为什么。 下面我们来解释一下为什么要使用 this： 12345678910111213function identify() &amp;#123;	return this.name.toUpper">
-<meta name="twitter:image" content="https://jdsheng.cn/images/og_image.png">
+<meta name="twitter:title" content="关于this的解析（一）">
+<meta name="twitter:description" content="1.1 为什么要用this如果对于有经验的JavaScript开发者来说this都是一种非常复杂的机制，那它到底有用在哪里呢？">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&fm=26&gp=0.jpg">
 
 
 
@@ -96,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/touch-icon.png" alt="" height="28">
+                <img src="/images/touch-icon.png" alt="关于this的解析（一）" height="28">
             
             </a>
         </div>
@@ -139,17 +140,27 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（一）">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-10-13T03:56:18.487Z">2019-10-13</time>
                 
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    14 minutes read (About 2157 words)
+                    14 minutes read (About 2158 words)
                 </span>
                 
                 
@@ -163,11 +174,11 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                
+                关于this的解析（一）
             
         </h1>
         <div class="content">
-            <h2 id="1-1-为什么要用this"><a href="#1-1-为什么要用this" class="headerlink" title="1.1 为什么要用this"></a>1.1 为什么要用this</h2><p>如果对于有经验的 JavaScript 开发者来说 this 都是一种非常复杂的机制，那它到底有用在 哪里呢？真的值得我们付出这么大的代价学习吗？的确，在介绍怎么做之前我们需要先明 白为什么。</p>
+            <h2 id="1-1-为什么要用this"><a href="#1-1-为什么要用this" class="headerlink" title="1.1 为什么要用this"></a>1.1 为什么要用this</h2><p>如果对于有经验的JavaScript开发者来说this都是一种非常复杂的机制，那它到底有用在哪里呢？<a id="more"></a>真的值得我们付出这么大的代价学习吗？的确，在介绍怎么做之前我们需要先明白为什么。</p>
 <p>下面我们来解释一下为什么要使用 this：</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identify</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name.toUpperCase(); </span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">speak</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	<span class="hljs-keyword">var</span> greeting = <span class="hljs-string">"Hello, I'm "</span> + identify.call( <span class="hljs-keyword">this</span> ); </span><br><span class="line">	<span class="hljs-built_in">console</span>.log( greeting ); </span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">var</span> me = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">"Kyle"</span> &#125;;</span><br><span class="line"><span class="hljs-keyword">var</span> you = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">"Reader"</span> &#125;;</span><br><span class="line">identify.call( me ); <span class="hljs-comment">// KYLE </span></span><br><span class="line">identify.call( you ); <span class="hljs-comment">// READER </span></span><br><span class="line">speak.call( me ); <span class="hljs-comment">// Hello, 我是 KYLE </span></span><br><span class="line">speak.call( you ); <span class="hljs-comment">// Hello, 我是 READER</span></span><br></pre></td></tr></table></figure>
 <p>看不懂这段代码？不用担心！我们很快就会讲解。现在请暂时抛开这些问题，专注于为 什么。 这段代码可以在不同的上下文对象（me 和 you）中重复使用函数 identify() 和 speak()， 不用针对每个对象编写不同版本的函数。 如果不使用 this，那就需要给 identify() 和 speak() 显式传入一个上下文对象。</p>
@@ -205,6 +216,15 @@
 
         </div>
         
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/js/">js</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
+                </div>
+            </div>
+        </div>
+        
         
         
     </div>
@@ -239,7 +259,7 @@
         <div class="level-start">
             <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item"></span>
+                <span class="level-item">关于this的解析（三）——绑定规则的优先级</span>
             </a>
         </div>
         
@@ -295,7 +315,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         30
@@ -305,7 +325,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         6
@@ -315,17 +335,17 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        14
+                        15
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -429,7 +449,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -478,7 +498,7 @@
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">13</span>
+                <span class="level-item tag">18</span>
             </span>
         </a></li>
             </ul>
@@ -490,9 +510,9 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nube de etiquetas
+            Tag Cloud
         </h3>
-        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+        <a href="/tags/Next/" style="font-size: 12.5px;">Next</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/VUE/" style="font-size: 10px;">VUE</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
 </div>
 
@@ -504,23 +524,23 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
             
             <a href="/2019/10/13/ES6的Set和Map数据结构/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="http://img0.imgtn.bdimg.com/it/u=2484588250,965556296&amp;fm=26&amp;gp=0.jpg" alt="ES6的Set和Map数据结构">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:57:09.490Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/ES6的Set和Map数据结构/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/ES6的Set和Map数据结构/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6的Set和Map数据结构</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -530,16 +550,16 @@
             
             <a href="/2019/10/13/关于this的解析（四）——绑定例外和this词法/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（四）——绑定例外和this词法">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:57:00.968Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（四）——绑定例外和this词法/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（四）——绑定例外和this词法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（四）——绑定例外和this词法</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -549,16 +569,16 @@
             
             <a href="/2019/10/13/关于this的解析（三）——绑定规则的优先级/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（二）——调用位置和绑定规则">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:56:51.711Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（三）——绑定规则的优先级/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（三）——绑定规则的优先级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（二）——调用位置和绑定规则</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -568,16 +588,16 @@
             
             <a href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（三）——绑定规则的优先级">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:56:40.270Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（三）——绑定规则的优先级</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -587,16 +607,16 @@
             
             <a href="/2019/10/13/关于this的解析（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（一）">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:56:18.487Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（一）/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（一）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（一）</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -610,7 +630,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -678,7 +698,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -699,6 +719,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -734,7 +761,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/js/">
                         <span class="tag">js</span>
-                        <span class="tag is-grey">10</span>
+                        <span class="tag is-grey">14</span>
                     </a>
                 </div>
                 
@@ -762,7 +789,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/前端/">
                         <span class="tag">前端</span>
-                        <span class="tag is-grey">16</span>
+                        <span class="tag is-grey">21</span>
                     </a>
                 </div>
                 
@@ -800,23 +827,23 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
             
             <a href="/2019/10/13/ES6的Set和Map数据结构/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="http://img0.imgtn.bdimg.com/it/u=2484588250,965556296&amp;fm=26&amp;gp=0.jpg" alt="ES6的Set和Map数据结构">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:57:09.490Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/ES6的Set和Map数据结构/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/ES6的Set和Map数据结构/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6的Set和Map数据结构</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -826,16 +853,16 @@
             
             <a href="/2019/10/13/关于this的解析（四）——绑定例外和this词法/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（四）——绑定例外和this词法">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:57:00.968Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（四）——绑定例外和this词法/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（四）——绑定例外和this词法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（四）——绑定例外和this词法</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -845,16 +872,16 @@
             
             <a href="/2019/10/13/关于this的解析（三）——绑定规则的优先级/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（二）——调用位置和绑定规则">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:56:51.711Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（三）——绑定规则的优先级/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（三）——绑定规则的优先级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（二）——调用位置和绑定规则</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -864,16 +891,16 @@
             
             <a href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（三）——绑定规则的优先级">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:56:40.270Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（二）——调用位置和绑定规则/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（三）——绑定规则的优先级</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -883,16 +910,16 @@
             
             <a href="/2019/10/13/关于this的解析（一）/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="关于this的解析（一）">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T03:56:18.487Z">2019-10-13</time></div>
-                    <a href="/2019/10/13/关于this的解析（一）/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <a href="/2019/10/13/关于this的解析（一）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">关于this的解析（一）</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                     </p>
                 </div>
             </div>
@@ -906,7 +933,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -974,7 +1001,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -995,6 +1022,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/VUE/">
                         <span class="tag">VUE</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1030,7 +1064,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/js/">
                         <span class="tag">js</span>
-                        <span class="tag is-grey">10</span>
+                        <span class="tag is-grey">14</span>
                     </a>
                 </div>
                 
@@ -1058,7 +1092,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/前端/">
                         <span class="tag">前端</span>
-                        <span class="tag is-grey">16</span>
+                        <span class="tag is-grey">21</span>
                     </a>
                 </div>
                 
@@ -1093,7 +1127,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/touch-icon.png" alt="" height="28">
+                    <img src="/images/touch-icon.png" alt="关于this的解析（一）" height="28">
                 
                 </a>
                 <p class="is-size-7">
@@ -1236,10 +1270,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
