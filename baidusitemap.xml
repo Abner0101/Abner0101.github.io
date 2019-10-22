@@ -4,6 +4,114 @@
 
     
   <url>
+    <loc>https://jdsheng.cn/2019/10/22/vue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <lastmod>2019-10-22T14:06:59.372Z</lastmod>
+    <data>
+        <display>
+        <title>vue常见问题及解决方法（二）</title>
+        <pubTime>2019-10-22T14:00:34.978Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>vue</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jdsheng.cn/2019/10/22/Echarts%20%E5%9B%BE%E8%A1%A8%E5%A1%AB%EF%BC%88%E5%A4%A9%EF%BC%89%E5%9D%91%E7%AF%87/</loc>
+    <lastmod>2019-10-22T14:06:47.901Z</lastmod>
+    <data>
+        <display>
+        <title>Echarts 图表填（天）坑篇</title>
+        <pubTime>2019-10-22T14:00:26.591Z</pubTime>
+        
+        <tag>echarts</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jdsheng.cn/2019/10/22/Vue%20%E7%BB%84%E4%BB%B6%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%EF%BC%88%E5%85%AD%E7%A7%8D%EF%BC%89/</loc>
+    <lastmod>2019-10-22T14:06:33.602Z</lastmod>
+    <data>
+        <display>
+        <title>Vue 组件间的通信（六种）</title>
+        <pubTime>2019-10-22T14:00:12.135Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>vue</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jdsheng.cn/2019/10/01/vue%E4%B8%ADaxios%E7%9A%84%E5%B0%81%E8%A3%85%E5%92%8CAPI%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2019-10-22T14:06:24.383Z</lastmod>
+    <data>
+        <display>
+        <title>vue中axios的封装和API接口的管理</title>
+        <pubTime>2019-09-30T16:22:46.881Z</pubTime>
+        
+        <tag>vue</tag>
+         
+        <tag>axios</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jdsheng.cn/2019/07/10/vue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2019-10-22T14:05:10.722Z</lastmod>
+    <data>
+        <display>
+        <title>vue常见问题及解决方法（一）</title>
+        <pubTime>2019-07-10T15:40:30.935Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>vue</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://jdsheng.cn/2019/10/13/ES6%E7%9A%84Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
     <lastmod>2019-10-13T04:09:53.166Z</lastmod>
     <data>
@@ -11,9 +119,9 @@
         <title>ES6的Set和Map数据结构</title>
         <pubTime>2019-10-13T03:57:09.490Z</pubTime>
         
-        <tag>前端</tag>
-         
         <tag>es6</tag>
+         
+        <tag>前端</tag>
          
          
            
@@ -33,9 +141,9 @@
         <title>关于this的解析（四）——绑定例外和this词法</title>
         <pubTime>2019-10-13T03:57:00.968Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -55,9 +163,9 @@
         <title>关于this的解析（三）——绑定规则的优先级</title>
         <pubTime>2019-10-13T03:56:40.270Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -77,9 +185,9 @@
         <title>关于this的解析（二）——调用位置和绑定规则</title>
         <pubTime>2019-10-13T03:56:51.711Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -99,9 +207,9 @@
         <title>关于this的解析（一）</title>
         <pubTime>2019-10-13T03:56:18.487Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -121,9 +229,9 @@
         <title>JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？</title>
         <pubTime>2019-03-22T16:25:15.144Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -143,9 +251,9 @@
         <title>JavaScript执行（三）：你知道现在有多少种函数吗？</title>
         <pubTime>2019-03-25T11:57:23.693Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -165,9 +273,9 @@
         <title>JavaScript执行（四）：try里面放return，finally还会执行吗？</title>
         <pubTime>2019-03-25T12:16:18.395Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -187,9 +295,9 @@
         <title>JavaScript类型：关于类型，有哪些你不知道的细节？</title>
         <pubTime>2019-03-25T12:48:32.377Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -209,9 +317,9 @@
         <title>JavaScript对象：面向对象还是基于对象？</title>
         <pubTime>2019-03-25T12:57:08.716Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -231,9 +339,9 @@
         <title>JavaScript对象：我们真的需要模拟类吗？</title>
         <pubTime>2019-03-25T13:04:29.033Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -253,9 +361,9 @@
         <title>JavaScript词法：为什么12.toString会报错？</title>
         <pubTime>2019-07-25T14:16:36.789Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -281,48 +389,6 @@
            
              
               <breadCrumb title="git" url="https://jdsheng.cn/categories/git/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jdsheng.cn/2019/10/01/vue%E4%B8%ADaxios%E7%9A%84%E5%B0%81%E8%A3%85%E5%92%8CAPI%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2019-10-02T03:18:39.432Z</lastmod>
-    <data>
-        <display>
-        <title>vue中axios的封装和API接口的管理</title>
-        <pubTime>2019-09-30T16:22:46.881Z</pubTime>
-        
-        <tag>vue</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jdsheng.cn/2019/07/10/vue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    <lastmod>2019-10-02T03:13:44.333Z</lastmod>
-    <data>
-        <display>
-        <title>vue常见问题及解决方法（一）</title>
-        <pubTime>2019-07-10T15:40:30.935Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>VUE</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="https://jdsheng.cn/categories/%E5%89%8D%E7%AB%AF/"/>
           
         </display>
     </data>
@@ -441,9 +507,9 @@
         <title>JavaScript执行（二）：闭包和执行上下文到底是怎么回事？</title>
         <pubTime>2019-03-23T01:38:38.957Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -483,9 +549,9 @@
         <title>JavaScript语法（预备篇）：到底要不要写分号呢？</title>
         <pubTime>2019-07-25T14:34:54.007Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -505,9 +571,9 @@
         <title>JavaScript对象：你知道全部的对象分类吗？</title>
         <pubTime>2019-03-25T13:23:21.397Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>前端</tag>
+         
+        <tag>js</tag>
          
          
            

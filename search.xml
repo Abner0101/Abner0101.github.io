@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue常见问题及解决方法（二）]]></title>
+    <url>%2F2019%2F10%2F22%2Fvue%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[这里给大家分享一下vue中遇到的一些问题和解决技巧，希望对大家有用处。（话不多说上代码） 1.vue路由拦截浏览器后退实现表单保存类似需求（为了防止用户突然离开，没有保存已输入的信息。）12345678910//在路由组件中：mounted()&#123;&#125;,beforeRouteLeave (to, from, next) &#123; if(用户已经输入信息)&#123; //出现弹窗提醒保存表单，或者自动后台为其保存 &#125;else&#123; next(true);//用户离开 &#125; 2.路由懒加载写法:1234567891011121314// 我所采用的方法，个人感觉比较简洁一些，少了一步引入赋值。const router = new VueRouter(&#123; routes: [ path: '/app', component: () =&gt; import('./app'), // 引入组件 ]&#125;)// Vue路由文档的写法:const app = () =&gt; import('./app.vue') // 引入组件const router = new VueRouter(&#123; routes: [ &#123; path: '/app', component: app &#125; ]&#125;) 3.路由的项目启动页和404页面一般项目都会设置这个，如果默认进入地址会跳到login页面，如果你输入的是一个没有用的路由或者是空路由会跳转到notFind页面（你自己设置的404页面） 123456789101112export default new Router(&#123; routes: [ &#123; path: '/', // 项目启动页 redirect:'/login' // 重定向到下方声明的路由 &#125;, &#123; path: '*', // 404 页面 component: () =&gt; import('./notFind') // 或者使用component也可以的 &#125;, ] &#125;) 4.setInterval路由跳转继续运行并没有销毁问题12345678910//方法一：beforeDestroy()&#123; //我通常是把setInterval()定时器赋值给this实例，然后就可以像下面这么暂停。 clearInterval(this.intervalid);&#125;,//方法二：this.$once('hook:beforeDestroy', () =&gt; &#123; //清理定时器 clearTimeout(this.timeout);&#125;) 5.setTimeout/setInterval this指向改变，无法用this访问VUe实例这个地方大家的默认方法肯定是:12345//使用变量访问this实例let self=this; setTimeout(function () &#123; console.log(self);//使用self变量访问this实例 &#125;,1000); 其实这个地方我们可以用箭头函数，因为箭头函数会改变this的指向，而指向的刚好是自己的父级this，所以我们可以这样用： 1234//箭头函数访问this实例 因为箭头函数本身没有绑定thissetTimeout(() =&gt; &#123; console.log(this);&#125;, 500); 这样我们的this就是指向我们的vue实例了。 6.Vue 数组/对象更新 视图不更新方法一：直接使用最简单也是最有效的方法，深拷贝对象或者数组，视图会进行更新，不过会有一个缺点，深拷贝后的数组或者对象不是原来的那个数组或者对象，是你现在改变了之后的值。 上代码： 12//Obj =&gt; 你的对象或数组this.Obj=JSON.parse(JSON.stringify(this.Obj)); 先进行转字符串，再转回对象，这个就进行了一个拷贝的过程，会触发视图的改变，同时也进行了一个数组的替换，有利有弊。 方法二：this.$set(你要改变的数组/对象，你要改变的位置/key，你要改成什么value)12this.$set(this.arr, 0, "OBKoro1"); // 改变数组this.$set(this.obj, "c", "OBKoro1"); // 改变对象 这个是vue专门为改变不了数组设定的一个方法，使用也很简单（如果还是不懂请参考vue文档） 7.深度watch与watch立即触发回调watch很多人都在用，但是这watch中的这两个选项deep、immediate，或许不是很多人都知道，我猜。 选项：deep 在选项参数中指定 deep: true，可以监听对象中属性的变化。 选项：immediate 在选项参数中指定 immediate: true, 代表如果在 wacth 里声明了 step之后，就会立即先去执行里面的handler方法，如果为 false就跟我们以前的效果一样，不会在绑定的时候就执行。 12345678910111213141516watch: &#123; obj: &#123; handler(val, oldVal) &#123; console.log('属性发生变化触发这个回调',val, oldVal); &#125;, deep: true // 监听这个对象中的每一个属性变化 &#125;, step: &#123; // 属性 //watch handler(val, oldVal) &#123; console.log("默认触发一次", val, oldVal); &#125;, immediate: true // 立即触发一次 &#125;,&#125;,]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Echarts 图表填（天）坑篇]]></title>
+    <url>%2F2019%2F10%2F22%2FEcharts%20%E5%9B%BE%E8%A1%A8%E5%A1%AB%EF%BC%88%E5%A4%A9%EF%BC%89%E5%9D%91%E7%AF%87%2F</url>
+    <content type="text"><![CDATA[1.echarts 图表大小随窗口变动而自适应变动（无需刷新浏览器调整）问题： 这是做过echarts图表的同学大部分都会遇到的坑，在应用echarts进行统计图制作时候会遇到这样的问题，进入渲染页面统计图比例显示ok，但是当主动调整浏览器大小时候，统计图比例并没有随窗口大小改变而自动调整到最佳视觉效果，比如下图，缩小窗口就会出现溢出的情况。 原因分析： echarts的图表实例事实上并没有主动的去绑定resize()事件，就是说显示区域大小发生改变内部并不知道，当你需要去做一些自适应的效果的时候，需要使用方主动的去绑定这个事件达到自适应的效果，常见如window.onresize = myChart.resize。 填坑： 12345678910111213141516171819202122232425262728var myChart = echarts.init(document.getElementById('main'));// 指定图表的配置项和数据var option = &#123; title: &#123; text: 'ECharts 入门示例' &#125;, tooltip: &#123;&#125;, legend: &#123; data:['销量'] &#125;, xAxis: &#123; data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"] &#125;, yAxis: &#123;&#125;, series: [&#123; name: '销量', type: 'bar', data: [5, 20, 36, 10, 10, 20] &#125;]&#125;;// 使用刚指定的配置项和数据显示图表。myChart.setOption(option);//根据窗口的大小变动图表 --- 重点window.onresize = function()&#123; myChart.resize(); //myChart1.resize(); //若有多个图表变动，可多写&#125; 2.解决Vue+Echarts的内存泄漏问题问题： 当页面存在echarts图表的时候，跳转路由到其他页面，然后来回切换的时候，打开浏览器调试工具，会发现页面占用内存持续增加，如下图所示：前几次切换页面可以正常生成图表，但是当切换多次以后，页面会出现空白或浏览器奔溃的情况，页面也不会报错并且无明显提示。很明显是发生了内存泄漏问题。 原因分析： 先说一个知识点： js中的内存垃圾回收机制：垃圾回收器会定期扫描内存，当某个内存中的值被引用为零时就会将其回收。当前变量已经使用完毕但依然被引用，导致垃圾回收器无法回收这就造成了内存泄漏。传统页面每次跳转都会释放内存，所以并不是特别明显。Web App 与 传统Web的区别，因为Web App是单页面应用页面通过路由跳转不会刷新页面，导致内存泄漏不断堆积，导致页面卡顿。 原因就是echarts图表初始化时引用了DOM对象，js不回对此自动回收，切换生成echarts时需要用到一部分内存，重复切换页面，之前生成的图表内存并没有进行清空，因此一直切换内存也一直叠加，最终导致内存溢出。 填坑： 1.在生成echarts之前进行判断，dom不存在时就不初始化echarts 2.去掉重复初始化echarts，这个主要就是在不需要使用时销毁实例。那么很自然想到官方API，查阅echarts官方API果然发现有这个方法： 代码示例： （1）页面容器： 12345&lt;template&gt; &lt;div class="chart-main"&gt; &lt;div ref="dom" :style="chartStyle"&gt;&lt;/div&gt; &lt;/div&gt;&lt;/template&gt; （2）初始化echarts方法： 1234567891011121314initChart() &#123; //-dom 不存在时不画 if (!this.$refs.dom) &#123; return &#125; //去掉重复初始化 this.myChart = echarts.getInstanceByDom(this.$refs.dom); if(!this.myChart)&#123; this.myChart = echarts.init(this.$refs.dom); this.$once('hook:beforeDestroy', function () &#123; echarts.dispose(this.myChart) &#125;) &#125; &#125; 没修改之前的代码： 123initChart() &#123; this.myChart = echarts.init(this.$refs.dom);&#125;]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>echarts</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue 组件间的通信（六种）]]></title>
+    <url>%2F2019%2F10%2F22%2FVue%20%E7%BB%84%E4%BB%B6%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%EF%BC%88%E5%85%AD%E7%A7%8D%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[组件是 vue.js最强大的功能之一，而组件实例的作用域是相互独立的，这就意味着不同组件之间的数据无法相互引用。一般来说，组件可以有以下几种关系如上图所示，A 和 B、B 和 C、B 和 D 都是父子关系，C 和 D 是兄弟关系，A 和 C 是隔代关系（可能隔多代）。 针对不同的使用场景，如何选择行之有效的通信方式？这是我们所要探讨的主题。 本文总结了vue组件间通信的几种方式，如props、$emit/$on、vuex、$parent / $children、$attrs/$listeners和provide/inject，以通俗易懂的实例讲述这其中的差别及使用场景，希望对小伙伴有些许帮助。 方案一：props/$emit父组件A通过props的方式向子组件B传递，B to A 通过在 B 组件中 $emit, A 组件中 v-on 的方式实现。 1.父组件向子组件传值 接下来我们通过一个例子，说明父组件如何向子组件传递值：在子组件Users.vue中如何获取父组件App.vue中的数据 users:[&quot;Henry&quot;,&quot;Bucky&quot;,&quot;Emily&quot;] 12345678910111213141516171819//App.vue父组件&lt;template&gt; &lt;div id="app"&gt; &lt;users v-bind:users="users"&gt;&lt;/users&gt;//前者自定义名称便于子组件调用，后者要传递数据名 &lt;/div&gt;&lt;/template&gt;&lt;script&gt;import Users from "./components/Users"export default &#123; name: 'App', data()&#123; return&#123; users:["Henry","Bucky","Emily"] &#125; &#125;, components:&#123; "users":Users &#125;&#125; 12345678910111213141516171819//users子组件&lt;template&gt; &lt;div class="hello"&gt; &lt;ul&gt; &lt;li v-for="user in users"&gt;&#123;&#123;user&#125;&#125;&lt;/li&gt;//遍历传递过来的值，然后呈现到页面 &lt;/ul&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;export default &#123; name: 'HelloWorld', props:&#123; users:&#123; //这个就是父组件中子标签自定义名字 type:Array, required:true &#125; &#125;&#125;&lt;/script&gt; 总结：父组件通过props向下传递数据给子组件。注：组件中的数据共有三种形式：data、props、computed 2.子组件向父组件传值（通过事件形式） 接下来我们通过一个例子，说明子组件如何向父组件传递值：当我们点击“Vue.js Demo”后，子组件向父组件传递值，文字由原来的“传递的是一个值”变成“子向父组件传值”，实现子组件向父组件值的传递。 123456789101112131415161718192021// 子组件&lt;template&gt; &lt;header&gt; &lt;h1 @click="changeTitle"&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;//绑定一个点击事件 &lt;/header&gt;&lt;/template&gt;&lt;script&gt;export default &#123; name: 'app-header', data() &#123; return &#123; title:"Vue.js Demo" &#125; &#125;, methods:&#123; changeTitle() &#123; this.$emit("titleChanged","子向父组件传值");//自定义事件 传递值“子向父组件传值” &#125; &#125;&#125;&lt;/script&gt; 123456789101112131415161718192021222324252627// 父组件&lt;template&gt; &lt;div id="app"&gt; &lt;app-header v-on:titleChanged="updateTitle" &gt;&lt;/app-header&gt;//与子组件titleChanged自定义事件保持一致 // updateTitle($event)接受传递过来的文字 &lt;h2&gt;&#123;&#123;title&#125;&#125;&lt;/h2&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;import Header from "./components/Header"export default &#123; name: 'App', data()&#123; return&#123; title:"传递的是一个值" &#125; &#125;, methods:&#123; updateTitle(e)&#123; //声明这个函数 this.title = e; &#125; &#125;, components:&#123; "app-header":Header, &#125;&#125;&lt;/script&gt; 总结：子组件通过events给父组件发送消息，实际上就是子组件把自己的数据发送到父组件。 方案二：$emit/$on这种方法通过一个空的Vue实例作为中央事件总线（事件中心），用它来触发事件和监听事件,巧妙而轻量地实现了任何组件间的通信，包括父子、兄弟、跨级。当我们的项目比较大时，可以选择更好的状态管理解决方案vuex。 1.具体实现方式：123var Event=new Vue();Event.$emit(事件名,数据);Event.$on(事件名,data =&gt; &#123;&#125;); 2.举个例子： 假设兄弟组件有三个，分别是A、B、C组件，C组件如何获取A或者B组件的数据 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576&lt;div id="itany"&gt; &lt;my-a&gt;&lt;/my-a&gt; &lt;my-b&gt;&lt;/my-b&gt; &lt;my-c&gt;&lt;/my-c&gt;&lt;/div&gt;&lt;template id="a"&gt; &lt;div&gt; &lt;h3&gt;A组件：&#123;&#123;name&#125;&#125;&lt;/h3&gt; &lt;button @click="send"&gt;将数据发送给C组件&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;template id="b"&gt; &lt;div&gt; &lt;h3&gt;B组件：&#123;&#123;age&#125;&#125;&lt;/h3&gt; &lt;button @click="send"&gt;将数组发送给C组件&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;template id="c"&gt; &lt;div&gt; &lt;h3&gt;C组件：&#123;&#123;name&#125;&#125;，&#123;&#123;age&#125;&#125;&lt;/h3&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;var Event = new Vue();//定义一个空的Vue实例var A = &#123; template: '#a', data() &#123; return &#123; name: 'tom' &#125; &#125;, methods: &#123; send() &#123; Event.$emit('data-a', this.name); &#125; &#125;&#125;var B = &#123; template: '#b', data() &#123; return &#123; age: 20 &#125; &#125;, methods: &#123; send() &#123; Event.$emit('data-b', this.age); &#125; &#125;&#125;var C = &#123; template: '#c', data() &#123; return &#123; name: '', age: "" &#125; &#125;, mounted() &#123;//在模板编译完成后执行 Event.$on('data-a',name =&gt; &#123; this.name = name;//箭头函数内部不会产生新的this，这边如果不用=&gt;,this指代Event &#125;) Event.$on('data-b',age =&gt; &#123; this.age = age; &#125;) &#125;&#125;var vm = new Vue(&#123; el: '#itany', components: &#123; 'my-a': A, 'my-b': B, 'my-c': C &#125;&#125;); &lt;/script&gt; $on 监听了自定义事件 data-a和data-b，因为有时不确定何时会触发事件，一般会在 mounted 或 created 钩子中来监听。 方案三：vuex 1.简要介绍Vuex原理 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。 而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，但Action也是无法直接修改State的，还是需要通过Mutation来修改State的数据。最后，根据State的变化，渲染到视图上。 2.简要介绍各模块在流程中的功能： Vue Components：Vue组件。HTML页面上，负责接收用户操作等交互行为，执行dispatch方法触发对应action进行回应。 dispatch：操作行为触发方法，是唯一能执行action的方法。 actions：操作行为处理模块,由组件中的$store.dispatch(‘action 名称’, data1)来触发。然后由commit()来触发mutation的调用 , 间接更新 state。负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。 commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。 mutations：状态改变操作方法，由actions中的commit(‘mutation 名称’)来触发。是Vuex修改state的唯一推荐方法。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。 state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。 getters：state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。 3.Vuex与localStorage vuex 是 vue 的状态管理器，存储的数据是响应式的。但是并不会保存起来，刷新之后就回到了初始状态，具体做法应该在vuex里数据改变的时候把数据拷贝一份保存到localStorage里面，刷新之后，如果localStorage里有保存的数据，取出来再替换store里的state 1234567891011121314151617181920let defaultCity = "上海"try &#123; // 用户关闭了本地存储功能，此时在外层加个try...catch if (!defaultCity)&#123; defaultCity = JSON.parse(window.localStorage.getItem('defaultCity')) &#125;&#125;catch(e)&#123;&#125;export default new Vuex.Store(&#123; state: &#123; city: defaultCity &#125;, mutations: &#123; changeCity(state, city) &#123; state.city = city try &#123; window.localStorage.setItem('defaultCity', JSON.stringify(state.city)); // 数据改变的时候把数据拷贝一份保存到localStorage里面 &#125; catch (e) &#123;&#125; &#125; &#125;&#125;) 这里需要注意的是：由于vuex里，我们保存的状态，都是数组，而localStorage只支持字符串，所以需要用JSON转换 12JSON.stringify(state.subscribeList); // array -&gt; stringJSON.parse(window.localStorage.getItem("subscribeList")); // string -&gt; array 方案四：$attrs/$listeners1.简介 多级组件嵌套需要传递数据时，通常使用的方法是通过vuex。但如果仅仅是传递数据，而不做中间处理，使用 vuex 处理，未免有点大材小用。为此Vue2.4 版本提供了另一种方法—-$attrs/$listeners $attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 (class 和 style 除外)，并且可以通过 v-bind=&quot;$attrs&quot; 传入内部组件。通常配合 inheritAttrs 选项一起使用。 $listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on=&quot;$listeners&quot; 传入内部组件 2.例子 123456789101112131415161718192021222324252627// index.vue&lt;template&gt; &lt;div&gt; &lt;h2&gt;浪里行舟&lt;/h2&gt; &lt;child-com1 :foo="foo" :boo="boo" :coo="coo" :doo="doo" title="前端工匠" &gt;&lt;/child-com1&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;const childCom1 = () =&gt; import("./childCom1.vue");export default &#123; components: &#123; childCom1 &#125;, data() &#123; return &#123; foo: "Javascript", boo: "Html", coo: "CSS", doo: "Vue" &#125;; &#125;&#125;;&lt;/script&gt; 1234567891011121314151617181920212223// childCom1.vue&lt;template class="border"&gt; &lt;div&gt; &lt;p&gt;foo: &#123;&#123; foo &#125;&#125;&lt;/p&gt; &lt;p&gt;childCom1的$attrs: &#123;&#123; $attrs &#125;&#125;&lt;/p&gt; &lt;child-com2 v-bind="$attrs"&gt;&lt;/child-com2&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;const childCom2 = () =&gt; import("./childCom2.vue");export default &#123; components: &#123; childCom2 &#125;, inheritAttrs: false, // 可以关闭自动挂载到组件根元素上的没有在props声明的属性 props: &#123; foo: String // foo作为props属性绑定 &#125;, created() &#123; console.log(this.$attrs); // &#123; "boo": "Html", "coo": "CSS", "doo": "Vue", "title": "前端工匠" &#125; &#125;&#125;;&lt;/script&gt; 1234567891011121314151617181920212223// childCom2.vue&lt;template&gt; &lt;div class="border"&gt; &lt;p&gt;boo: &#123;&#123; boo &#125;&#125;&lt;/p&gt; &lt;p&gt;childCom2: &#123;&#123; $attrs &#125;&#125;&lt;/p&gt; &lt;child-com3 v-bind="$attrs"&gt;&lt;/child-com3&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;const childCom3 = () =&gt; import("./childCom3.vue");export default &#123; components: &#123; childCom3 &#125;, inheritAttrs: false, props: &#123; boo: String &#125;, created() &#123; console.log(this.$attrs); // &#123; "coo": "CSS", "doo": "Vue", "title": "前端工匠" &#125; &#125;&#125;;&lt;/script&gt; 1234567891011121314// childCom3.vue&lt;template&gt; &lt;div class="border"&gt; &lt;p&gt;childCom3: &#123;&#123; $attrs &#125;&#125;&lt;/p&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;export default &#123; props: &#123; coo: String, title: String &#125;&#125;;&lt;/script&gt; 如上图所示$attrs表示没有继承数据的对象，格式为{属性名：属性值}。Vue2.4提供了$attrs , $listeners 来传递数据与事件，跨级组件之间的通讯变得更简单。 简单来说：$attrs与$listeners 是两个对象，$attrs 里存放的是父组件中绑定的非 Props 属性，$listeners里存放的是父组件中绑定的非原生事件。 方案五：provide/inject1.简介 Vue2.2.0新增API,这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。一言而蔽之：祖先组件中通过provider来提供变量，然后在子孙组件中通过inject来注入变量。 provide / inject API 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。 2.例子假设有两个组件： A.vue 和 B.vue，B 是 A 的子组件 123456// A.vueexport default &#123; provide: &#123; name: '浪里行舟' &#125;&#125; 1234567// B.vueexport default &#123; inject: ['name'], mounted () &#123; console.log(this.name); // 浪里行舟 &#125;&#125; 可以看到，在 A.vue 里，我们设置了一个 provide: name，值为 浪里行舟，它的作用就是将 name 这个变量提供给它的所有子组件。而在 B.vue 中，通过 inject 注入了从 A 组件中提供的 name 变量，那么在组件 B 中，就可以直接通过 this.name 访问这个变量了，它的值也是 浪里行舟。这就是 provide / inject API 最核心的用法。 需要注意的是：provide 和 inject 绑定并不是可响应的。这是刻意为之的。然而，如果你传入了一个可监听的对象，那么其对象的属性还是可响应的—-vue官方文档所以，上面 A.vue 的 name 如果改变了，B.vue 的 this.name 是不会改变的，仍然是 浪里行舟。 3.provide与inject 怎么实现数据响应式 一般来说，有两种办法： provide祖先组件的实例，然后在子孙组件中注入依赖，这样就可以在子孙组件中直接修改祖先组件的实例的属性，不过这种方法有个缺点就是这个实例上挂载很多没有必要的东西比如props，methods 使用2.6最新API Vue.observable 优化响应式 provide(推荐) 我们来看个例子：孙组件D、E和F获取A组件传递过来的color值，并能实现数据响应式变化，即A组件的color变化后，组件D、E、F会跟着变（核心代码如下：） 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152// A 组件 &lt;div&gt; &lt;h1&gt;A 组件&lt;/h1&gt; &lt;button @click="() =&gt; changeColor()"&gt;改变color&lt;/button&gt; &lt;ChildrenB /&gt; &lt;ChildrenC /&gt;&lt;/div&gt;...... data() &#123; return &#123; color: "blue" &#125;; &#125;, // provide() &#123; // return &#123; // theme: &#123; // color: this.color //这种方式绑定的数据并不是可响应的 // &#125; // 即A组件的color变化后，组件D、E、F不会跟着变 // &#125;; // &#125;, provide() &#123; return &#123; theme: this//方法一：提供祖先组件的实例 &#125;; &#125;, methods: &#123; changeColor(color) &#123; if (color) &#123; this.color = color; &#125; else &#123; this.color = this.color === "blue" ? "red" : "blue"; &#125; &#125; &#125; // 方法二:使用2.6最新API Vue.observable 优化响应式 provide // provide() &#123; // this.theme = Vue.observable(&#123; // color: "blue" // &#125;); // return &#123; // theme: this.theme // &#125;; // &#125;, // methods: &#123; // changeColor(color) &#123; // if (color) &#123; // this.theme.color = color; // &#125; else &#123; // this.theme.color = this.theme.color === "blue" ? "red" : "blue"; // &#125; // &#125; // &#125; 虽说provide 和 inject 主要为高阶插件/组件库提供用例，但如果你能在业务中熟练运用，可以达到事半功倍的效果！ 方案六：$parent / $children与 ref ref：如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例 $parent / $children：访问父 / 子实例 需要注意的是：这两种都是直接得到组件实例，使用后可以直接调用组件的方法或访问数据。我们先来看个用 ref来访问组件的例子： 12345678910111213// component-a 子组件export default &#123; data () &#123; return &#123; title: 'Vue.js' &#125; &#125;, methods: &#123; sayHello () &#123; window.alert('Hello'); &#125; &#125;&#125; 12345678910111213// 父组件&lt;template&gt; &lt;component-a ref="comA"&gt;&lt;/component-a&gt;&lt;/template&gt;&lt;script&gt; export default &#123; mounted () &#123; const comA = this.$refs.comA; console.log(comA.title); // Vue.js comA.sayHello(); // 弹窗 &#125; &#125;&lt;/script&gt; 不过，这两种方法的弊端是，无法在跨级或兄弟间通信。 1234// parent.vue&lt;component-a&gt;&lt;/component-a&gt;&lt;component-b&gt;&lt;/component-b&gt;&lt;component-b&gt;&lt;/component-b&gt; 我们想在 component-a 中，访问到引用它的页面中（这里就是 parent.vue）的两个 component-b 组件，那这种情况下，就得配置额外的插件或工具了，比如 Vuex 和 Bus 的解决方案。 总结常见使用场景可以分为三类： 父子通信：父向子传递数据是通过 props，子向父是通过 events（$emit）；通过父链 / 子链也可以通信（$parent / $children）；ref 也可以访问组件实例；provide / inject API；$attrs/$listeners 兄弟通信：Bus；Vuex 跨级通信：Bus；Vuex；provide / inject API、$attrs/$listeners]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ES6的Set和Map数据结构]]></title>
     <url>%2F2019%2F10%2F13%2FES6%E7%9A%84Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%2F</url>
     <content type="text"><![CDATA[最近在写业务代码的时候经常碰到数组或者对象去重问题，常用的方法当然就是遍历，然后，我自己搜了一下有没有更简洁的做法，发现了es6的Set和Map数据结构也可以用于去重，最主要的是省了好多代码。 那么Set和Map到底是何方神圣呢，刚开始看的时候越看越懵逼，因为我不明白实现这样的数据结构，目的是什么，意义又是什么呢？ Set和Map主要的应用场景在于数组去重和数据存储，幸运的是在读了关于数据结构和算法之类的书籍后，恍然大悟的发现 原来Set是一种叫做集合的数据结构，Map是一种叫做字典的数据结构 那么下面就跟随我一起去了解下这两种数据结构，最后来亲手实现的一个ES6中的Set和Map吧 集合 集合是由一组无序且唯一(即不能重复)的项组成的，可以想象成集合是一个既没有重复元素，也没有顺序概念的数组 ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值 Set 本身是一个构造函数，用来生成 Set数据结构 这里说的Set其实就是我们所要讲到的集合，先来看下基础用法 1234567891011const s = new Set();[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));for (let i of s) &#123; console.log(i); // 2 3 5 4&#125;// 去除数组的重复成员let array = [1,2,1,4,5,3];[...new Set(array)] // [1, 2, 4, 5, 3] Set实例的属性和方法Set的属性： size：返回集合所包含元素的数量 Set的方法：操作方法—— add(value)：向集合添加一个新的项 delete(value)：从集合中移除一个值 has(value)：如果值在集合中存在，返回true,否则false clear(): 移除集合里所有的项 遍历方法—— keys()：返回一个包含集合中所有键的数组 values()：返回一个包含集合中所有值的数组 entries：返回一个包含集合中所有键值对的数组(感觉没什么用就不实现了) forEach()：用于对集合成员执行某种操作，没有返回值 Set完整实现在此，先给大家贴一下完整的实现代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115function Set(arr = []) &#123; let items = &#123;&#125;; this.size = 0; // has方法 this.has = function (val) &#123; return items.hasOwnProperty(val); &#125;; // add方法 this.add = function (val) &#123; // 如果没有存在items里面就可以直接写入 if (!this.has(val)) &#123; items[val] = val; this.size++; return true; &#125; return false; &#125;; arr.forEach((val, i) =&gt; &#123; this.add(val); &#125;); // delete方法 this.delete = function (val) &#123; if (this.has(val)) &#123; delete items[val]; // 将items对象上的属性删掉 this.size--; return true; &#125; return false; &#125;; // clear方法 this.clear = function () &#123; items = &#123;&#125;; this.size = 0; &#125;; // keys方法 this.keys = function () &#123; return Object.keys(items); &#125;; // values方法 this.values = function () &#123; return Object.values(items); &#125; // forEach方法 this.forEach = function (fn, context = this) &#123; for (let i = 0; i &lt; this.size; i++) &#123; let item = Object.keys(items)[i]; fn.call(context, item, item, items); &#125; &#125; // 并集 this.union = function (other) &#123; let union = new Set(); let values = this.values(); for (let i = 0; i &lt; values.length; i++) &#123; union.add(values[i]); &#125; values = other.values(); // 将values重新赋值为新的集合 for (let i = 0; i &lt; values.length; i++) &#123; union.add(values[i]); &#125; return union; &#125;; // 交集 this.intersect = function (other) &#123; let intersect = new Set(); let values = this.values(); for (let i = 0; i &lt; values.length; i++) &#123; if (other.has(values[i])) &#123; intersect.add(values[i]); &#125; &#125; return intersect; &#125;; // 差集 this.difference = function (other) &#123; let difference = new Set(); let values = this.values(); for (let i = 0; i &lt; values.length; i++) &#123; if (!other.has(values[i])) &#123; difference.add(values[i]); &#125; &#125; return difference; &#125;; // 子集 this.subset = function(other) &#123; if (this.size &gt; other.size) &#123; return false; &#125; else &#123; let values = this.values(); for (let i = 0; i &lt; values.length; i++) &#123; console.log(values[i]) console.log(other.values()) if (!other.has(values[i])) &#123; return false; &#125; &#125; return true; &#125; &#125;;&#125;module.exports = Set; 写了辣么多一起来测试一下吧 1234567891011121314151617181920212223242526const Set = require('./Set.js');let set = new Set([2, 1, 3]);console.log(set.keys()); // [ '1', '2', '3' ]console.log(set.values()); // [ 1, 2, 3 ]console.log(set.size); // 3set.delete(1);console.log(set.values()); // [ 2, 3 ]set.clear();console.log(set.size); // 0// 并集let a = [1, 2, 3];let b = new Set([4, 3, 2]);let union = new Set(a).union(b).values();console.log(union); // [ 1, 2, 3, 4 ]// 交集let c = new Set([4, 3, 2]);let intersect = new Set([1,2,3]).intersect(c).values();console.log(intersect); // [ 2, 3 ]// 差集let d = new Set([4, 3, 2]);let difference = new Set([1,2,3]).difference(d).values();// [1,2,3]和[4,3,2]的差集是1console.log(difference); // [ 1 ] 字典在数据结构还有一种结构叫做字典，它就是实现基于ES6中的Map类的结构 那么集合又和字典有什么区别呢： 共同点：集合、字典可以存储不重复的值 不同点：集合是以[值，值]的形式存储元素，字典是以[键，值]的形式存储 所以这一下让我们明白了，Map其实的主要用途也是用于存储数据的，相比于Object只提供“字符串—值”的对应，Map提供了“值—值”的对应。也就是说如果你需要“键值对”的数据结构，Map比Object更合适 下面来看一下基本使用： 12345678const m = new Map();const o = &#123;p: 'Hello World'&#125;;m.set(o, 'content')m.get(o) // "content"m.has(o) // truem.delete(o) // truem.has(o) // false 以上是Map的基本使用，还有更多有用的方法稍后会随着实现的深入分别展示 Map的属性和方法属性： size：返回字典所包含的元素个数 操作方法： set(key, val): 向字典中添加新元素 get(key):通过键值查找特定的数值并返回 has(key):如果键存在字典中返回true,否则false delete(key): 通过键值从字典中移除对应的数据 clear():将这个字典中的所有元素删除 遍历方法： keys():将字典中包含的所有键名以数组形式返回 values():将字典中包含的所有数值以数组形式返回 forEach()：遍历字典的所有成员 Map完整实现 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859function Map() &#123; let items = &#123;&#125;; this.size = 0; // 操作方法 // has方法 this.has = function(val) &#123; return items.hasOwnProperty(val); &#125;; // set(key, val)方法 this.set = function(key, val) &#123; items[key] = val; this.size++; &#125;; // get(key)方法 this.get = function(key) &#123; return this.has(key) ? items[key] : undefined; &#125;; // delete(key)方法 this.delete = function(key) &#123; if (this.has(key)) &#123; delete items[key]; this.size--; return true; &#125; return false; &#125;; // clear()方法 this.clear = function() &#123; items = &#123;&#125;; this.size = 0; &#125;; // 遍历方法 // keys()方法 this.keys = function() &#123; return Object.keys(items); &#125;; // values()方法 this.values = function() &#123; return Object.values(items); &#125;; // forEach(fn, context)方法 this.forEach = function(fn, context = this) &#123; for (let i = 0; i &lt; this.size; i++) &#123; let key = Object.keys(items)[i]; let value = Object.values(items)[i]; fn.call(context, value, key, items); &#125; &#125;;&#125;module.exports = Map; 再来看看下面的测试： 123456789101112131415// map.js // 使用Map类 const Map = require('./Map.js'); let m = new Map(); m.set('Jay', 'Jay的Chou'); m.set(true, '真的'); console.log(m.has('Chou')); // false console.log(m.size); // 2 console.log(m.keys()); // [ 'Jay', 'true' ] console.log(m.values()); // [ 'Jay的Chou', '真的' ] console.log(m.get('jay')); // undefined m.delete(true); console.log(m.keys()); // [ 'Jay' ] console.log(m.values()); // [ 'Jay的Chou' ]]]></content>
@@ -8,8 +43,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>es6</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -20,8 +55,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -32,8 +67,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -44,8 +79,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -56,8 +91,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -69,6 +104,7 @@
       </categories>
       <tags>
         <tag>vue</tag>
+        <tag>axios</tag>
       </tags>
   </entry>
   <entry>
@@ -90,8 +126,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -102,8 +138,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -115,7 +151,7 @@
       </categories>
       <tags>
         <tag>前端</tag>
-        <tag>VUE</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -126,8 +162,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -138,8 +174,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -150,8 +186,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -162,8 +198,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -174,8 +210,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -186,8 +222,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +234,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -243,8 +279,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>前端</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
