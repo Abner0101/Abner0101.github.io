@@ -7,18 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Categoria: JAVA - Old C</title>
+<title>JS变量的创建机制？ - Old C</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Old C">
-<meta property="og:url" content="https://jdsheng.cn/categories/JAVA/index.html">
+    <meta name="description" content="JS怎么创建变量？ 12var a;function b()&amp;#123;&amp;#125;">
+<meta name="keywords" content="js,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS变量的创建机制？">
+<meta property="og:url" content="https://jdsheng.cn/2019/12/09/JS变量的创建机制/index.html">
 <meta property="og:site_name" content="Old C">
+<meta property="og:description" content="JS怎么创建变量？ 12var a;function b()&amp;#123;&amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jdsheng.cn/images/og_image.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg">
+<meta property="og:updated_time" content="2019-12-09T03:08:23.573Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Old C">
-<meta name="twitter:image" content="https://jdsheng.cn/images/og_image.png">
+<meta name="twitter:title" content="JS变量的创建机制？">
+<meta name="twitter:description" content="JS怎么创建变量？ 12var a;function b()&amp;#123;&amp;#125;">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg">
 
 
 
@@ -92,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/touch-icon.png" alt="Old C" height="28">
+                <img src="/images/touch-icon.png" alt="JS变量的创建机制？" height="28">
             
             </a>
         </div>
@@ -134,65 +139,116 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/categories">Categorias</a></li>
-            
-            <li class="is-active"><a href="#" aria-current="page">JAVA</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-image">
-        <a href="/2019/11/08/Java 函数式编程入门/" class="image is-7by1">
-            <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=298411564,831908715&amp;fm=26&amp;gp=0.jpg" alt="Java函数式编程入门">
-        </a>
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://static001.geekbang.org/resource/image/c3/ad/c3ffbc89e049ad1901d4108c8ad88aad.jpg" alt="JS变量的创建机制？">
+        </span>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-08T03:23:18.173Z">2019-11-08</time>
+                <time class="level-item has-text-grey" datetime="2019-12-09T03:03:40.068Z">2019-12-09</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/JAVA/">JAVA</a>
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    34 minutes read (About 5097 words)
+                    7 minutes read (About 1077 words)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/11/08/Java 函数式编程入门/">Java函数式编程入门</a>
+                JS变量的创建机制？
             
         </h1>
         <div class="content">
-            <h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h3 id="Lambda-表达式介绍"><a href="#Lambda-表达式介绍" class="headerlink" title="Lambda 表达式介绍"></a>Lambda 表达式介绍</h3><blockquote>
-<p>是没有声明的方法，也即没有访问修饰符、返回值声明和名字。</p>
-</blockquote>
+            <p>JS怎么创建变量？</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> a;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">b</span>(<span class="hljs-params"></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>那么它们具体存储在哪里，又怎么运行？</p>
+<p>这次，就聊聊JS的堆栈内存和变量的创建机制。</p>
+<h2 id="1-堆栈内存"><a href="#1-堆栈内存" class="headerlink" title="1.堆栈内存"></a>1.堆栈内存</h2><p>在了解变量创建机制之前，先来了解一下变量的存储空间。</p>
+<p>存储空间分为栈内存和堆内存。</p>
+<p><strong>栈内存：作用域</strong></p>
+<ul>
+<li>提供一个供 JS 代码自上而下执行的环境（代码都是在栈内存中执行的）</li>
+<li>存储基本类型值。由于基本类型比较简单，它们都是直接在栈内存中开辟一个位置，直接把值存储进去的</li>
+</ul>
+<p><strong>堆内存：引用值对应的空间</strong></p>
+<ul>
+<li>对象：键值对</li>
+<li>函数：代码字符串</li>
+</ul>
+<p>由于引用类型的值可能过于复杂，所以需要另外开辟空间来存储，而变量中存储的只是指向这个空间的地址。</p>
+<h2 id="2-变量的创建"><a href="#2-变量的创建" class="headerlink" title="2. 变量的创建"></a>2. 变量的创建</h2><p>（1）创建作用域<br>当浏览器（内核/引擎）渲染和解析 JS 代码的时候，会提供一个供 JS 代码运行的环境，这个环境称为“全局作用域”（global / window scope），是一个栈内存</p>
+<p>（2）进行变量提升<br>将在作用域中使用 var / function 声明的变量进行提升。其中</p>
+<ul>
+<li>var 声明的变量只提升声明，不定义</li>
+<li>function 声明的变量，既提升声明，也提升定义</li>
+</ul>
+<p>（3）代码自上而下执行</p>
+<p><strong>基本数据类型</strong>的值会存储在当前作用域下，以 <code>var a = 12</code> 为例</p>
+<ul>
+<li>首先在当前作用域中声明一个变量 a（这一步会在变量提升阶段完成，执行时会忽略这个声明）</li>
+<li>然后开辟一个空间存储值 12</li>
+<li>最后让<strong>声明的变量与存储的值进行关联</strong>（就是赋值操作，也叫做定义）</li>
+</ul>
+<p>基本数据类型（也叫做值类型），是按照值来操作的：把原有的值赋值一份放到新的空间或者位置上，和原来的值没有关系</p>
+<p><strong>引用数据类型</strong>的值，我们需要开辟一个新的空间（理解为仓库），把内容存储到这个空间中</p>
+<ul>
+<li>首先声明一个变量（同样，这一步是在变量提升阶段完成，执行时会忽略这个声明）</li>
+<li>然后开辟一个新的内存空间，把对象中的键值对依次存储起来（此空间有个 16 进制的地址）</li>
+<li>让变量与空间地址关联起来（把空间地址赋值给变量）</li>
+</ul>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> obj = &#123;</span><br><span class="line">  n: <span class="hljs-number">10</span>,</span><br><span class="line">  m: obj.n * <span class="hljs-number">10</span></span><br><span class="line">  <span class="hljs-comment">//=&gt; Uncaught TypeError: Cannot read property 'n' of undefined</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="hljs-built_in">console</span>.log(obj.m);</span><br></pre></td></tr></table></figure>
+<p>原因分析</p>
+<p>1.形成一个全局作用域（栈内存）<br>2.代码自上而下执行</p>
+<ul>
+<li>首先开辟一个新的堆内存，把键值对存储到对内存中 <code>n: 10, m: obj.n * 10</code></li>
+<li>此时堆内存信息还没有存储完成，空间地址还没有与变量 obj 关联，此时的 <code>obj</code> 是 <code>undefined</code>，<code>obj.n &lt;=&gt; undefined.n</code>，所以报错</li>
+</ul>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> obj = &#123;</span><br><span class="line">  n: <span class="hljs-number">10</span></span><br><span class="line">&#125;;</span><br><span class="line">obj.m = obj.n * <span class="hljs-number">10</span>; <span class="hljs-comment">// 此时的 obj 已经有值了</span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(obj.m); <span class="hljs-comment">//=&gt; 100</span></span><br></pre></td></tr></table></figure>
+<p>引用类型不是按照值来操作，它操作的是空间的地址：把原有空间地址赋值给新的变量，但是原来的空间没有被克隆，还是同一个空间，这样就会出现多个变量关联的是相同的空间，相互之间就会存在影响。</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> arr1 = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>];</span><br><span class="line"><span class="hljs-keyword">var</span> arr2 = arr1;</span><br><span class="line">arr2[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">arr2 = [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>];</span><br><span class="line">arr2[<span class="hljs-number">1</span>] = <span class="hljs-number">2</span>;</span><br><span class="line">arr1[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-built_in">console</span>.log(arr1, arr2); <span class="hljs-comment">//=&gt; 1, 0, 4, 2</span></span><br></pre></td></tr></table></figure>
+<p>原因分析：</p>
+<ol>
+<li>数组也是对象，属于引用类型，会开辟一个新的堆内存保存 <code>[3,4]</code><ol start="2">
+<li>往下，<code>arr2 = arr1</code>，此时两个变量同时保存一个堆内存的地址</li>
+<li>改变 <code>arr2</code> 会反映到 <code>arr1</code>，此时 <code>arr1: [1,4] arr2: [1,4]</code></li>
+<li>新开辟一个堆内存，保存 <code>[4,5]</code>，然后再把地址赋值给 <code>arr2</code></li>
+<li>此时两个变量关联的内存不再一样，对其的操作不再相互影响，此时 <code>arr1: [1,4] arr2:[4,5]</code></li>
+<li>再次赋值后，<code>arr1: [1,0] arr2: [4,2]</code></li>
+</ol>
+</li>
+</ol>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/11/08/Java 函数式编程入门/#more">Read More</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/js/">js</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -200,9 +256,47 @@
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/12/09/JS内存管理机制/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JS内存管理机制？</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/08/Java 函数式编程入门/">
+                <span class="level-item">Java函数式编程入门</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -1151,7 +1245,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/touch-icon.png" alt="Old C" height="28">
+                    <img src="/images/touch-icon.png" alt="JS变量的创建机制？" height="28">
                 
                 </a>
                 <p class="is-size-7">
