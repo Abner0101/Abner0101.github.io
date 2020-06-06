@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Vue 组件间的通信（六种） - Old C</title>
+
+
+    <meta name="description" content="组件是 vue.js最强大的功能之一，而组件实例的作用域是相互独立的，这就意味着不同组件之间的数据无法相互引用。">
+<meta name="keywords" content="前端,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 组件间的通信（六种）">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/06/Vue 组件间的通信（六种）/index.html">
+<meta property="og:site_name" content="Old C">
+<meta property="og:description" content="组件是 vue.js最强大的功能之一，而组件实例的作用域是相互独立的，这就意味着不同组件之间的数据无法相互引用。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&fm=26&gp=0.jpg">
+<meta property="og:updated_time" content="2019-10-22T14:13:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 组件间的通信（六种）">
+<meta name="twitter:description" content="组件是 vue.js最强大的功能之一，而组件实例的作用域是相互独立的，这就意味着不同组件之间的数据无法相互引用。">
+<meta name="twitter:image" content="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&fm=26&gp=0.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/touch-icon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/touch-icon.png" alt="Vue 组件间的通信（六种）" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="Vue 组件间的通信（六种）">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:23.258Z">2020-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    25 minutes read (About 3809 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Vue 组件间的通信（六种）
+            
+        </h1>
+        <div class="content">
+            <p>组件是 vue.js最强大的功能之一，而组件实例的作用域是相互独立的，这就意味着不同组件之间的数据无法相互引用。<a id="more"></a>一般来说，组件可以有以下几种关系<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS81LzE3LzE2YWMzNWJmNzA1MzAzMTU?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>如上图所示，A 和 B、B 和 C、B 和 D 都是父子关系，C 和 D 是兄弟关系，A 和 C 是隔代关系（可能隔多代）。</p>
+<p>针对不同的使用场景，如何选择行之有效的通信方式？这是我们所要探讨的主题。</p>
+<p>本文总结了vue组件间通信的几种方式，如<code>props</code>、<code>$emit/$on</code>、<code>vuex</code>、<code>$parent / $children</code>、<code>$attrs/$listeners</code>和<code>provide/inject</code>，以通俗易懂的实例讲述这其中的差别及使用场景，希望对小伙伴有些许帮助。</p>
+<h4 id="方案一：props-emit"><a href="#方案一：props-emit" class="headerlink" title="方案一：props/$emit"></a>方案一：<code>props/$emit</code></h4><p>父组件A通过<code>props</code>的方式向子组件B传递，B to A 通过在 B 组件中 <code>$emit</code>, A 组件中 v-on 的方式实现。</p>
+<p><strong>1.父组件向子组件传值</strong></p>
+<p>接下来我们通过一个例子，说明父组件如何向子组件传递值：在子组件Users.vue中如何获取父组件App.vue中的数据 <code>users:[&quot;Henry&quot;,&quot;Bucky&quot;,&quot;Emily&quot;]</code></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//App.vue父组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=<span class="hljs-string">"app"</span>&gt;</span><br><span class="line">    &lt;users v-bind:users=<span class="hljs-string">"users"</span>&gt;&lt;<span class="hljs-regexp">/users&gt;/</span><span class="hljs-regexp">/前者自定义名称便于子组件调用，后者要传递数据名</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;script&gt;</span></span><br><span class="line"><span class="hljs-regexp">import Users from "./</span>components/Users<span class="hljs-string">"</span></span><br><span class="line"><span class="hljs-string">export default &#123;</span></span><br><span class="line"><span class="hljs-string">  name: 'App',</span></span><br><span class="line"><span class="hljs-string">  data()&#123;</span></span><br><span class="line"><span class="hljs-string">    return&#123;</span></span><br><span class="line"><span class="hljs-string">      users:["</span>Henry<span class="hljs-string">","</span>Bucky<span class="hljs-string">","</span>Emily<span class="hljs-string">"]</span></span><br><span class="line"><span class="hljs-string">    &#125;</span></span><br><span class="line"><span class="hljs-string">  &#125;,</span></span><br><span class="line"><span class="hljs-string">  components:&#123;</span></span><br><span class="line"><span class="hljs-string">    "</span>users<span class="hljs-string">":Users</span></span><br><span class="line"><span class="hljs-string">  &#125;</span></span><br><span class="line"><span class="hljs-string">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//users子组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"hello"</span>&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li v-<span class="hljs-keyword">for</span>=<span class="hljs-string">"user in users"</span>&gt;&#123;&#123;user&#125;&#125;&lt;<span class="hljs-regexp">/li&gt;/</span><span class="hljs-regexp">/遍历传递过来的值，然后呈现到页面</span></span><br><span class="line"><span class="hljs-regexp">    &lt;/u</span>l&gt;</span><br><span class="line">  &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  name: <span class="hljs-string">'HelloWorld'</span>,</span><br><span class="line">  props:&#123;</span><br><span class="line">    users:&#123;           <span class="hljs-comment">//这个就是父组件中子标签自定义名字</span></span><br><span class="line">      type:<span class="hljs-built_in">Array</span>,</span><br><span class="line">      required:<span class="hljs-literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>总结：父组件通过props向下传递数据给子组件。注：组件中的数据共有三种形式：data、props、computed</p>
+<p><strong>2.子组件向父组件传值（通过事件形式）</strong></p>
+<p>接下来我们通过一个例子，说明子组件如何向父组件传递值：当我们点击“Vue.js Demo”后，子组件向父组件传递值，文字由原来的“传递的是一个值”变成“子向父组件传值”，实现子组件向父组件值的传递。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS81LzE3LzE2YWMzNWJmNzBhYzJkNTE?x-oss-process=image/format,png" alt="在这里插入图片描述"></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 子组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;h1 @click=<span class="hljs-string">"changeTitle"</span>&gt;&#123;&#123;title&#125;&#125;&lt;<span class="hljs-regexp">/h1&gt;/</span><span class="hljs-regexp">/绑定一个点击事件</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>header&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;script&gt;</span></span><br><span class="line"><span class="hljs-regexp">export default &#123;</span></span><br><span class="line"><span class="hljs-regexp">  name: 'app-header',</span></span><br><span class="line"><span class="hljs-regexp">  data() &#123;</span></span><br><span class="line"><span class="hljs-regexp">    return &#123;</span></span><br><span class="line"><span class="hljs-regexp">      title:"Vue.js Demo"</span></span><br><span class="line"><span class="hljs-regexp">    &#125;</span></span><br><span class="line"><span class="hljs-regexp">  &#125;,</span></span><br><span class="line"><span class="hljs-regexp">  methods:&#123;</span></span><br><span class="line"><span class="hljs-regexp">    changeTitle() &#123;</span></span><br><span class="line"><span class="hljs-regexp">      this.$emit("titleChanged","子向父组件传值");/</span><span class="hljs-regexp">/自定义事件  传递值“子向父组件传值”</span></span><br><span class="line"><span class="hljs-regexp">    &#125;</span></span><br><span class="line"><span class="hljs-regexp">  &#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 父组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=<span class="hljs-string">"app"</span>&gt;</span><br><span class="line">    &lt;app-header v-on:titleChanged=<span class="hljs-string">"updateTitle"</span> &gt;&lt;<span class="hljs-regexp">/app-header&gt;/</span><span class="hljs-regexp">/与子组件titleChanged自定义事件保持一致</span></span><br><span class="line"><span class="hljs-regexp">   /</span><span class="hljs-regexp">/ updateTitle($event)接受传递过来的文字</span></span><br><span class="line"><span class="hljs-regexp">    &lt;h2&gt;&#123;&#123;title&#125;&#125;&lt;/</span>h2&gt;</span><br><span class="line">  &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="hljs-keyword">import</span> Header <span class="hljs-keyword">from</span> <span class="hljs-string">"./components/Header"</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  name: <span class="hljs-string">'App'</span>,</span><br><span class="line">  data()&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span>&#123;</span><br><span class="line">      title:<span class="hljs-string">"传递的是一个值"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    updateTitle(e)&#123;   <span class="hljs-comment">//声明这个函数</span></span><br><span class="line">      <span class="hljs-keyword">this</span>.title = e;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">   <span class="hljs-string">"app-header"</span>:Header,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>总结：子组件通过events给父组件发送消息，实际上就是子组件把自己的数据发送到父组件。</p>
+<h4 id="方案二：-emit-on"><a href="#方案二：-emit-on" class="headerlink" title="方案二：$emit/$on"></a>方案二：<code>$emit/$on</code></h4><p>这种方法通过一个空的Vue实例作为中央事件总线（事件中心），用它来触发事件和监听事件,巧妙而轻量地实现了任何组件间的通信，包括父子、兄弟、跨级。当我们的项目比较大时，可以选择更好的状态管理解决方案vuex。</p>
+<p><strong>1.具体实现方式：</strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> Event=<span class="hljs-keyword">new</span> Vue();</span><br><span class="line">Event.$emit(事件名,数据);</span><br><span class="line">Event.$on(事件名,data =&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.举个例子：</strong></p>
+<p>假设兄弟组件有三个，分别是A、B、C组件，C组件如何获取A或者B组件的数据</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="hljs-string">"itany"</span>&gt;</span><br><span class="line">	&lt;my-a&gt;&lt;<span class="hljs-regexp">/my-a&gt;</span></span><br><span class="line"><span class="hljs-regexp">	&lt;my-b&gt;&lt;/my</span>-b&gt;</span><br><span class="line">	&lt;my-c&gt;&lt;<span class="hljs-regexp">/my-c&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>div&gt;</span><br><span class="line">&lt;template id=<span class="hljs-string">"a"</span>&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h3&gt;A组件：&#123;&#123;name&#125;&#125;&lt;<span class="hljs-regexp">/h3&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;button @click="send"&gt;将数据发送给C组件&lt;/</span>button&gt;</span><br><span class="line">  &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;template id=<span class="hljs-string">"b"</span>&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h3&gt;B组件：&#123;&#123;age&#125;&#125;&lt;<span class="hljs-regexp">/h3&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;button @click="send"&gt;将数组发送给C组件&lt;/</span>button&gt;</span><br><span class="line">  &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;template id=<span class="hljs-string">"c"</span>&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h3&gt;C组件：&#123;&#123;name&#125;&#125;，&#123;&#123;age&#125;&#125;&lt;<span class="hljs-regexp">/h3&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;script&gt;</span></span><br><span class="line"><span class="hljs-regexp">var Event = new Vue();/</span><span class="hljs-regexp">/定义一个空的Vue实例</span></span><br><span class="line"><span class="hljs-regexp">var A = &#123;</span></span><br><span class="line"><span class="hljs-regexp">	template: '#a',</span></span><br><span class="line"><span class="hljs-regexp">	data() &#123;</span></span><br><span class="line"><span class="hljs-regexp">	  return &#123;</span></span><br><span class="line"><span class="hljs-regexp">	    name: 'tom'</span></span><br><span class="line"><span class="hljs-regexp">	  &#125;</span></span><br><span class="line"><span class="hljs-regexp">	&#125;,</span></span><br><span class="line"><span class="hljs-regexp">	methods: &#123;</span></span><br><span class="line"><span class="hljs-regexp">	  send() &#123;</span></span><br><span class="line"><span class="hljs-regexp">	    Event.$emit('data-a', this.name);</span></span><br><span class="line"><span class="hljs-regexp">	  &#125;</span></span><br><span class="line"><span class="hljs-regexp">	&#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;</span></span><br><span class="line"><span class="hljs-regexp">var B = &#123;</span></span><br><span class="line"><span class="hljs-regexp">	template: '#b',</span></span><br><span class="line"><span class="hljs-regexp">	data() &#123;</span></span><br><span class="line"><span class="hljs-regexp">	  return &#123;</span></span><br><span class="line"><span class="hljs-regexp">	    age: 20</span></span><br><span class="line"><span class="hljs-regexp">	  &#125;</span></span><br><span class="line"><span class="hljs-regexp">	&#125;,</span></span><br><span class="line"><span class="hljs-regexp">	methods: &#123;</span></span><br><span class="line"><span class="hljs-regexp">	  send() &#123;</span></span><br><span class="line"><span class="hljs-regexp">	    Event.$emit('data-b', this.age);</span></span><br><span class="line"><span class="hljs-regexp">	  &#125;</span></span><br><span class="line"><span class="hljs-regexp">	&#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;</span></span><br><span class="line"><span class="hljs-regexp">var C = &#123;</span></span><br><span class="line"><span class="hljs-regexp">	template: '#c',</span></span><br><span class="line"><span class="hljs-regexp">	data() &#123;</span></span><br><span class="line"><span class="hljs-regexp">	  return &#123;</span></span><br><span class="line"><span class="hljs-regexp">	    name: '',</span></span><br><span class="line"><span class="hljs-regexp">	    age: ""</span></span><br><span class="line"><span class="hljs-regexp">	  &#125;</span></span><br><span class="line"><span class="hljs-regexp">	&#125;,</span></span><br><span class="line"><span class="hljs-regexp">	mounted() &#123;/</span><span class="hljs-regexp">/在模板编译完成后执行</span></span><br><span class="line"><span class="hljs-regexp">	 Event.$on('data-a',name =&gt; &#123;</span></span><br><span class="line"><span class="hljs-regexp">	     this.name = name;/</span><span class="hljs-regexp">/箭头函数内部不会产生新的this，这边如果不用=&gt;,this指代Event</span></span><br><span class="line"><span class="hljs-regexp">	 &#125;)</span></span><br><span class="line"><span class="hljs-regexp">	 Event.$on('data-b',age =&gt; &#123;</span></span><br><span class="line"><span class="hljs-regexp">	     this.age = age;</span></span><br><span class="line"><span class="hljs-regexp">	 &#125;)</span></span><br><span class="line"><span class="hljs-regexp">	&#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;</span></span><br><span class="line"><span class="hljs-regexp">var vm = new Vue(&#123;</span></span><br><span class="line"><span class="hljs-regexp">	el: '#itany',</span></span><br><span class="line"><span class="hljs-regexp">	components: &#123;</span></span><br><span class="line"><span class="hljs-regexp">	  'my-a': A,</span></span><br><span class="line"><span class="hljs-regexp">	  'my-b': B,</span></span><br><span class="line"><span class="hljs-regexp">	  'my-c': C</span></span><br><span class="line"><span class="hljs-regexp">	&#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;);	</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS81LzE3LzE2YWMzNWJmNzBiMDA1MDc?x-oss-process=image/format,png" alt="在这里插入图片描述"></p>
+<p><code>$on</code> 监听了自定义事件 <code>data-a</code>和<code>data-b</code>，因为有时不确定何时会触发事件，一般会在 <code>mounted</code> 或 <code>created</code> 钩子中来监听。</p>
+<h4 id="方案三：vuex"><a href="#方案三：vuex" class="headerlink" title="方案三：vuex"></a>方案三：vuex</h4><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS81LzE3LzE2YWMzNWJmNzBlZjhlYjE?x-oss-process=image/format,png" alt="在这里插入图片描述"></p>
+<p><strong>1.简要介绍Vuex原理</strong></p>
+<p>Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。</p>
+<p>而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，但Action也是无法直接修改State的，还是需要通过Mutation来修改State的数据。最后，根据State的变化，渲染到视图上。</p>
+<p><strong>2.简要介绍各模块在流程中的功能：</strong></p>
+<ul>
+<li>Vue Components：Vue组件。HTML页面上，负责接收用户操作等交互行为，执行<code>dispatch</code>方法触发对应action进行回应。<ul>
+<li>dispatch：操作行为触发方法，是唯一能执行<code>action</code>的方法。</li>
+<li>actions：操作行为处理模块,由组件中的<code>$store.dispatch</code>(‘action 名称’, data1)来触发。然后由commit()来触发mutation的调用 , 间接更新 state。负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他<code>action</code>以及提交<code>mutation</code>的操作。该模块提供了Promise的封装，以支持action的链式触发。</li>
+<li>commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</li>
+<li>mutations：状态改变操作方法，由actions中的commit(‘mutation 名称’)来触发。是Vuex修改state的唯一推荐方法。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</li>
+<li>state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。</li>
+<li>getters：state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3.Vuex与localStorage</strong></p>
+<p>vuex 是 vue 的状态管理器，存储的数据是响应式的。<strong>但是并不会保存起来，刷新之后就回到了初始状态</strong>，具体做法应该在vuex里数据改变的时候把数据拷贝一份保存到localStorage里面，刷新之后，如果localStorage里有保存的数据，取出来再替换store里的state</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> defaultCity = <span class="hljs-string">"上海"</span></span><br><span class="line"><span class="hljs-keyword">try</span> &#123;   <span class="hljs-comment">// 用户关闭了本地存储功能，此时在外层加个try...catch</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (!defaultCity)&#123;</span><br><span class="line">    defaultCity = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'defaultCity'</span>))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;<span class="hljs-keyword">catch</span>(e)&#123;&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    city: defaultCity</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    changeCity(state, city) &#123;</span><br><span class="line">      state.city = city</span><br><span class="line">      <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">      <span class="hljs-built_in">window</span>.localStorage.setItem(<span class="hljs-string">'defaultCity'</span>, <span class="hljs-built_in">JSON</span>.stringify(state.city));</span><br><span class="line">      <span class="hljs-comment">// 数据改变的时候把数据拷贝一份保存到localStorage里面</span></span><br><span class="line">      &#125; <span class="hljs-keyword">catch</span> (e) &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是：由于vuex里，我们保存的状态，都是数组，而localStorage只支持字符串，所以需要用JSON转换</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">JSON</span>.stringify(state.subscribeList);   <span class="hljs-comment">// array -&gt; string</span></span><br><span class="line"><span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">"subscribeList"</span>));    <span class="hljs-comment">// string -&gt; array</span></span><br></pre></td></tr></table></figure>
+<h4 id="方案四：-attrs-listeners"><a href="#方案四：-attrs-listeners" class="headerlink" title="方案四：$attrs/$listeners"></a>方案四：<code>$attrs/$listeners</code></h4><p><strong>1.简介</strong></p>
+<p>多级组件嵌套需要传递数据时，通常使用的方法是通过vuex。但如果仅仅是传递数据，而不做中间处理，使用 vuex 处理，未免有点大材小用。为此Vue2.4 版本提供了另一种方法—-<code>$attrs/$listeners</code></p>
+<ul>
+<li><code>$attrs</code>：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 (class 和 style 除外)，并且可以通过 <code>v-bind=&quot;$attrs&quot;</code> 传入内部组件。通常配合 inheritAttrs 选项一起使用。</li>
+<li><code>$listeners</code>：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 <code>v-on=&quot;$listeners&quot;</code> 传入内部组件</li>
+</ul>
+<p><strong>2.例子</strong></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// index.vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;浪里行舟&lt;<span class="hljs-regexp">/h2&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;child-com1</span></span><br><span class="line"><span class="hljs-regexp">      :foo="foo"</span></span><br><span class="line"><span class="hljs-regexp">      :boo="boo"</span></span><br><span class="line"><span class="hljs-regexp">      :coo="coo"</span></span><br><span class="line"><span class="hljs-regexp">      :doo="doo"</span></span><br><span class="line"><span class="hljs-regexp">      title="前端工匠"</span></span><br><span class="line"><span class="hljs-regexp">    &gt;&lt;/</span>child-com1&gt;</span><br><span class="line">  &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="hljs-keyword">const</span> childCom1 = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">"./childCom1.vue"</span>);</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  components: &#123; childCom1 &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">      foo: <span class="hljs-string">"Javascript"</span>,</span><br><span class="line">      boo: <span class="hljs-string">"Html"</span>,</span><br><span class="line">      coo: <span class="hljs-string">"CSS"</span>,</span><br><span class="line">      doo: <span class="hljs-string">"Vue"</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// childCom1.vue</span></span><br><span class="line">&lt;template <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"border"</span>&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;foo: &#123;&#123; foo &#125;&#125;&lt;<span class="hljs-regexp">/p&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;p&gt;childCom1的$attrs: &#123;&#123; $attrs &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">    &lt;child-com2 v-bind=<span class="hljs-string">"$attrs"</span>&gt;&lt;<span class="hljs-regexp">/child-com2&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;script&gt;</span></span><br><span class="line"><span class="hljs-regexp">const childCom2 = () =&gt; import("./</span>childCom2.vue<span class="hljs-string">");</span></span><br><span class="line"><span class="hljs-string">export default &#123;</span></span><br><span class="line"><span class="hljs-string">  components: &#123;</span></span><br><span class="line"><span class="hljs-string">    childCom2</span></span><br><span class="line"><span class="hljs-string">  &#125;,</span></span><br><span class="line"><span class="hljs-string">  inheritAttrs: false, // 可以关闭自动挂载到组件根元素上的没有在props声明的属性</span></span><br><span class="line"><span class="hljs-string">  props: &#123;</span></span><br><span class="line"><span class="hljs-string">    foo: String // foo作为props属性绑定</span></span><br><span class="line"><span class="hljs-string">  &#125;,</span></span><br><span class="line"><span class="hljs-string">  created() &#123;</span></span><br><span class="line"><span class="hljs-string">    console.log(this.$attrs); // &#123; "</span>boo<span class="hljs-string">": "</span>Html<span class="hljs-string">", "</span>coo<span class="hljs-string">": "</span>CSS<span class="hljs-string">", "</span>doo<span class="hljs-string">": "</span>Vue<span class="hljs-string">", "</span>title<span class="hljs-string">": "</span>前端工匠<span class="hljs-string">" &#125;</span></span><br><span class="line"><span class="hljs-string">  &#125;</span></span><br><span class="line"><span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// childCom2.vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"border"</span>&gt;</span><br><span class="line">    &lt;p&gt;boo: &#123;&#123; boo &#125;&#125;&lt;<span class="hljs-regexp">/p&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;p&gt;childCom2: &#123;&#123; $attrs &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">    &lt;child-com3 v-bind=<span class="hljs-string">"$attrs"</span>&gt;&lt;<span class="hljs-regexp">/child-com3&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;script&gt;</span></span><br><span class="line"><span class="hljs-regexp">const childCom3 = () =&gt; import("./</span>childCom3.vue<span class="hljs-string">");</span></span><br><span class="line"><span class="hljs-string">export default &#123;</span></span><br><span class="line"><span class="hljs-string">  components: &#123;</span></span><br><span class="line"><span class="hljs-string">    childCom3</span></span><br><span class="line"><span class="hljs-string">  &#125;,</span></span><br><span class="line"><span class="hljs-string">  inheritAttrs: false,</span></span><br><span class="line"><span class="hljs-string">  props: &#123;</span></span><br><span class="line"><span class="hljs-string">    boo: String</span></span><br><span class="line"><span class="hljs-string">  &#125;,</span></span><br><span class="line"><span class="hljs-string">  created() &#123;</span></span><br><span class="line"><span class="hljs-string">    console.log(this.$attrs); // &#123; "</span>coo<span class="hljs-string">": "</span>CSS<span class="hljs-string">", "</span>doo<span class="hljs-string">": "</span>Vue<span class="hljs-string">", "</span>title<span class="hljs-string">": "</span>前端工匠<span class="hljs-string">" &#125;</span></span><br><span class="line"><span class="hljs-string">  &#125;</span></span><br><span class="line"><span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// childCom3.vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"border"</span>&gt;</span><br><span class="line">    &lt;p&gt;childCom3: &#123;&#123; $attrs &#125;&#125;&lt;<span class="hljs-regexp">/p&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;script&gt;</span></span><br><span class="line"><span class="hljs-regexp">export default &#123;</span></span><br><span class="line"><span class="hljs-regexp">  props: &#123;</span></span><br><span class="line"><span class="hljs-regexp">    coo: String,</span></span><br><span class="line"><span class="hljs-regexp">    title: String</span></span><br><span class="line"><span class="hljs-regexp">  &#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS81LzE3LzE2YWMzNWJmNzdlNDQ3NDQ?x-oss-process=image/format,png" alt="在这里插入图片描述"></p>
+<p>如上图所示<code>$attrs</code>表示没有继承数据的对象，格式为{属性名：属性值}。Vue2.4提供了<code>$attrs , $listeners</code> 来传递数据与事件，跨级组件之间的通讯变得更简单。</p>
+<p>简单来说：<code>$attrs</code>与<code>$listeners</code> 是两个对象，<code>$attrs</code> 里存放的是父组件中绑定的非 Props 属性，$listeners里存放的是父组件中绑定的非原生事件。</p>
+<h4 id="方案五：provide-inject"><a href="#方案五：provide-inject" class="headerlink" title="方案五：provide/inject"></a>方案五：<code>provide/inject</code></h4><p><strong>1.简介</strong></p>
+<p>Vue2.2.0新增API,这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。一言而蔽之：祖先组件中通过<code>provider</code>来提供变量，然后在子孙组件中通过<code>inject</code>来注入变量。</p>
+<p><code>provide</code> / <code>inject</code> API 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。</p>
+<p><strong>2.例子</strong><br>假设有两个组件： A.vue 和 B.vue，B 是 A 的子组件</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// A.vue</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  provide: &#123;</span><br><span class="line">    name: <span class="hljs-string">'浪里行舟'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// B.vue</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  inject: [<span class="hljs-string">'name'</span>],</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);  <span class="hljs-comment">// 浪里行舟</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，在 A.vue 里，我们设置了一个 <code>provide: name</code>，值为 浪里行舟，它的作用就是将 <code>name</code> 这个变量提供给它的所有子组件。而在 B.vue 中，通过 <code>inject</code> 注入了从 A 组件中提供的 <code>name</code> 变量，那么在组件 B 中，就可以直接通过 <code>this.name</code> 访问这个变量了，它的值也是 浪里行舟。这就是 <code>provide</code> / <code>inject</code> API 最核心的用法。</p>
+<p>需要注意的是：<code>provide</code> 和 <code>inject</code> 绑定并不是可响应的。这是刻意为之的。然而，如果你传入了一个可监听的对象，那么其对象的属性还是可响应的—-vue官方文档<br>所以，上面 A.vue 的 <code>name</code> 如果改变了，B.vue 的 <code>this.name</code> 是不会改变的，仍然是 浪里行舟。</p>
+<p><strong>3.provide与inject 怎么实现数据响应式</strong></p>
+<p>一般来说，有两种办法：</p>
+<ul>
+<li>provide祖先组件的实例，然后在子孙组件中注入依赖，这样就可以在子孙组件中直接修改祖先组件的实例的属性，不过这种方法有个缺点就是这个实例上挂载很多没有必要的东西比如<code>props</code>，<code>methods</code></li>
+<li>使用2.6最新API <code>Vue.observable</code> 优化响应式 <code>provide</code>(推荐)</li>
+</ul>
+<p>我们来看个例子：孙组件D、E和F获取A组件传递过来的color值，并能实现数据响应式变化，即A组件的color变化后，组件D、E、F会跟着变（核心代码如下：）</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS81LzE3LzE2YWMzNWJmNzEzMWYzZGI?x-oss-process=image/format,png" alt="在这里插入图片描述"></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// A 组件 </span></span><br><span class="line">&lt;div&gt;</span><br><span class="line">      &lt;h1&gt;A 组件&lt;<span class="hljs-regexp">/h1&gt;</span></span><br><span class="line"><span class="hljs-regexp">      &lt;button @click="() =&gt; changeColor()"&gt;改变color&lt;/</span>button&gt;</span><br><span class="line">      &lt;ChildrenB /&gt;</span><br><span class="line">      &lt;ChildrenC /&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">......</span></span><br><span class="line"><span class="hljs-regexp">  data() &#123;</span></span><br><span class="line"><span class="hljs-regexp">    return &#123;</span></span><br><span class="line"><span class="hljs-regexp">      color: "blue"</span></span><br><span class="line"><span class="hljs-regexp">    &#125;;</span></span><br><span class="line"><span class="hljs-regexp">  &#125;,</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ provide() &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   return &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     theme: &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/       color: this.color /</span><span class="hljs-regexp">/这种方式绑定的数据并不是可响应的</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     &#125; /</span><span class="hljs-regexp">/ 即A组件的color变化后，组件D、E、F不会跟着变</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   &#125;;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ &#125;,</span></span><br><span class="line"><span class="hljs-regexp">  provide() &#123;</span></span><br><span class="line"><span class="hljs-regexp">    return &#123;</span></span><br><span class="line"><span class="hljs-regexp">      theme: this/</span><span class="hljs-regexp">/方法一：提供祖先组件的实例</span></span><br><span class="line"><span class="hljs-regexp">    &#125;;</span></span><br><span class="line"><span class="hljs-regexp">  &#125;,</span></span><br><span class="line"><span class="hljs-regexp">  methods: &#123;</span></span><br><span class="line"><span class="hljs-regexp">    changeColor(color) &#123;</span></span><br><span class="line"><span class="hljs-regexp">      if (color) &#123;</span></span><br><span class="line"><span class="hljs-regexp">        this.color = color;</span></span><br><span class="line"><span class="hljs-regexp">      &#125; else &#123;</span></span><br><span class="line"><span class="hljs-regexp">        this.color = this.color === "blue" ? "red" : "blue";</span></span><br><span class="line"><span class="hljs-regexp">      &#125;</span></span><br><span class="line"><span class="hljs-regexp">    &#125;</span></span><br><span class="line"><span class="hljs-regexp">  &#125;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ 方法二:使用2.6最新API Vue.observable 优化响应式 provide</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ provide() &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   this.theme = Vue.observable(&#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     color: "blue"</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   &#125;);</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   return &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     theme: this.theme</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   &#125;;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ &#125;,</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ methods: &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   changeColor(color) &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     if (color) &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/       this.theme.color = color;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     &#125; else &#123;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/       this.theme.color = this.theme.color === "blue" ? "red" : "blue";</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/     &#125;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/   &#125;</span></span><br><span class="line"><span class="hljs-regexp">  /</span><span class="hljs-regexp">/ &#125;</span></span><br></pre></td></tr></table></figure>
+<p>虽说<code>provide</code> 和 <code>inject</code> 主要为高阶插件/组件库提供用例，但如果你能在业务中熟练运用，可以达到事半功倍的效果！</p>
+<h4 id="方案六：-parent-children与-ref"><a href="#方案六：-parent-children与-ref" class="headerlink" title="方案六：$parent / $children与 ref"></a>方案六：<code>$parent / $children</code>与 <code>ref</code></h4><ul>
+<li><code>ref</code>：如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例</li>
+<li><code>$parent / $children</code>：访问父 / 子实例</li>
+</ul>
+<p>需要注意的是：这两种都是直接得到组件实例，使用后可以直接调用组件的方法或访问数据。我们先来看个用 <code>ref</code>来访问组件的例子：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// component-a 子组件</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">      title: <span class="hljs-string">'Vue.js'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sayHello () &#123;</span><br><span class="line">      <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Hello'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 父组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;component-a ref=<span class="hljs-string">"comA"</span>&gt;&lt;<span class="hljs-regexp">/component-a&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    mounted () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> comA = <span class="hljs-keyword">this</span>.$refs.comA;</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(comA.title);  <span class="hljs-comment">// Vue.js</span></span><br><span class="line">      comA.sayHello();  <span class="hljs-comment">// 弹窗</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不过，这两种方法的弊端是，无法在跨级或兄弟间通信。</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// parent.vue</span></span><br><span class="line">&lt;component-a&gt;&lt;<span class="hljs-regexp">/component-a&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;component-b&gt;&lt;/</span>component-b&gt;</span><br><span class="line">&lt;component-b&gt;&lt;<span class="hljs-regexp">/component-b&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们想在 component-a 中，访问到引用它的页面中（这里就是 parent.vue）的两个 component-b 组件，那这种情况下，就得配置额外的插件或工具了，比如 Vuex 和 Bus 的解决方案。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>常见使用场景可以分为三类：</p>
+<ul>
+<li>父子通信：父向子传递数据是通过 <code>props</code>，子向父是通过 <code>events（$emit）</code>；通过父链 / 子链也可以通信<code>（$parent / $children）</code>；<code>ref</code> 也可以访问组件实例；<code>provide / inject API</code>；<code>$attrs/$listeners</code></li>
+<li>兄弟通信：Bus；Vuex</li>
+<li>跨级通信：Bus；Vuex；<code>provide</code> / inject API、<code>$attrs/$listeners</code></li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/vue/">vue</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/vue中axios的封装和API接口的管理/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">vue中axios的封装和API接口的管理</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/06/PHP知识点积累/">
+                <span class="level-item">PHP知识点积累</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avator.jpg" alt="Old C">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Old C
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        A tossed cucumber
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangdong·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Articles
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Catégories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
+                SUIVRE</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Abner0101">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Liens
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.alloyteam.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">AlloyTeam</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.alloyteam.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.zhangxinxu.com/wordpress/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张鑫旭-鑫空间</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.zhangxinxu.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.daqianduan.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">大前端</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.daqianduan.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3cplus.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3cplus</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3cplus.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catégories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/BLOG/">
+            <span class="level-start">
+                <span class="level-item">BLOG</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/NODE-JS/">
+            <span class="level-start">
+                <span class="level-item">NODE JS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/PHP/">
+            <span class="level-start">
+                <span class="level-item">PHP</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端/">
+            <span class="level-start">
+                <span class="level-item">前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">23</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nuage de tags
+        </h3>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/touch-icon.png" alt="Vue 组件间的通信（六种）" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 老黄瓜&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Articles',
+                PAGES: 'Pages',
+                CATEGORIES: 'Catégories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

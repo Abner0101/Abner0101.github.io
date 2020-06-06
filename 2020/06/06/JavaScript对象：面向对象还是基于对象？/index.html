@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>JavaScript对象：面向对象还是基于对象？ - Old C</title>
+
+
+    <meta name="description" content="与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。">
+<meta name="keywords" content="前端,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript对象：面向对象还是基于对象？">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/06/JavaScript对象：面向对象还是基于对象？/index.html">
+<meta property="og:site_name" content="Old C">
+<meta property="og:description" content="与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&fm=26&gp=0.jpg">
+<meta property="og:updated_time" content="2019-10-02T03:33:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript对象：面向对象还是基于对象？">
+<meta name="twitter:description" content="与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&fm=26&gp=0.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/touch-icon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/touch-icon.png" alt="JavaScript对象：面向对象还是基于对象？" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="JavaScript对象：面向对象还是基于对象？">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.646Z">2020-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    26 minutes read (About 3851 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                JavaScript对象：面向对象还是基于对象？
+            
+        </h1>
+        <div class="content">
+            <div class="_1kh1ihh6_0"><br>  与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。<a id="more"></a><br>  一些新人在学习 JavaScript 面向对象时，往往也会有疑惑：<br>  <ul><br>    <li>为什么 JavaScript（直到 ES6）有对象的概念，但是却没有像其他的语言那样，有类的概念呢；</li><br>    <li>为什么在 JavaScript 对象里可以自由添加属性，而其他的语言却不能呢？</li><br>  </ul><br><br>  甚至，在一些争论中，有人强调：JavaScript 并非“面向对象的语言”，而是“基于对象的语言”。这个说法一度流传甚广，而事实上，我至今遇到的持有这一说法的人中，无一能够回答“如何定义面向对象和基于对象”这个问题。<br><br>  实际上，基于对象和面向对象两个形容词都出现在了 JavaScript 标准的各个版本当中。<br><br>  我们可以先看看 JavaScript 标准对基于对象的定义，这个定义的具体内容是：“语言和宿主的基础设施由对象来提供，并且 JavaScript 程序即是一系列互相通讯的对象集合”。<br><br>  这里的意思根本不是表达弱化的面向对象的意思，反而是表达对象对于语言的重要性。<br><br>  那么，在本篇文章中，我会尝试让你去理解面向对象和 JavaScript 中的面向对象究竟是什么。<br><br>  <h2>什么是面向对象？</h2><br>  我们先来说说什么是对象，因为翻译的原因，中文语境下我们很难理解“对象”的真正含义。事实上，Object（对象）在英文中，是一切事物的总称，这和面向对象编程的抽象思维有互通之处。<br><br>  中文的“对象”却没有这样的普适性，我们在学习编程的过程中，更多是把它当作一个专业名词来理解。<br><br>  但不论如何，我们应该认识到，对象并不是计算机领域凭空造出来的概念，它是顺着人类思维模式产生的一种抽象（于是面向对象编程也被认为是：更接近人类思维模式的一种编程范式）。<br><br>  那么，我们先来看看在人类思维模式下，对象究竟是什么。<br><br>  <blockquote><br>    <span class="reference">对象这一概念在人类的幼儿期形成，这远远早于我们编程逻辑中常用的值、过程等概念。</span><br>    <span class="reference">在幼年期，我们总是先认识到某一个苹果能吃（这里的某一个苹果就是一个对象），继而认识到所有的苹果都可以吃（这里的所有苹果，就是一个类），再到后来我们才能意识到三个苹果和三个梨之间的联系，进而产生数字“3”（值）的概念。</span><br>  </blockquote><br><br>  在《面向对象分析与设计》这本书中，Grady Booch 替我们做了总结，他认为，从人类的认知角度来说，对象应该是下列事物之一：<br>  <ol><br>    <li>一个可以触摸或者可以看见的东西；</li><br>    <li>人的智力可以理解的东西；</li><br>    <li>可以指导思考或行动（进行想象或施加动作）的东西。</li><br>  </ol><br>  有了对象的自然定义后，我们就可以描述编程语言中的对象了。在不同的编程语言中，设计者也利用各种不同的语言特性来抽象描述对象，最为成功的流派是使用“类”的方式来描述对象，这诞生了诸如 C++、Java 等流行的编程语言。<br><br>  而 JavaScript 早年却选择了一个更为冷门的方式：原型（关于原型，我在下一篇文章会重点介绍，这里你留个印象就可以了）。这是我在前面说它不合群的原因之一。<br><br>  然而很不幸，因为一些公司政治原因，JavaScript 推出之时受管理层之命被要求模仿 Java，所以，JavaScript 创始人 Brendan Eich 在“原型运行时”的基础上引入了 new、this等语言特性，使之“看起来更像 Java”。<br><br>  在 ES6 出现之前，大量的 JavaScript 程序员试图在原型体系的基础上，把 JavaScript 变得更像是基于类的编程，进而产生了很多所谓的“框架”，比如 PrototypeJS、Dojo。<br><br>  事实上，它们成为了某种 JavaScript 的古怪方言，甚至产生了一系列互不相容的社群，显然这样做的收益是远远小于损失的。<br>  如果我们从运行时角度来谈论对象，就是在讨论 JavaScript 实际运行中的模型，这是由于任何代码执行都必定绕不开运行时的对象模型。<br><br>  不过，幸运的是，从运行时的角度看，可以不必受到这些“基于类的设施”的困扰，这是因为任何语言运行时类的概念都是被弱化的。<br><br>  首先我们来了解一下 JavaScript 是如何设计对象模型的。<br><br>  <h2>JavaScript 对象的特征</h2><br>  在我看来，不论我们使用什么样的编程语言，我们都先应该去理解对象的本质特征（参考 Grandy Booch《面向对象分析与设计》）。总结来看，对象有如下几个特点。<br>  <ul><br>    <li>对象具有唯一标识性：即使完全相同的两个对象，也并非同一个对象。</li><br>    <li>对象有状态：对象具有状态，同一对象可能处于不同状态之下。</li><br>    <li>对象具有行为：即对象的状态，可能因为它的行为产生变迁。</li><br>  </ul><br>  我们先来看第一个特征，对象具有唯一标识性。一般而言，各种语言的对象唯一标识性都是用内存地址来体现的， 对象具有唯一标识的内存地址，所以具有唯一的标识。<br><br>  所以，JavaScript 程序员都知道，任何不同的 JavaScript 对象其实是互不相等的，我们可以看下面的代码，o1 和 o2 初看是两个一模一样的对象，但是打印出来的结果却是 false。<br><br><figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">var</span> <span class="hljs-string">o1</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">var</span> <span class="hljs-string">o2</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">console.log(o1</span> <span class="hljs-string">==</span> <span class="hljs-string">o2);</span> <span class="hljs-string">//</span> <span class="hljs-literal">false</span></span><br></pre></td></tr></table></figure><br><br>关于对象的第二个和第三个特征“状态和行为”，不同语言会使用不同的术语来抽象描述它们，比如 C++ 中称它们为“成员变量”和“成员函数”，Java 中则称它们为“属性”和“方法”。在 JavaScript 中，将状态和行为统一抽象为“属性”，考虑到 JavaScript 中将函数设计成一种特殊对象（关于这点，我会在后面的文章中详细讲解，此处先不用细究），所以 JavaScript 中的行为和状态都能用属性来抽象。下面这段代码其实就展示了普通属性和函数作为属性的一个例子，其中 o 是对象，d 是一个属性，而函数 f 也是一个属性，尽管写法不太相同，但是对 JavaScript 来说，d 和 f 就是两个普通属性。<br><br><figure class="highlight roboconf hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123; </span><br><span class="line">    <span class="hljs-attribute">d</span>: 1,</span><br><span class="line">    f() &#123;</span><br><span class="line">        console<span class="hljs-variable">.log</span>(this<span class="hljs-variable">.d</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br><br>所以，总结一句话来看，在 JavaScript 中，对象的状态和行为其实都被抽象为了属性。如果你用过 Java，一定不要觉得奇怪，尽管设计思路有一定差别，但是二者都很好地表现了对象的基本特征：标识性、状态和行为。<strong>在实现了对象基本特征的基础上, 我认为，JavaScript 中对象独有的特色是：对象具有高度的动态性，这是因为 JavaScript 赋予了使用者在运行时为对象添改状态和行为的能力。</strong>我来举个例子，比如，JavaScript 允许运行时向对象添加属性，这就跟绝大多数基于类的、静态的对象设计完全不同。如果你用过 Java 或者其它别的语言，肯定会产生跟我一样的感受。下面这段代码就展示了运行时如何向一个对象添加属性，一开始我定义了一个对象 o，定义完成之后，再添加它的属性 b，这样操作是完全没问题的。<br><br><figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">var</span> <span class="hljs-string">o</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">o.b</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span><span class="hljs-string">;</span></span><br><span class="line"><span class="hljs-string">console.log(o.a,</span> <span class="hljs-string">o.b);</span> <span class="hljs-string">//1</span> <span class="hljs-number">2</span></span><br></pre></td></tr></table></figure><br><br>为了提高抽象能力，JavaScript 的属性被设计成比别的语言更加复杂的形式，它提供了数据属性和访问器属性（getter/setter）两类。<h2>JavaScript 对象的两类属性</h2>对 JavaScript 来说，属性并非只是简单的名称和值，JavaScript 用一组特征（attribute）来描述属性（property）。先来说第一类属性，数据属性。它比较接近于其它语言的属性概念。数据属性具有四个特征。<br><ul><br>  <li>value：就是属性的值。</li><br>  <li>writable：决定属性能否被赋值。</li><br>  <li>enumerable：决定 for in 能否枚举该属性。</li><br>  <li>configurable：决定该属性能否被删除或者改变特征值。</li><br></ul>在大多数情况下，我们只关心数据属性的值即可。<br>第二类属性是访问器（getter/setter）属性，它也有四个特征。<ul><br>  <li>getter：函数或 undefined，在取属性值时被调用。</li><br>  <li>setter：函数或 undefined，在设置属性值时被调用。</li><br>  <li>enumerable：决定 for in 能否枚举该属性。</li><br>  <li>configurable：决定该属性能否被删除或者改变特征值。</li><br></ul><br>访问器属性使得属性在读和写时执行代码，它允许使用者在写和读属性时，得到完全不同的值，它可以视为一种函数的语法糖。我们通常用于定义属性的代码会产生数据属性，其中的 writable、enumerable、configurable 都默认为 true。我们可以使用内置函数 Object.getOwnPropertyDescripter 来查看，如以下代码所示：<br><br><figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">var</span> <span class="hljs-string">o</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">o.b</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span><span class="hljs-string">;</span></span><br><span class="line"><span class="hljs-string">//a</span> <span class="hljs-string">和</span> <span class="hljs-string">b</span> <span class="hljs-string">皆为数据属性</span></span><br><span class="line"><span class="hljs-string">Object.getOwnPropertyDescriptor(o,"a")</span> <span class="hljs-string">//</span> <span class="hljs-string">&#123;value:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">&#125;</span></span><br><span class="line"><span class="hljs-string">Object.getOwnPropertyDescriptor(o,"b")</span> <span class="hljs-string">//</span> <span class="hljs-string">&#123;value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">&#125;</span></span><br></pre></td></tr></table></figure><br><br>我们在这里使用了两种语法来定义属性，定义完属性后，我们用 JavaScript 的 API 来查看这个属性，我们可以发现，这样定义出来的属性都是数据属性，writeable、enumerable、configurable 都是默认值为 true。如果我们要想改变属性的特征，或者定义访问器属性，我们可以使用 Object.defineProperty，示例如下：<br><br><figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">var</span> <span class="hljs-string">o</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;;</span></span><br><span class="line"><span class="hljs-string">Object.defineProperty(o,</span> <span class="hljs-string">"b"</span><span class="hljs-string">,</span> <span class="hljs-string">&#123;value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">false</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">false</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">&#125;);</span></span><br><span class="line"><span class="hljs-string">//a</span> <span class="hljs-string">和</span> <span class="hljs-string">b</span> <span class="hljs-string">都是数据属性，但特征值变化了</span></span><br><span class="line"><span class="hljs-string">Object.getOwnPropertyDescriptor(o,"a");</span> <span class="hljs-string">//</span> <span class="hljs-string">&#123;value:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">&#125;</span></span><br><span class="line"><span class="hljs-string">Object.getOwnPropertyDescriptor(o,"b");</span> <span class="hljs-string">//</span> <span class="hljs-string">&#123;value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">false</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">false</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">&#125;</span></span><br><span class="line"><span class="hljs-string">o.b</span> <span class="hljs-string">=</span> <span class="hljs-number">3</span><span class="hljs-string">;</span></span><br><span class="line"><span class="hljs-string">console.log(o.b);</span> <span class="hljs-string">//</span> <span class="hljs-number">2</span></span><br></pre></td></tr></table></figure><br><br>这里我们使用了 Object.defineProperty 来定义属性，这样定义属性可以改变属性的 writable 和 enumerable。我们同样用 Object.getOwnPropertyDescriptor 来查看，发现确实改变了 writable 和 enumerable 特征。因为 writable 特征为 false，所以我们重新对 b 赋值，b 的值不会发生变化。在创建对象时，也可以使用 get 和 set 关键字来创建访问器属性，代码如下所示：<br><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> o = &#123; <span class="hljs-keyword">get</span> a() &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> &#125; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="hljs-built_in">console</span>.log(o.a); <span class="hljs-comment">// 1</span></span><br></pre></td></tr></table></figure><br><br>访问器属性跟数据属性不同，每次访问属性都会执行 getter 或者 setter 函数。这里我们的 getter 函数返回了 1，所以 o.a 每次都得到 1。<br><br>这样，我们就理解了，实际上 JavaScript 对象的运行时是一个“属性的集合”，属性以字符串或者 Symbol 为 key，以数据属性特征值或者访问器属性特征值为 value。<br><br>对象是一个属性的索引结构（索引结构是一类常见的数据结构，我们可以把它理解为一个能够以比较快的速度用 key 来查找 value 的字典）。我们以上面的对象 o 为例，你可以想象一下“a”是 key。<br><br><code class="ps">{writable:true,value:1,configurable:true,enumerable:true}<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><br>      <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div><br>    </div><br>    <div class="ps__rail-y" style="top: 0px; right: 0px;"><br>      <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div><br>    </div><br></code>是 value。我们在前面的类型课程中，已经介绍了 Symbol 类型，能够以 Symbol 为属性名，这是 JavaScript 对象的一个特色。<br><br>讲到了这里，如果你理解了对象的特征，也就不难理解我开篇提出来的问题。<br><br>你甚至可以理解为什么会有“JavaScript 不是面向对象”这样的说法了。这是由于 JavaScript 的对象设计跟目前主流基于类的面向对象差异非常大。<br><br>可事实上，这样的对象系统设计虽然特别，但是 JavaScript 提供了完全运行时的对象系统，这使得它可以模仿多数面向对象编程范式（下一节课我们会给你介绍 JavaScript中两种面向对象编程的范式：基于类和基于原型），所以它也是正统的面向对象语言。<br><br>JavaScript 语言标准也已经明确说明，JavaScript 是一门面向对象的语言，我想标准中能这样说，正是因为 JavaScript 的高度动态性的对象系统。<br><br>所以，我们应该在理解其设计思想的基础上充分挖掘它的能力，而不是机械地模仿其它语言。<br><br><h2>结语</h2><br>要想理解 JavaScript 对象，必须清空我们脑子里“基于类的面向对象”相关的知识，回到人类对对象的朴素认知和面向对象的语言无关基础理论，我们就能够理解 JavaScript 面向对象设计的思路。<br><br>在这篇文章中，我从对象的基本理论出发，和你理清了关于对象的一些基本概念，分析了 JavaScript 对象的设计思路。接下来又从运行时的角度，介绍了 JavaScript 对象的具体设计：具有高度动态性的属性集合。<br><br>很多人在思考 JavaScript 对象时，会带着已有的“对象”观来看问题，最后的结果当然就是“剪不断理还乱”了。<br><br>在后面的文章中，我会继续带你探索 JavaScript 对象的一些机制，看 JavaScript 如何基于这样的动态对象模型设计自己的原型系统，以及你熟悉的函数、类等基础设施。<br><br>转自—《重学前端》<br></div>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/js/">js</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/06/JavaScript对象：我们真的需要模拟类吗？/">
+                <span class="level-item">JavaScript对象：我们真的需要模拟类吗？</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avator.jpg" alt="Old C">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Old C
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        A tossed cucumber
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangdong·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Articles
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Catégories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
+                SUIVRE</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Abner0101">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Liens
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.alloyteam.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">AlloyTeam</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.alloyteam.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.zhangxinxu.com/wordpress/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张鑫旭-鑫空间</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.zhangxinxu.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.daqianduan.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">大前端</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.daqianduan.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3cplus.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3cplus</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3cplus.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catégories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/BLOG/">
+            <span class="level-start">
+                <span class="level-item">BLOG</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/NODE-JS/">
+            <span class="level-start">
+                <span class="level-item">NODE JS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/PHP/">
+            <span class="level-start">
+                <span class="level-item">PHP</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端/">
+            <span class="level-start">
+                <span class="level-item">前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">23</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nuage de tags
+        </h3>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/touch-icon.png" alt="JavaScript对象：面向对象还是基于对象？" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 老黄瓜&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Articles',
+                PAGES: 'Pages',
+                CATEGORIES: 'Catégories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

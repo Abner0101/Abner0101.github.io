@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Java函数式编程入门 - Old C</title>
+
+
+    <meta name="description" content="Lambda表达式Lambda 表达式介绍 是没有声明的方法，也即没有访问修饰符、返回值声明和名字。">
+<meta name="keywords" content="Java,Java入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java函数式编程入门">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/06/Java 函数式编程入门/index.html">
+<meta property="og:site_name" content="Old C">
+<meta property="og:description" content="Lambda表达式Lambda 表达式介绍 是没有声明的方法，也即没有访问修饰符、返回值声明和名字。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=298411564,831908715&fm=26&gp=0.jpg">
+<meta property="og:updated_time" content="2019-11-08T08:33:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java函数式编程入门">
+<meta name="twitter:description" content="Lambda表达式Lambda 表达式介绍 是没有声明的方法，也即没有访问修饰符、返回值声明和名字。">
+<meta name="twitter:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=298411564,831908715&fm=26&gp=0.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/touch-icon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/touch-icon.png" alt="Java函数式编程入门" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=298411564,831908715&amp;fm=26&amp;gp=0.jpg" alt="Java函数式编程入门">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.487Z">2020-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JAVA/">JAVA</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    34 minutes read (About 5097 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java函数式编程入门
+            
+        </h1>
+        <div class="content">
+            <h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h3 id="Lambda-表达式介绍"><a href="#Lambda-表达式介绍" class="headerlink" title="Lambda 表达式介绍"></a>Lambda 表达式介绍</h3><blockquote>
+<p>是没有声明的方法，也即没有访问修饰符、返回值声明和名字。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="一般使用场景"><a href="#一般使用场景" class="headerlink" title="一般使用场景"></a>一般使用场景</h3><blockquote>
+<p>当某个方法只使用一次，而且定义很简短，使用这种速记替代之尤其有效。</p>
+</blockquote>
+<h3 id="Lambda-表达式语法"><a href="#Lambda-表达式语法" class="headerlink" title="Lambda 表达式语法"></a>Lambda 表达式语法</h3><blockquote>
+<p>当方法没有形参的时候，使用 <strong>()</strong> 表示</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; log.info(<span class="hljs-string">"hehe"</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当方法只有一个形参的时候，可以直接<strong>省略括号</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当方法有多个参数时，需要使用 <strong>()</strong> 括起来</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(a,b) -&gt; <span class="hljs-keyword">return</span> a + b;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参数可以省略类型，也可以写上</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(a,b) -&gt; <span class="hljs-keyword">return</span> a + b;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//等同于</span></span><br><span class="line"></span><br><span class="line">(<span class="hljs-keyword">int</span> a ,<span class="hljs-keyword">int</span> b) -&gt; <span class="hljs-keyword">return</span> a + b;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="通过两个例子初步体验-Lambda"><a href="#通过两个例子初步体验-Lambda" class="headerlink" title="通过两个例子初步体验 Lambda"></a>通过两个例子初步体验 Lambda</h3><blockquote>
+<p>创建一个线程</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//        原写法</span></span><br><span class="line"><span class="hljs-comment">//        new Thread(new Runnable() &#123;</span></span><br><span class="line"><span class="hljs-comment">//            @Override</span></span><br><span class="line"><span class="hljs-comment">//            public void run() &#123;</span></span><br><span class="line"><span class="hljs-comment">//                log.info("hello lambda");</span></span><br><span class="line"><span class="hljs-comment">//            &#125;</span></span><br><span class="line"><span class="hljs-comment">//        &#125;).start();</span></span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//		使用 lambda 表达式创建一个线程</span></span><br><span class="line">        Thread thread = <span class="hljs-keyword">new</span> Thread(() -&gt; log.info(<span class="hljs-string">"hello lambda"</span>));</span><br><span class="line">        thread.start();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实现 List 排序</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">        List&lt;String&gt; list = Arrays.asList(<span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"y"</span>,<span class="hljs-string">"z"</span>,<span class="hljs-string">"x"</span>&#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-comment">//        原写法</span></span><br><span class="line"><span class="hljs-comment">//        Collections.sort(list, new Comparator&lt;String&gt;() &#123;</span></span><br><span class="line"><span class="hljs-comment">//            @Override</span></span><br><span class="line"><span class="hljs-comment">//            public int compare(String o1, String o2) &#123;</span></span><br><span class="line"><span class="hljs-comment">//                return o1.compareTo(o2);</span></span><br><span class="line"><span class="hljs-comment">//            &#125;</span></span><br><span class="line"><span class="hljs-comment">//        &#125;);</span></span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//        使用 lambda 表达式 完成排序</span></span><br><span class="line">        Collections.sort(list,(o1,o2) -&gt; o1.compareTo(o2));</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="深入解析-Lambda"><a href="#深入解析-Lambda" class="headerlink" title="深入解析 Lambda"></a>深入解析 Lambda</h3><blockquote>
+<p>Lambda 本身是语法糖，起的作用是重写<strong>函数式接口</strong>(只包含<strong>一个抽象方法声明的接口</strong>) 的抽象方法，Java中常用到的比如<strong>Comparator</strong>或者<strong>Runnable</strong>接口，这些接口都增加了<strong>@FunctionalInterface</strong> 注解以便能用在lambda上。</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// new Runnable 只有 run 一个抽象方法，这里是 Lambda 的语法糖效果，自动重写了这个抽象方法</span></span><br><span class="line">Thread thread = <span class="hljs-keyword">new</span> Thread(() -&gt; log.info(<span class="hljs-string">"hello lambda"</span>));</span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="通过一个自定义函数式接口来理解-Lambda"><a href="#通过一个自定义函数式接口来理解-Lambda" class="headerlink" title="通过一个自定义函数式接口来理解 Lambda"></a>通过一个自定义函数式接口来理解 Lambda</h3><blockquote>
+<p>使用 <strong>@FunctionalInterface</strong> 来声明一个接口是函数式接口，该注解只能标记在<strong>”有且仅有一个抽象方法”</strong>的接口上，但它<strong>不是必须的</strong>，只是为了编译器更好地检测</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-comment">//函数式接口</span></span><br><span class="line"><span class="hljs-meta">@FunctionalInterface</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">LambdaInterface</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 一个求和抽象方法，当然后面重写可以自定义，不一定是求和</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">sum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a ,<span class="hljs-keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一个调用这个函数式接口的类</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> com.zyy.consumer.bean.User;</span><br><span class="line"><span class="hljs-keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> java.util.List;</span><br><span class="line"><span class="hljs-keyword">import</span> java.util.function.Consumer;</span><br><span class="line"><span class="hljs-keyword">import</span> java.util.function.Predicate;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// lombok 中 @Data ，自动填充 setter 和 getter</span></span><br><span class="line"><span class="hljs-meta">@Data</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FirstLambda</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Integer first;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Integer second;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getSum</span><span class="hljs-params">(LambdaInterface lambdaInterface)</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> lambdaInterface.sum(first,second);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>开始表演</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">   <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testLambdaInterface</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        Integer c = <span class="hljs-number">0</span>;</span><br><span class="line">        FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line">        firstLambda.setFirst(<span class="hljs-number">22</span>);</span><br><span class="line">        firstLambda.setSecond(<span class="hljs-number">33</span>);</span><br><span class="line">		</span><br><span class="line">        <span class="hljs-comment">// 原生态操作</span></span><br><span class="line"><span class="hljs-comment">//        c = firstLambda.getSum(new LambdaInterface() &#123;</span></span><br><span class="line"><span class="hljs-comment">//            @Override</span></span><br><span class="line"><span class="hljs-comment">//            public Integer sum(int a, int b) &#123;</span></span><br><span class="line"><span class="hljs-comment">//                return a + b;</span></span><br><span class="line"><span class="hljs-comment">//            &#125;</span></span><br><span class="line"><span class="hljs-comment">//        &#125;);</span></span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 这个时候我们可以使用箭头函数去重写 sum 的实现</span></span><br><span class="line">        c = firstLambda.getSum((a,b) -&gt; &#123;<span class="hljs-keyword">return</span> a + b;&#125;);</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,c);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="java-util-function-包"><a href="#java-util-function-包" class="headerlink" title="java.util.function 包"></a>java.util.function 包</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><blockquote>
+<p>由于这个包都是 <strong>函数式接口</strong>，和 Lambda 搭配使用效果更佳</p>
+</blockquote>
+<h3 id="拥有的方法"><a href="#拥有的方法" class="headerlink" title="拥有的方法"></a>拥有的方法</h3><h4 id="参考：https-blog-csdn-net-huo065000-article-details-78964382"><a href="#参考：https-blog-csdn-net-huo065000-article-details-78964382" class="headerlink" title="参考：https://blog.csdn.net/huo065000/article/details/78964382"></a>参考：<a href="https://blog.csdn.net/huo065000/article/details/78964382" target="_blank" rel="noopener">https://blog.csdn.net/huo065000/article/details/78964382</a></h4><table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumer</td>
+<td>Consumer&lt; T &gt;</td>
+<td>接收T对象，不返回值</td>
+</tr>
+<tr>
+<td>Predicate</td>
+<td>Predicate&lt; T &gt;</td>
+<td>接收T对象并返回boolean</td>
+</tr>
+<tr>
+<td>Function</td>
+<td>Function&lt; T, R &gt;</td>
+<td>接收T对象，返回R对象</td>
+</tr>
+<tr>
+<td>Supplier</td>
+<td>Supplier&lt; T &gt;</td>
+<td>提供T对象（例如工厂），不接收值</td>
+</tr>
+<tr>
+<td>UnaryOperator</td>
+<td>UnaryOperator&lt; T &gt;</td>
+<td>接收T对象，返回T对象</td>
+</tr>
+<tr>
+<td>BiConsumer</td>
+<td>BiConsumer&lt;T, U&gt;</td>
+<td>接收T对象和U对象，不返回值</td>
+</tr>
+<tr>
+<td>BiPredicate</td>
+<td>BiPredicate&lt;T, U&gt;</td>
+<td>接收T对象和U对象，返回boolean</td>
+</tr>
+<tr>
+<td>BiFunction</td>
+<td>BiFunction&lt;T, U, R&gt;</td>
+<td>接收T对象和U对象，返回R对象</td>
+</tr>
+<tr>
+<td>BinaryOperator</td>
+<td>BinaryOperator&lt; T &gt;</td>
+<td>接收两个T对象，返回T对象</td>
+</tr>
+</tbody>
+</table>
+<p>### </p>
+<hr>
+<h3 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h3><blockquote>
+<p><strong>Predicate</strong> 用于实现一个条件语句，而 <strong>Consumer</strong> 用于实现操作,不返回值，两者往往搭配使用</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> com.zyy.consumer.bean.User;</span><br><span class="line"><span class="hljs-keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> java.util.List;</span><br><span class="line"><span class="hljs-keyword">import</span> java.util.function.Consumer;</span><br><span class="line"><span class="hljs-keyword">import</span> java.util.function.Predicate;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@Data</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FirstLambda</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Integer first;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Integer second;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getSum</span><span class="hljs-params">(LambdaInterface lambdaInterface)</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> lambdaInterface.sum(first,second);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 写一个 筛选list 的方法</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkNumberBigger</span><span class="hljs-params">(List&lt;Integer&gt; list,Predicate&lt;Integer&gt; predicate,Consumer&lt;Integer&gt; consumer)</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span>(Integer integer : list)&#123;</span><br><span class="line">            <span class="hljs-keyword">if</span>(predicate.test(integer))&#123;</span><br><span class="line">                consumer.accept(integer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>调用该方法</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testLambdaPredicate</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span>;i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 这里重写了 Predicate 的test 方法，以完成逻辑的判断，重写了 Consumer 的 accept 方法，完成处理操作</span></span><br><span class="line">        <span class="hljs-keyword">new</span> FirstLambda().checkNumberBigger(list,</span><br><span class="line">                p -&gt; p &gt; <span class="hljs-number">5</span>,</span><br><span class="line">                p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 此时 Predicate </span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">test</span><span class="hljs-params">(Integer p)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> p &gt; <span class="hljs-number">5</span> ? <span class="hljs-keyword">true</span> : <span class="hljs-keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 此时 Consumer</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer p)</span></span>&#123;</span><br><span class="line">    log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Function&lt;R,T&gt;</strong>  类似一个一元函数，通过输入一个 R 类型的参数，通过处理以后 返回 T 类型的返回值，这里的使用例子是通过输入的字符串 返回 该字符串的长度 </p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 之前 FirstLambda 中新的方法</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getStringLength</span><span class="hljs-params">(String string,Function&lt;String,Integer&gt; function)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> function.apply(string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 测试该方法</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFunction</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line">    Integer length = firstLambda.getStringLength(<span class="hljs-string">"Hello World"</span>,</span><br><span class="line">           p -&gt; &#123;<span class="hljs-keyword">return</span> p.length();&#125;);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"length : &#123;&#125;"</span>,length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Function 中 <strong>compose</strong> 可以结合两个函数，以下是它的源码</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 可以看出，它是依赖于apply类的，所以这不是一个抽象方法，不影响函数式接口的定义，本质是执行完before 方法以后，继续执行this.apply，从而实现两个函数结合使用    </span></span><br><span class="line"><span class="hljs-keyword">default</span> &lt;V&gt; <span class="hljs-function">Function&lt;V, R&gt; <span class="hljs-title">compose</span><span class="hljs-params">(Function&lt;? <span class="hljs-keyword">super</span> V, ? extends T&gt; before)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(before);</span><br><span class="line">        <span class="hljs-keyword">return</span> (V v) -&gt; apply(before.apply(v));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实例就采用先进行字符串处理，在计算字符串大小</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 之前 FirstLambda 中新的方法</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getStringLengthSecond</span><span class="hljs-params">(String string,Function&lt;String,String&gt; before,Function&lt;String,Integer&gt; function)</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> function.compose((Function&lt;? <span class="hljs-keyword">super</span> String, ? extends String&gt;) before).apply(string);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 测试该方法</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFunctionCompose</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line"></span><br><span class="line">        Integer length = firstLambda.getStringLengthSecond(<span class="hljs-string">"Hello"</span>,</span><br><span class="line">                p -&gt; &#123;<span class="hljs-keyword">return</span> p + <span class="hljs-string">" World"</span>;&#125;,</span><br><span class="line">                p -&gt; &#123;<span class="hljs-keyword">return</span> p.length();&#125;);</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"length : &#123;&#125;"</span>,length);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Function 中 的 <strong>andThen</strong> 方法则是先执行 this 方法，再去执行 after 方法，也是结合两个Function</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">default</span> &lt;V&gt; <span class="hljs-function">Function&lt;T, V&gt; <span class="hljs-title">andThen</span><span class="hljs-params">(Function&lt;? <span class="hljs-keyword">super</span> R, ? extends V&gt; after)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(after);</span><br><span class="line">    <span class="hljs-keyword">return</span> (T t) -&gt; after.apply(apply(t));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>测试例子是先求字符串的和，再将长度加上100</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 之前 FirstLambda 中新的方法</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getStringLengthThird</span><span class="hljs-params">(String string,Function&lt;Integer,Integer&gt; after,Function&lt;String,Integer&gt; function)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> function.andThen(after).apply(string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 测试该方法</span></span><br><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFunctionAndThen</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line"></span><br><span class="line">    Integer length = firstLambda.getStringLengthThird(<span class="hljs-string">"Hello World"</span>,</span><br><span class="line">            p -&gt; &#123;<span class="hljs-keyword">return</span> p + <span class="hljs-number">100</span>;&#125;,</span><br><span class="line">    p -&gt; &#123;<span class="hljs-keyword">return</span> p.length();&#125;);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"length : &#123;&#125;"</span>,length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Supplier</strong> 不接受参数，表示一个工厂类，实现工厂的作用,下面是调用User的静态方法返回实例</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// User 类</span></span><br><span class="line"><span class="hljs-keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@Data</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line">    <span class="hljs-keyword">private</span> Integer age;</span><br><span class="line">    <span class="hljs-keyword">private</span> Double weight;</span><br><span class="line">    <span class="hljs-keyword">private</span> String sexy;</span><br><span class="line">    <span class="hljs-keyword">private</span> Double height;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> User <span class="hljs-title">getSimpleUser</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        User user = <span class="hljs-keyword">new</span> User();</span><br><span class="line">        user.setName(<span class="hljs-string">"simple"</span>);</span><br><span class="line">        user.setSexy(<span class="hljs-string">"male"</span>);</span><br><span class="line">        user.setAge(<span class="hljs-number">21</span>);</span><br><span class="line">        <span class="hljs-keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 之前 FirstLambda 中新的方法</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">getUser</span><span class="hljs-params">(Supplier&lt;User&gt; supplier)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> supplier.get();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 测试该方法</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testSupplier</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line"></span><br><span class="line">    User user = firstLambda.getUser(() -&gt; &#123;<span class="hljs-keyword">return</span> User.getSimpleUser();&#125;);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"user : &#123;&#125;"</span>,user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>UnaryOperator</strong> 和 <strong>Funtion</strong> 有些相似，不同的是它只能返回传入参数同种类型的值</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   <span class="hljs-comment">// 对字符串进行加工</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getString</span><span class="hljs-params">(String string,UnaryOperator&lt;String&gt; unaryOperator)</span></span>&#123;</span><br><span class="line">       <span class="hljs-keyword">return</span> unaryOperator.apply(string);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 实现实例</span></span><br><span class="line">   <span class="hljs-meta">@Test</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testUnaryOperator</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">       FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line"></span><br><span class="line">       String string = firstLambda.getString(<span class="hljs-string">"Hello"</span>,</span><br><span class="line">               p -&gt; &#123;<span class="hljs-keyword">return</span> p + <span class="hljs-string">" World!!!"</span>;&#125;);</span><br><span class="line"></span><br><span class="line">       log.info(<span class="hljs-string">"string : &#123;&#125;"</span>,string);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>BiConsumer</strong> 比 <strong>Consumer</strong>  多接收了一个参数</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 拼接一个名字</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getName</span><span class="hljs-params">(String firstName,String secondName,BiConsumer&lt;String,String&gt; biConsumer)</span></span>&#123;</span><br><span class="line">    biConsumer.accept(firstName,secondName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//</span></span><br><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testBiConsumer</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line"></span><br><span class="line">    firstLambda.getName(<span class="hljs-string">"Macro"</span>,<span class="hljs-string">"Reus"</span>,</span><br><span class="line">            (a,b) -&gt; log.info(<span class="hljs-string">"&#123;&#125; &#123;&#125;"</span>,a,b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>BiPredicate</strong> 比 <strong>Predicate</strong> 多接受一个参数</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 找出年龄较大的一位</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getOlderUser</span><span class="hljs-params">(User first,User second,BiPredicate&lt;User,User&gt; biPredicate,Function&lt;User,String&gt; function)</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(biPredicate.test(first,second))&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> function.apply(first);</span><br><span class="line">        &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> function.apply(second);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testBiPredicate</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line">        User first = <span class="hljs-keyword">new</span> User();</span><br><span class="line">        first.setName(<span class="hljs-string">"Ke"</span>);</span><br><span class="line">        first.setAge(<span class="hljs-number">22</span>);</span><br><span class="line">        User second = <span class="hljs-keyword">new</span> User();</span><br><span class="line">        second.setAge(<span class="hljs-number">21</span>);</span><br><span class="line">        second.setName(<span class="hljs-string">"Liang"</span>);</span><br><span class="line"><span class="hljs-comment">//         找出两个User中年龄较大的User的名字</span></span><br><span class="line">        String name = firstLambda.getOlderUser(first,second,</span><br><span class="line">                (a,b) -&gt; &#123;<span class="hljs-keyword">return</span> a.getAge() &gt;= b.getAge();&#125;,</span><br><span class="line">                p -&gt; &#123;<span class="hljs-keyword">return</span> p.getName();&#125;);</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"user : &#123;&#125;"</span>,name);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>BiFunction</strong> 相比于 <strong>Function</strong> 多接收一个参数</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 计算矩形面积</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Double <span class="hljs-title">getArea</span><span class="hljs-params">(Double length,Double width,BiFunction&lt;Double,Double,Double&gt; biFunction)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> biFunction.apply(length,width);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//测试实例</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testBiFunction</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    FirstLambda firstLambda = <span class="hljs-keyword">new</span> FirstLambda();</span><br><span class="line"></span><br><span class="line">    Double length = <span class="hljs-number">2.2</span>;</span><br><span class="line"></span><br><span class="line">    Double width = <span class="hljs-number">5.1</span>;</span><br><span class="line"></span><br><span class="line">    Double area = firstLambda.getArea(length,width,</span><br><span class="line">            (a,b) -&gt; &#123;<span class="hljs-keyword">return</span> a * b;&#125;);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"area : &#123;&#125;"</span>,area);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>BinaryOperator</strong> 用法同上，只不过只能操作一种类型的参数</p>
+</blockquote>
+<hr>
+<h2 id="Optional-类"><a href="#Optional-类" class="headerlink" title="Optional 类"></a>Optional 类</h2><h3 id="实际用处"><a href="#实际用处" class="headerlink" title="实际用处"></a>实际用处</h3><blockquote>
+<p>函数式编程中，用于处理 <strong>空指针异常</strong> (NullPointerException)</p>
+</blockquote>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">public static <t> Optional<t> <strong>of</strong>(T value)</t></t></td>
+<td style="text-align:center">为非null的值创建一个Optional</td>
+</tr>
+<tr>
+<td style="text-align:center">public static <t> Optional<t> <strong>ofNullable</strong>(T value)</t></t></td>
+<td style="text-align:center">为指定的值创建一个Optional，如果指定的值为null，则返回一个空的Optional</td>
+</tr>
+<tr>
+<td style="text-align:center">public boolean <strong>isPresent</strong>()</td>
+<td style="text-align:center">如果值存在返回true，否则返回false</td>
+</tr>
+<tr>
+<td style="text-align:center">public T <strong>get</strong>()</td>
+<td style="text-align:center">如果Optional有值则将其返回，否则抛出NoSuchElementException</td>
+</tr>
+<tr>
+<td style="text-align:center">public void <strong>ifPresent</strong>(Consumer&lt;? super T&gt; consumer)</td>
+<td style="text-align:center">如果Optional实例有值则为其调用consumer，否则不做处理</td>
+</tr>
+<tr>
+<td style="text-align:center">public T <strong>orElse</strong>(T other)</td>
+<td style="text-align:center">如果有值则将其返回，否则返回指定的其它值</td>
+</tr>
+<tr>
+<td style="text-align:center">public T <strong>orElseGet</strong>(Supplier&lt;? extends T&gt; other)</td>
+<td style="text-align:center">orElseGet与orElse方法类似，区别在于得到的默认值</td>
+</tr>
+<tr>
+<td style="text-align:center">public <x extends throwable> T <strong>orElseThrow</strong>(Supplier&lt;? extends X&gt; exceptionSupplier) throws X</x></td>
+<td style="text-align:center">如果有值则将其返回，否则抛出supplier接口创建的异常</td>
+</tr>
+<tr>
+<td style="text-align:center">public<u> Optional<u> <strong>map</strong>(Function&lt;? super T, ? extends U&gt; mapper)</u></u></td>
+<td style="text-align:center">如果有值，则对其执行调用mapping函数得到返回值。如果返回值不为null，则创建包含mapping返回值的Optional作为map方法返回值，否则返回空Optional。</td>
+</tr>
+<tr>
+<td style="text-align:center">public<u> Optional<u> <strong>flatMap</strong>(Function&lt;? super T, Optional<u>&gt; mapper)</u></u></u></td>
+<td style="text-align:center">如果有值，为其执行mapping函数返回Optional类型返回值，否则返回空Optional。</td>
+</tr>
+<tr>
+<td style="text-align:center">public Optional<t> <strong>filter</strong>(Predicate&lt;? super T&gt; predicate)</t></td>
+<td style="text-align:center">如果有值并且满足断言条件返回包含该值的Optional，否则返回空Optional</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><blockquote>
+<p>使用 <strong>of</strong> 创建一个 <strong>Optional</strong> ，传入的值不能为 NULL，否则抛出 <strong>NullPointerException</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOf</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;String&gt; optional = Optional.of(<span class="hljs-string">"Ke"</span>);</span><br><span class="line">    log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>ofNullable</strong> 创建一个 <strong>Optional</strong> ,如果传入一个 NULL ，则返回空的Optional</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOfNullable</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;String&gt; optionalFirst = Optional.ofNullable(<span class="hljs-string">"Liang"</span>);</span><br><span class="line">    Optional&lt;String&gt; optionalSecond = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"first : &#123;&#125;"</span>,optionalFirst); <span class="hljs-comment">// first : Optional[Liang]</span></span><br><span class="line">    log.info(<span class="hljs-string">"second ; &#123;&#125;"</span>,optionalSecond); <span class="hljs-comment">// second ; Optional.empty</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>isPresent</strong> 判定 Optional 是否为空</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOfNullable</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;String&gt; optionalFirst = Optional.ofNullable(<span class="hljs-string">"Liang"</span>);</span><br><span class="line">    Optional&lt;String&gt; optionalSecond = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"firstIsNull : &#123;&#125;"</span>,optionalFirst.isPresent()); <span class="hljs-comment">// true</span></span><br><span class="line">    log.info(<span class="hljs-string">"secondIsNull : &#123;&#125;"</span>,optionalSecond.isPresent()); <span class="hljs-comment">// false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>get</strong> 获取值，如果值不存在，抛出 <strong>NoSuchElementException</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOfNullable</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;String&gt; optionalFirst = Optional.ofNullable(<span class="hljs-string">"Liang"</span>);</span><br><span class="line">    Optional&lt;String&gt; optionalSecond = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"first : &#123;&#125;"</span>,optionalFirst.get()); <span class="hljs-comment">// first : Liang</span></span><br><span class="line">    log.info(<span class="hljs-string">"second ; &#123;&#125;"</span>,optionalSecond.get()); <span class="hljs-comment">// java.util.NoSuchElementException: No value present</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>ifPresent</strong> 实现函数式编程，如果值存在，则执行 <strong>Consumer</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testIfPresent</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;String&gt; optionalFirst = Optional.ofNullable(<span class="hljs-string">"Liang"</span>);</span><br><span class="line">    Optional&lt;String&gt; optionalSecond = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    optionalFirst.ifPresent(</span><br><span class="line">            p -&gt; log.info(<span class="hljs-string">"firstValue : &#123;&#125;"</span>,p) <span class="hljs-comment">// firstValue : Liang</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    optionalSecond.ifPresent(</span><br><span class="line">            p -&gt; log.info(<span class="hljs-string">"secondValue : &#123;&#125;"</span>,p)</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>orElse</strong> 有值则返回，无值则指定其他值</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOrElse</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;String&gt; optional = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line">    log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional.orElse(<span class="hljs-string">"NULL"</span>)); <span class="hljs-comment">// optional : NULL</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>orElseGet</strong> 可以结合函数式编程使用，无值则使用 Supplier 工厂返回</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOrElseGet</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    Optional&lt;User&gt; optional = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional.orElseGet(</span><br><span class="line">            () -&gt; &#123;<span class="hljs-keyword">return</span> User.getSimpleUser();&#125;</span><br><span class="line">    ));</span><br><span class="line">    <span class="hljs-comment">// optional : User(name=simple, age=21, weight=null, sexy=male, height=null)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>orElseThrow</strong> 结合函数式编程，无值则使用 Supplier 抛出异常</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOrElseThrow</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">       Optional&lt;User&gt; optional = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">       <span class="hljs-keyword">try</span>&#123;</span><br><span class="line">           log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional.orElseThrow(</span><br><span class="line">                   () -&gt; &#123;<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArithmeticException();&#125;</span><br><span class="line">           ));</span><br><span class="line">       &#125;<span class="hljs-keyword">catch</span> (ArithmeticException a)&#123;</span><br><span class="line">           log.info(<span class="hljs-string">"error"</span>); <span class="hljs-comment">// error</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="hljs-meta">@Test</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOrElseThrow</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">       User user = <span class="hljs-keyword">new</span> User();</span><br><span class="line">       user.setName(<span class="hljs-string">"Kabin"</span>);</span><br><span class="line">       Optional&lt;User&gt; optional = Optional.ofNullable(user);</span><br><span class="line">	<span class="hljs-comment">// optional : User(name=Kabin, age=null, weight=null, sexy=null, height=null)</span></span><br><span class="line">       <span class="hljs-keyword">try</span>&#123;</span><br><span class="line">           log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional.orElseThrow(</span><br><span class="line">                   () -&gt; &#123;<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArithmeticException();&#125;</span><br><span class="line">           ));</span><br><span class="line">       &#125;<span class="hljs-keyword">catch</span> (ArithmeticException a)&#123;</span><br><span class="line">           log.info(<span class="hljs-string">"error"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>map</strong> 来结合 <strong>Function</strong> 实现 对值的处理</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  <span class="hljs-meta">@Test</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testMap</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">      Optional&lt;String&gt; optional = Optional.ofNullable(<span class="hljs-string">"Hello"</span>);</span><br><span class="line"><span class="hljs-comment">// optional : Optional[Hello World!!!]</span></span><br><span class="line">      log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional.map(</span><br><span class="line">              p -&gt; &#123;<span class="hljs-keyword">return</span> p + <span class="hljs-string">" World!!!"</span>;&#125;</span><br><span class="line">      ));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>flatMap</strong> 来结合 <strong>Function</strong>，不同的地方在于如果为 <strong>NULL</strong>,则返回空的 Optional</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFlatMap</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        Optional&lt;String&gt; optional = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line">		<span class="hljs-comment">// optional : Optional.empty</span></span><br><span class="line">        log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,optional.map(</span><br><span class="line">                p -&gt; &#123;<span class="hljs-keyword">return</span> p + <span class="hljs-string">" World!!!"</span>;&#125;</span><br><span class="line">        ));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <strong>filter</strong> 来结合 <strong>Predicate</strong> 完成过滤处理</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFilter</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Optional&lt;Integer&gt;&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ;i &lt; <span class="hljs-number">10</span> ;i ++)&#123;</span><br><span class="line">            Optional&lt;Integer&gt; optional = Optional.ofNullable(i);</span><br><span class="line">            list.add(optional);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        list.forEach(</span><br><span class="line">                p -&gt; log.info(<span class="hljs-string">"optional : &#123;&#125;"</span>,</span><br><span class="line">                p.filter(</span><br><span class="line">                        q -&gt; &#123;<span class="hljs-keyword">return</span> q &gt;=<span class="hljs-number">5</span>;&#125;</span><br><span class="line">                )</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.262</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional.empty</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.262</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional.empty</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.262</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional.empty</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional.empty</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional.empty</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional[<span class="hljs-number">5</span>]</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional[<span class="hljs-number">6</span>]</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional[<span class="hljs-number">7</span>]</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional[<span class="hljs-number">8</span>]</span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">16</span>:<span class="hljs-number">01</span>:<span class="hljs-number">24.263</span>  INFO <span class="hljs-number">11424</span> --- [           main] com.zyy.consumer.OptionalTest            : optional : Optional[<span class="hljs-number">9</span>]</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="最为有效的用途之一"><a href="#最为有效的用途之一" class="headerlink" title="最为有效的用途之一"></a>最为有效的用途之一</h3><blockquote>
+<p>连环夺命 NULL 判定</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOptional</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取 User 类中的 name 并且转换为大写,进行 NULL 判定</span></span><br><span class="line">        Optional&lt;User&gt; optional = Optional.ofNullable(User.getSimpleUser());</span><br><span class="line"></span><br><span class="line">		<span class="hljs-comment">// name : SIMPLE</span></span><br><span class="line">        log.info(<span class="hljs-string">"name : &#123;&#125;"</span>,</span><br><span class="line">                optional.map(</span><br><span class="line">                        p -&gt; &#123;<span class="hljs-keyword">return</span> p.getName();&#125;</span><br><span class="line">                ).map(</span><br><span class="line">                        q -&gt; &#123;<span class="hljs-keyword">return</span> q.toUpperCase();&#125;</span><br><span class="line">                ).orElse(<span class="hljs-keyword">null</span>)</span><br><span class="line">                );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testOptional</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取 User 类中的 name 并且转换为大写,进行 NULL 判定</span></span><br><span class="line">        Optional&lt;User&gt; optional = Optional.ofNullable(<span class="hljs-keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// name : null</span></span><br><span class="line">        log.info(<span class="hljs-string">"name : &#123;&#125;"</span>,</span><br><span class="line">                optional.map(</span><br><span class="line">                        p -&gt; &#123;<span class="hljs-keyword">return</span> p.getName();&#125;</span><br><span class="line">                ).map(</span><br><span class="line">                        q -&gt; &#123;<span class="hljs-keyword">return</span> q.toUpperCase();&#125;</span><br><span class="line">                ).orElse(<span class="hljs-keyword">null</span>)</span><br><span class="line">                );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 最直观的对比，如果使用 if 来判定,如果判定 null 过程过多时，会写出一堆不雅观的代码，一堆的 if 嵌套</span></span><br><span class="line">  <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUser</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        User user = User.getSimpleUser();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span>(user != <span class="hljs-keyword">null</span>)&#123;</span><br><span class="line">            <span class="hljs-keyword">if</span>(user.getName() != <span class="hljs-keyword">null</span>)&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> user.getName().toUpperCase();</span><br><span class="line">            &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Stream-类"><a href="#Stream-类" class="headerlink" title="Stream 类"></a>Stream 类</h2><h3 id="详细参考"><a href="#详细参考" class="headerlink" title="详细参考"></a>详细参考</h3><blockquote>
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/</a></p>
+</blockquote>
+<h3 id="关于-Stream"><a href="#关于-Stream" class="headerlink" title="关于 Stream"></a>关于 Stream</h3><blockquote>
+<p>Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的 Iterator。Stream 就如同一个迭代器（Iterator），单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了，就好比流水从面前流过，一去不复返。</p>
+</blockquote>
+<h3 id="与-Iterator-的不同"><a href="#与-Iterator-的不同" class="headerlink" title="与 Iterator 的不同"></a>与 Iterator 的不同</h3><blockquote>
+<p>Stream 可以并行化操作，迭代器只能命令式地、串行化操作。Stream 的并行操作依赖于 Java7 中引入的 Fork/Join 框架（JSR166y）来拆分任务和加速处理过程。</p>
+</blockquote>
+<h3 id="流管道的结构图"><a href="#流管道的结构图" class="headerlink" title="流管道的结构图"></a>流管道的结构图</h3><blockquote>
+<p>对 Stream 的使用就是实现一个 filter-map-reduce 过程，产生一个最终结果，或者导致一个副作用（side effect）</p>
+</blockquote>
+<p><img src="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/img001.png" alt="å¾ 1.  æµç®¡é (Stream Pipeline) çææ"></p>
+<hr>
+<h3 id="生成-Stream-Source-的方法"><a href="#生成-Stream-Source-的方法" class="headerlink" title="生成 Stream Source 的方法"></a>生成 Stream Source 的方法</h3><ul>
+<li>Collection 和 数组：<ul>
+<li>Collection.stream()</li>
+<li>Collection.parallelStream()</li>
+<li>Arrays.stream(T array) or Stream.of()</li>
+</ul>
+</li>
+<li>BufferedReader：<ul>
+<li>java.io.BufferedReader.lines()</li>
+</ul>
+</li>
+<li>静态工厂：<ul>
+<li>java.util.stream.IntStream.range()</li>
+<li>java.nio.file.Files.walk()</li>
+</ul>
+</li>
+<li>自己构建：<ul>
+<li>java.util.Spliterator</li>
+</ul>
+</li>
+<li>其他：<ul>
+<li>Random.ints()</li>
+<li>BitSet.stream()</li>
+<li>Pattern.splitAsStream(java.lang.CharSequence)</li>
+<li>JarFile.stream()</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="流的操作类型"><a href="#流的操作类型" class="headerlink" title="流的操作类型"></a>流的操作类型</h3><ul>
+<li><strong>Intermediate</strong>：一个流可以后面跟随零个或多个 intermediate 操作。其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。</li>
+<li><strong>Terminal</strong>：一个流只能有一个 terminal 操作，当这个操作执行后，流就被使用“光”了，无法再被操作。所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。</li>
+<li><strong>short-circuiting</strong>：<ul>
+<li>对于一个 intermediate 操作，如果它接受的是一个无限大（infinite/unbounded）的 Stream，但返回一个有限的新 Stream。</li>
+<li>对于一个 terminal 操作，如果它接受的是一个无限大的 Stream，但能在有限的时间计算出结果。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Stream-的常见构造"><a href="#Stream-的常见构造" class="headerlink" title="Stream 的常见构造"></a>Stream 的常见构造</h3><blockquote>
+<p>Stream 的 <strong>of</strong> 可以用于创建，默认是String 类型，如果要创建 Integer，Double，Long，请使用 <strong>IntStream</strong>, <strong>LongStream</strong> , <strong>DoubleStream</strong> ,避免使用泛型可以省去装箱操作，提高性能</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamConstruction</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        Stream stream = Stream.of(<span class="hljs-string">"Ke"</span>,<span class="hljs-string">"Liang"</span>,<span class="hljs-string">"Zeng"</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//        不用泛型，使用具体Stream,可以省去 装箱操作，提高性能</span></span><br><span class="line">        IntStream intStream = IntStream.of(<span class="hljs-number">22</span>,<span class="hljs-number">21</span>,<span class="hljs-number">21</span>);</span><br><span class="line"></span><br><span class="line">        DoubleStream doubleStream = DoubleStream.of(<span class="hljs-number">62</span>,<span class="hljs-number">55</span>,<span class="hljs-number">63</span>);</span><br><span class="line"></span><br><span class="line">        LongStream longStream = LongStream.of(<span class="hljs-number">170</span>,<span class="hljs-number">175</span>,<span class="hljs-number">170</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过<strong>数组</strong>构造</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamConstructionByArray</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    String[] strings = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"Ke"</span>,<span class="hljs-string">"Liang"</span>,<span class="hljs-string">"Zeng"</span>&#125;;</span><br><span class="line"></span><br><span class="line">    Stream stream = Stream.of(strings);</span><br><span class="line">    </span><br><span class="line">    stream = Arrays.stream(strings);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过 <strong>Collection</strong> 来构造</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  <span class="hljs-meta">@Test</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamConstructionByList</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">      List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">          list.add(i);</span><br><span class="line">      &#125;</span><br><span class="line"><span class="hljs-comment">// 待探讨，这里无法用 IntStream 接收</span></span><br><span class="line">      Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line">      </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Stream-的操作"><a href="#Stream-的操作" class="headerlink" title="Stream 的操作"></a>Stream 的操作</h3><blockquote>
+<p>现在，我们之前学的 Lambda 就起作用了，因为 Stream 的操作 几乎都是基于 java.utils.function 包来完成的</p>
+</blockquote>
+<hr>
+<h3 id="Stream-的-Intermediate-操作"><a href="#Stream-的-Intermediate-操作" class="headerlink" title="Stream 的 Intermediate 操作"></a>Stream 的 Intermediate 操作</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">map</td>
+<td style="text-align:center">执行Function操作，修改数值</td>
+</tr>
+<tr>
+<td style="text-align:center">filter</td>
+<td style="text-align:center">执行 Predicate操作，完成过滤</td>
+</tr>
+<tr>
+<td style="text-align:center">distinct</td>
+<td style="text-align:center">去重</td>
+</tr>
+<tr>
+<td style="text-align:center">sorted</td>
+<td style="text-align:center">排序</td>
+</tr>
+<tr>
+<td style="text-align:center">peek</td>
+<td style="text-align:center">接收一个Consumer，做一些输出或外部处理</td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">限制Stream通过的个数</td>
+</tr>
+<tr>
+<td style="text-align:center">skip</td>
+<td style="text-align:center">跳过前几个</td>
+</tr>
+<tr>
+<td style="text-align:center">parallel</td>
+<td style="text-align:center">返回一个 parallel stream(转换为并行流)</td>
+</tr>
+<tr>
+<td style="text-align:center">sequential</td>
+<td style="text-align:center">返回一个 sequential stream(转换为串行流)</td>
+</tr>
+<tr>
+<td style="text-align:center">unordered</td>
+<td style="text-align:center">返回一个 unordered stream(转换为无序流)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="Stream-的-Terminal-操作"><a href="#Stream-的-Terminal-操作" class="headerlink" title="Stream 的 Terminal 操作"></a>Stream 的 Terminal 操作</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">forEach</td>
+<td style="text-align:center">接收一个Consumer</td>
+</tr>
+<tr>
+<td style="text-align:center">forEachOrdered</td>
+<td style="text-align:center">并行时按顺序处理，区别于forEach</td>
+</tr>
+<tr>
+<td style="text-align:center">toArray</td>
+<td style="text-align:center">返回一个数组</td>
+</tr>
+<tr>
+<td style="text-align:center">reduce</td>
+<td style="text-align:center">接收一个BinaryOperator</td>
+</tr>
+<tr>
+<td style="text-align:center">collect</td>
+<td style="text-align:center">返回一个集合</td>
+</tr>
+<tr>
+<td style="text-align:center">min</td>
+<td style="text-align:center">聚合求最小值</td>
+</tr>
+<tr>
+<td style="text-align:center">max</td>
+<td style="text-align:center">聚合求最大值</td>
+</tr>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">聚合计数</td>
+</tr>
+<tr>
+<td style="text-align:center">anyMatch</td>
+<td style="text-align:center">接收一个 Predicate，有一个符合就是True</td>
+</tr>
+<tr>
+<td style="text-align:center">allMatch</td>
+<td style="text-align:center">接收一个 Predicate，所有符合是Ture</td>
+</tr>
+<tr>
+<td style="text-align:center">noneMatch</td>
+<td style="text-align:center">接收一个 Predicate，所有不符合是Ture</td>
+</tr>
+<tr>
+<td style="text-align:center">findFirst</td>
+<td style="text-align:center">获取第一个，返回 Optional，并行流中才和findAny有区别</td>
+</tr>
+<tr>
+<td style="text-align:center">findAny</td>
+<td style="text-align:center">随机返回一个，返回 Optional</td>
+</tr>
+<tr>
+<td style="text-align:center">iterator</td>
+<td style="text-align:center">转换成迭代器</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="Stream-的-Short-circuiting-操作"><a href="#Stream-的-Short-circuiting-操作" class="headerlink" title="Stream 的 Short-circuiting 操作"></a>Stream 的 Short-circuiting 操作</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">anyMatch</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">allMatch</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">noneMatch</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">findFirst</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">findAny</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">同上</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="开始表演"><a href="#开始表演" class="headerlink" title="开始表演"></a>开始表演</h3><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><blockquote>
+<p><strong><r> Stream<r> map(Function&lt;? super T, ? extends R&gt; mapper)</r></r></strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 将 流的value 全部转为大写，其中的 collect 是返回集合</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamMap</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        String[] strings = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"Ke"</span>,<span class="hljs-string">"Liang"</span>,<span class="hljs-string">"Zeng"</span>&#125;;</span><br><span class="line"></span><br><span class="line">        Stream&lt;String&gt; stream = Stream.of(strings);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; list = stream.map(</span><br><span class="line">                p -&gt; p.toUpperCase()</span><br><span class="line">        ).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"list : &#123;&#125;"</span>,list); <span class="hljs-comment">// list : [KE, LIANG, ZENG]</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><blockquote>
+<p><strong>Stream<t> filter(Predicate&lt;? super T&gt; predicate)</t></strong> 执行过滤操作</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 将 流的value 小于等于5 的都过滤</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamFilter</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        list =  stream.filter(</span><br><span class="line">                p -&gt; p &gt;<span class="hljs-number">5</span></span><br><span class="line">        ).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"list : &#123;&#125;"</span>,list); <span class="hljs-comment">// list : [6, 7, 8, 9]</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h4><blockquote>
+<p><strong>Stream<t> distinct()</t></strong> 去重</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 去重</span></span><br><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamDistinct</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">3</span> ; i++)&#123;</span><br><span class="line">        list.add(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">3</span> ; i++)&#123;</span><br><span class="line">        list.add(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"before ： &#123;&#125;"</span>,list); <span class="hljs-comment">// before ： [0, 1, 2, 0, 1, 2]</span></span><br><span class="line"></span><br><span class="line">    Stream&lt;Integer&gt; stream = list.stream();</span><br><span class="line"></span><br><span class="line">    list = stream.distinct().collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">    log.info(<span class="hljs-string">"after : &#123;&#125;"</span>,list); <span class="hljs-comment">// after : [0, 1, 2]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="sorted"><a href="#sorted" class="headerlink" title="sorted"></a>sorted</h4><blockquote>
+<p><strong>Stream<t> sorted()</t></strong> 和 <strong>Stream<t> sorted(Comparator&lt;? super T&gt; comparator)</t></strong></p>
+</blockquote>
+ <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamSorted</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">       Stream&lt;Integer&gt; stream = Stream.of(<span class="hljs-number">22</span>,<span class="hljs-number">21</span>,<span class="hljs-number">21</span>);</span><br><span class="line"></span><br><span class="line">       <span class="hljs-comment">// 升序排列</span></span><br><span class="line">       List&lt;Integer&gt; integerList =  stream.sorted().collect(Collectors.toList());</span><br><span class="line">       </span><br><span class="line">       log.info(<span class="hljs-string">"integerList : &#123;&#125;"</span>,integerList); <span class="hljs-comment">// integerList : [21, 21, 22]</span></span><br><span class="line"></span><br><span class="line">       List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">       <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">5</span> ; i++)&#123;</span><br><span class="line">           list.add(i);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       Stream&lt;Integer&gt; streamSecond  =  list.stream();</span><br><span class="line"></span><br><span class="line">       <span class="hljs-comment">// 自定义 CompareTo 完成倒序</span></span><br><span class="line">       list = streamSecond.sorted( (a,b) -&gt; a &gt;= b ? -<span class="hljs-number">1</span> : <span class="hljs-number">1</span> ).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">       log.info(<span class="hljs-string">"list : &#123;&#125;"</span>,list); <span class="hljs-comment">// list : [4, 3, 2, 1, 0]</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="peek"><a href="#peek" class="headerlink" title="peek"></a>peek</h4><blockquote>
+<p><strong>Stream<t> peek(Consumer&lt;? super T&gt; action)</t></strong> </p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   <span class="hljs-meta">@Test</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamPeek</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">       Stream&lt;Integer&gt; stream = Stream.of(<span class="hljs-number">22</span>,<span class="hljs-number">21</span>,<span class="hljs-number">21</span>);</span><br><span class="line">	<span class="hljs-comment">// 一个 Stream 必须执行 Terminal 操作，否则  Intermediate 不起作用</span></span><br><span class="line">       stream.peek(</span><br><span class="line">               p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p)</span><br><span class="line">       ).count();</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment">   2018-12-16 17:52:25.639  INFO 7988 --- [           main] com.zyy.consumer.StreamTest              : number : 22</span></span><br><span class="line"><span class="hljs-comment">2018-12-16 17:52:25.640  INFO 7988 --- [           main] com.zyy.consumer.StreamTest              : number : 21</span></span><br><span class="line"><span class="hljs-comment">2018-12-16 17:52:25.640  INFO 7988 --- [           main] com.zyy.consumer.StreamTest              : number : 21</span></span><br><span class="line"><span class="hljs-comment">*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h4><blockquote>
+<p><strong>Stream<t> limit(long maxSize)</t></strong> </p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="hljs-comment">// 只需要 3 个元素就足够了</span></span><br><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamLimit</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">       List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">       <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">           list.add(i);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">       list = stream.limit(<span class="hljs-number">3</span>).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">       log.info(<span class="hljs-string">"list : &#123;&#125;"</span>,list); <span class="hljs-comment">// list : [0, 1, 2]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="skip"><a href="#skip" class="headerlink" title="skip"></a>skip</h4><blockquote>
+<p><strong>Stream<t> skip(long n)</t></strong> </p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 跳过前三个</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamSkip</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        list = stream.skip(<span class="hljs-number">3</span>).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"list : &#123;&#125;"</span>,list); <span class="hljs-comment">// list : [3, 4, 5, 6, 7, 8, 9]</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="parallel"><a href="#parallel" class="headerlink" title="parallel"></a>parallel</h4><blockquote>
+<p><strong>S parallel()</strong> 转换为并行流</p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamParallel</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">5</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        stream.parallel().forEach(</span><br><span class="line">                p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">16</span>:<span class="hljs-number">36.558</span>  INFO <span class="hljs-number">15640</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">16</span>:<span class="hljs-number">36.558</span>  INFO <span class="hljs-number">15640</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">4</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">16</span>:<span class="hljs-number">36.560</span>  INFO <span class="hljs-number">15640</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">16</span>:<span class="hljs-number">36.561</span>  INFO <span class="hljs-number">15640</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">16</span>:<span class="hljs-number">36.558</span>  INFO <span class="hljs-number">15640</span> --- [onPool-worker-<span class="hljs-number">1</span>] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><blockquote>
+<p><strong>void forEach(Consumer&lt;? super T&gt; action)</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamForEach</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        stream.limit(<span class="hljs-number">3</span>).forEach(</span><br><span class="line">                p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">11</span>:<span class="hljs-number">22.170</span>  INFO <span class="hljs-number">14328</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">11</span>:<span class="hljs-number">22.172</span>  INFO <span class="hljs-number">14328</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">11</span>:<span class="hljs-number">22.172</span>  INFO <span class="hljs-number">14328</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="forEachOrdered"><a href="#forEachOrdered" class="headerlink" title="forEachOrdered"></a>forEachOrdered</h4><blockquote>
+<p><strong>void forEachOrdered(Consumer&lt;? super T&gt; action)</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-comment">// 并行流也会按顺序执行，不过会牺牲速度</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamForEachOrdered</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">5</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        stream.parallel().forEachOrdered(</span><br><span class="line">                p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">20</span>:<span class="hljs-number">00.344</span>  INFO <span class="hljs-number">17744</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">20</span>:<span class="hljs-number">00.344</span>  INFO <span class="hljs-number">17744</span> --- [onPool-worker-<span class="hljs-number">1</span>] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">20</span>:<span class="hljs-number">00.345</span>  INFO <span class="hljs-number">17744</span> --- [onPool-worker-<span class="hljs-number">1</span>] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">20</span>:<span class="hljs-number">00.345</span>  INFO <span class="hljs-number">17744</span> --- [onPool-worker-<span class="hljs-number">1</span>] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">20</span>:<span class="hljs-number">00.345</span>  INFO <span class="hljs-number">17744</span> --- [onPool-worker-<span class="hljs-number">1</span>] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">4</span></span><br></pre></td></tr></table></figure>
+<h4 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h4><blockquote>
+<p><strong>Object[] toArray()</strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamToArray</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        Object[] objects = stream.limit(<span class="hljs-number">4</span>).toArray();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">for</span>(Object o : objects)&#123;</span><br><span class="line">            log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,o);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">25</span>:<span class="hljs-number">40.322</span>  INFO <span class="hljs-number">5544</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">25</span>:<span class="hljs-number">40.322</span>  INFO <span class="hljs-number">5544</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">25</span>:<span class="hljs-number">40.322</span>  INFO <span class="hljs-number">5544</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-number">2018</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span> <span class="hljs-number">18</span>:<span class="hljs-number">25</span>:<span class="hljs-number">40.322</span>  INFO <span class="hljs-number">5544</span> --- [           main] com.zyy.consumer.StreamTest              : number : <span class="hljs-number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><blockquote>
+<p><strong>Optional<t> reduce(BinaryOperator<t> accumulator)</t></t></strong></p>
+</blockquote>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 求和</span></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamReduce</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">        Optional&lt;Integer&gt; optional = stream.reduce(</span><br><span class="line">                (a,b) -&gt; a + b</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        log.info(<span class="hljs-string">"sum : &#123;&#125;"</span>,optional.get()); <span class="hljs-comment">//  sum : 45</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Match"><a href="#Match" class="headerlink" title="Match"></a>Match</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 测试三种 match</span></span><br><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStreamMatch</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">      List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;</span><br><span class="line">          list.add(i);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Stream&lt;Integer&gt; stream  =  list.stream();</span><br><span class="line"></span><br><span class="line">      log.info(<span class="hljs-string">"AnyFirst : &#123;&#125;"</span>,stream.anyMatch(</span><br><span class="line">              p -&gt; p &gt;<span class="hljs-number">5</span></span><br><span class="line">      )); <span class="hljs-comment">// true</span></span><br><span class="line">      stream  =  list.stream();</span><br><span class="line">      log.info(<span class="hljs-string">"AnySecond : &#123;&#125;"</span>,stream.anyMatch(</span><br><span class="line">              p -&gt; p &gt;<span class="hljs-number">15</span></span><br><span class="line">      )); <span class="hljs-comment">// false</span></span><br><span class="line">      stream  =  list.stream();</span><br><span class="line">      log.info(<span class="hljs-string">"AllFirst : &#123;&#125;"</span>,stream.allMatch(</span><br><span class="line">              p -&gt; p &gt;=<span class="hljs-number">0</span></span><br><span class="line">      )); <span class="hljs-comment">// true</span></span><br><span class="line">      stream  =  list.stream();</span><br><span class="line">      log.info(<span class="hljs-string">"AllSecond : &#123;&#125;"</span>,stream.allMatch(</span><br><span class="line">              p -&gt; p &gt;<span class="hljs-number">5</span></span><br><span class="line">      )); <span class="hljs-comment">// false</span></span><br><span class="line">      stream  =  list.stream();</span><br><span class="line">      log.info(<span class="hljs-string">"NoneFirst : &#123;&#125;"</span>,stream.noneMatch(</span><br><span class="line">              p -&gt; p &gt; <span class="hljs-number">10</span></span><br><span class="line">      )); <span class="hljs-comment">// true</span></span><br><span class="line">      stream  =  list.stream();</span><br><span class="line">      log.info(<span class="hljs-string">"NoneSecond : &#123;&#125;"</span>,stream.noneMatch(</span><br><span class="line">              p -&gt; p &gt; <span class="hljs-number">5</span></span><br><span class="line">      )); <span class="hljs-comment">// false</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="JDK8-中-的使用"><a href="#JDK8-中-的使用" class="headerlink" title="JDK8 中 :: 的使用"></a>JDK8 中 :: 的使用</h2><h3 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h3><blockquote>
+<p>就是将 Stream 的参数传入一个方法中执行</p>
+</blockquote>
+<p>要求</p>
+<ul>
+<li>一个类的静态方法</li>
+<li>参数需要一致</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// LambdaTest 类</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Test</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testLambdaPredicate</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span>;i++)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">new</span> FirstLambda().checkNumberBigger(list,</span><br><span class="line">                p -&gt; p &gt; <span class="hljs-number">5</span>,</span><br><span class="line">                LambdaTest::testDoubleQuote); <span class="hljs-comment">// 将Stream 传入 LambdaTest.testDoubleQuote</span></span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">new</span> FirstLambda().checkNumberBigger(list,</span><br><span class="line">                p -&gt; p &gt; <span class="hljs-number">5</span>,</span><br><span class="line">                p -&gt; log.info(<span class="hljs-string">"number : &#123;&#125;"</span>,p));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testDoubleQuote</span><span class="hljs-params">(Integer s)</span></span>&#123;</span><br><span class="line">        log.info(<span class="hljs-string">"element : &#123;&#125;"</span>,s);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java/">Java</a>, <a class="has-link-grey -link" href="/tags/Java入门/">Java入门</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/JavaScript对象：你知道全部的对象分类吗？/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JavaScript对象：你知道全部的对象分类吗？</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/06/Hexo博客NexT主题SEO优化/">
+                <span class="level-item">Hexo博客NexT主题SEO优化</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avator.jpg" alt="Old C">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Old C
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        A tossed cucumber
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangdong·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Articles
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Catégories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
+                SUIVRE</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Abner0101">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Liens
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.alloyteam.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">AlloyTeam</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.alloyteam.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.zhangxinxu.com/wordpress/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张鑫旭-鑫空间</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.zhangxinxu.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.daqianduan.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">大前端</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.daqianduan.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3cplus.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3cplus</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3cplus.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catégories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/BLOG/">
+            <span class="level-start">
+                <span class="level-item">BLOG</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/NODE-JS/">
+            <span class="level-start">
+                <span class="level-item">NODE JS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/PHP/">
+            <span class="level-start">
+                <span class="level-item">PHP</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端/">
+            <span class="level-start">
+                <span class="level-item">前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">23</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nuage de tags
+        </h3>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/touch-icon.png" alt="Java函数式编程入门" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 老黄瓜&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Articles',
+                PAGES: 'Pages',
+                CATEGORIES: 'Catégories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

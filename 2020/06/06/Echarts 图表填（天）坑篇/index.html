@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Echarts 图表填（天）坑篇 - Old C</title>
+
+
+    <meta name="description" content="1.echarts 图表大小随窗口变动而自适应变动（无需刷新浏览器调整）问题：">
+<meta name="keywords" content="echarts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Echarts 图表填（天）坑篇">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/06/Echarts 图表填（天）坑篇/index.html">
+<meta property="og:site_name" content="Old C">
+<meta property="og:description" content="1.echarts 图表大小随窗口变动而自适应变动（无需刷新浏览器调整）问题：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdn.net/20180526121631555?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4MzgyMzgw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-10-22T14:06:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Echarts 图表填（天）坑篇">
+<meta name="twitter:description" content="1.echarts 图表大小随窗口变动而自适应变动（无需刷新浏览器调整）问题：">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180526121631555?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4MzgyMzgw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/touch-icon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/touch-icon.png" alt="Echarts 图表填（天）坑篇" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://img-blog.csdn.net/20180526121631555?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4MzgyMzgw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Echarts 图表填（天）坑篇">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.386Z">2020-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 minutes read (About 1065 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Echarts 图表填（天）坑篇
+            
+        </h1>
+        <div class="content">
+            <h4 id="1-echarts-图表大小随窗口变动而自适应变动（无需刷新浏览器调整）"><a href="#1-echarts-图表大小随窗口变动而自适应变动（无需刷新浏览器调整）" class="headerlink" title="1.echarts 图表大小随窗口变动而自适应变动（无需刷新浏览器调整）"></a>1.echarts 图表大小随窗口变动而自适应变动（无需刷新浏览器调整）</h4><p><strong>问题：</strong><a id="more"></a></p>
+<p>这是做过echarts图表的同学大部分都会遇到的坑，在应用echarts进行统计图制作时候会遇到这样的问题，进入渲染页面统计图比例显示ok，但是当主动调整浏览器大小时候，统计图比例并没有随窗口大小改变而自动调整到最佳视觉效果，比如下图，缩小窗口就会出现溢出的情况。<img src="https://img-blog.csdn.net/20180526121631555?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4MzgyMzgw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<p><strong>原因分析：</strong></p>
+<p>echarts的图表实例事实上并没有主动的去绑定resize()事件，就是说显示区域大小发生改变内部并不知道，当你需要去做一些自适应的效果的时候，需要使用方主动的去绑定这个事件达到自适应的效果，常见如window.onresize = myChart.resize。</p>
+<p><strong>填坑：</strong></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'main'</span>));</span><br><span class="line"><span class="hljs-comment">// 指定图表的配置项和数据</span></span><br><span class="line"><span class="hljs-keyword">var</span> option = &#123;</span><br><span class="line">    title: &#123;</span><br><span class="line">        text: <span class="hljs-string">'ECharts 入门示例'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    tooltip: &#123;&#125;,</span><br><span class="line">    legend: &#123;</span><br><span class="line">        data:[<span class="hljs-string">'销量'</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    xAxis: &#123;</span><br><span class="line">        data: [<span class="hljs-string">"衬衫"</span>,<span class="hljs-string">"羊毛衫"</span>,<span class="hljs-string">"雪纺衫"</span>,<span class="hljs-string">"裤子"</span>,<span class="hljs-string">"高跟鞋"</span>,<span class="hljs-string">"袜子"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    yAxis: &#123;&#125;,</span><br><span class="line">    series: [&#123;</span><br><span class="line">        name: <span class="hljs-string">'销量'</span>,</span><br><span class="line">        type: <span class="hljs-string">'bar'</span>,</span><br><span class="line">        data: [<span class="hljs-number">5</span>, <span class="hljs-number">20</span>, <span class="hljs-number">36</span>, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>]</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="hljs-comment">// 使用刚指定的配置项和数据显示图表。</span></span><br><span class="line">myChart.setOption(option);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//根据窗口的大小变动图表 --- 重点</span></span><br><span class="line"><span class="hljs-built_in">window</span>.onresize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">    myChart.resize();</span><br><span class="line">    <span class="hljs-comment">//myChart1.resize();    //若有多个图表变动，可多写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-解决Vue-Echarts的内存泄漏问题"><a href="#2-解决Vue-Echarts的内存泄漏问题" class="headerlink" title="2.解决Vue+Echarts的内存泄漏问题"></a>2.解决Vue+Echarts的内存泄漏问题</h4><p><strong>问题：</strong></p>
+<p>当页面存在echarts图表的时候，跳转路由到其他页面，然后来回切换的时候，打开浏览器调试工具，会发现页面占用内存持续增加，如下图所示：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltYWdlLm9rY29kZS5uZXQvRkNFRTVDRUZGNTVCOTQyNzJEMjI0NjlGRjIxODhGNzEucG5n?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>前几次切换页面可以正常生成图表，但是当切换多次以后，页面会出现空白或浏览器奔溃的情况，页面也不会报错并且无明显提示。很明显是发生了内存泄漏问题。</p>
+<p><strong>原因分析：</strong></p>
+<p>先说一个知识点：</p>
+<blockquote>
+<p>js中的内存垃圾回收机制：垃圾回收器会定期扫描内存，当某个内存中的值被引用为零时就会将其回收。当前变量已经使用完毕但依然被引用，导致垃圾回收器无法回收这就造成了内存泄漏。传统页面每次跳转都会释放内存，所以并不是特别明显。<br>Web App 与 传统Web的区别，因为Web App是单页面应用页面通过路由跳转不会刷新页面，导致内存泄漏不断堆积，导致页面卡顿。</p>
+</blockquote>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jbi52dWVqcy5vcmcvaW1hZ2VzL21lbW9yeS1sZWFrLWV4YW1wbGUucG5n?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>原因就是echarts图表初始化时引用了DOM对象，js不回对此自动回收，切换生成echarts时需要用到一部分内存，重复切换页面，之前生成的图表内存并没有进行清空，因此一直切换内存也一直叠加，最终导致内存溢出。</p>
+<p><strong>填坑：</strong></p>
+<p>1.在生成echarts之前进行判断，dom不存在时就不初始化echarts</p>
+<p>2.去掉重复初始化echarts，这个主要就是在不需要使用时销毁实例。那么很自然想到官方API，查阅echarts官方API果然发现有这个方法：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltYWdlLm9rY29kZS5uZXQvODc1NjY0ODIzRDIwMTkyMkY3RjQ2RDAxNzNDOERBMkIucG5n?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>代码示例：</p>
+<p>（1）页面容器：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"chart-main"</span>&gt;</span><br><span class="line">    &lt;div ref=<span class="hljs-string">"dom"</span> :style=<span class="hljs-string">"chartStyle"</span>&gt;&lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/template&gt;</span></span><br></pre></td></tr></table></figure>
+<p>（2）初始化echarts方法：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">initChart() &#123;</span><br><span class="line">      <span class="hljs-comment">//-dom 不存在时不画</span></span><br><span class="line">      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.$refs.dom) &#123;</span><br><span class="line">          <span class="hljs-keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-comment">//去掉重复初始化</span></span><br><span class="line">      <span class="hljs-keyword">this</span>.myChart = echarts.getInstanceByDom(<span class="hljs-keyword">this</span>.$refs.dom);</span><br><span class="line">      <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">this</span>.myChart)&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.myChart = echarts.init(<span class="hljs-keyword">this</span>.$refs.dom);</span><br><span class="line">        <span class="hljs-keyword">this</span>.$once(<span class="hljs-string">'hook:beforeDestroy'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">          echarts.dispose(<span class="hljs-keyword">this</span>.myChart)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>没修改之前的代码：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">initChart() &#123;</span><br><span class="line">      <span class="hljs-keyword">this</span>.myChart = echarts.init(<span class="hljs-keyword">this</span>.$refs.dom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/echarts/">echarts</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/ES6的Set和Map数据结构/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">ES6的Set和Map数据结构</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avator.jpg" alt="Old C">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Old C
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        A tossed cucumber
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangdong·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Articles
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Catégories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
+                SUIVRE</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Abner0101">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Liens
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.alloyteam.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">AlloyTeam</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.alloyteam.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.zhangxinxu.com/wordpress/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张鑫旭-鑫空间</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.zhangxinxu.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.daqianduan.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">大前端</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.daqianduan.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3cplus.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3cplus</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3cplus.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catégories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/BLOG/">
+            <span class="level-start">
+                <span class="level-item">BLOG</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/NODE-JS/">
+            <span class="level-start">
+                <span class="level-item">NODE JS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/PHP/">
+            <span class="level-start">
+                <span class="level-item">PHP</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端/">
+            <span class="level-start">
+                <span class="level-item">前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">23</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nuage de tags
+        </h3>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/touch-icon.png" alt="Echarts 图表填（天）坑篇" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 老黄瓜&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Articles',
+                PAGES: 'Pages',
+                CATEGORIES: 'Catégories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

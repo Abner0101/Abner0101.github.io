@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>浅谈PHP面向对象编程 - Old C</title>
+
+
+    <meta name="description" content="本篇文章给大家分享的内容是关于浅谈PHP面向对象编程 ，有着一定的参考价值，有需要的朋友可以参考一下。 一、PHP面向对象编程基础实践">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈PHP面向对象编程">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/06/浅谈php面向对象编程/index.html">
+<meta property="og:site_name" content="Old C">
+<meta property="og:description" content="本篇文章给大家分享的内容是关于浅谈PHP面向对象编程 ，有着一定的参考价值，有需要的朋友可以参考一下。 一、PHP面向对象编程基础实践">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3449064909,2824735748&fm=11&gp=0.jpg">
+<meta property="og:updated_time" content="2019-10-02T03:09:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈PHP面向对象编程">
+<meta name="twitter:description" content="本篇文章给大家分享的内容是关于浅谈PHP面向对象编程 ，有着一定的参考价值，有需要的朋友可以参考一下。 一、PHP面向对象编程基础实践">
+<meta name="twitter:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3449064909,2824735748&fm=11&gp=0.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/touch-icon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/touch-icon.png" alt="浅谈PHP面向对象编程" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3449064909,2824735748&amp;fm=11&amp;gp=0.jpg" alt="浅谈PHP面向对象编程">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:23.672Z">2020-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/PHP/">PHP</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    18 minutes read (About 2734 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                浅谈PHP面向对象编程
+            
+        </h1>
+        <div class="content">
+            <p>本篇文章给大家分享的内容是关于浅谈PHP面向对象编程 ，有着一定的参考价值，有需要的朋友可以参考一下。</p>
+<h2 id="一、PHP面向对象编程基础实践"><a href="#一、PHP面向对象编程基础实践" class="headerlink" title="一、PHP面向对象编程基础实践"></a>一、PHP面向对象编程基础实践</h2><a id="more"></a>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line">/*</span><br><span class="line">*    通过对象的编程方式，可将实现生活中的一切事物以对象的形式表现出来。便于理解、维护、扩展等；</span><br><span class="line">*    本示例：定义一个“人”类</span><br><span class="line">*    $name : 对象中的成员属性，在此类中表示人的姓名</span><br><span class="line">*    say() : 对象中的成员方法，在此类中表示人说话的方法</span><br><span class="line">*    $this : PHP中的伪变量，表示自身的类</span><br><span class="line">*    __construct() : php中的魔术方法，构造函数，在实例化类时自动执行</span><br><span class="line">*    __destruct() : php中的魔术方法，析构函数，当类调用完成后自动执行</span><br><span class="line"><span class="hljs-php">*/</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $name;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $sex;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $age;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($name,$sex,$age)</span> </span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;name = $name;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;sex = $sex;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;age = $age;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">say</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">'大家好，我的名字叫'</span>.<span class="hljs-keyword">$this</span>-&gt;name.<span class="hljs-string">'，今年'</span>.<span class="hljs-keyword">$this</span>-&gt;age.<span class="hljs-string">'岁，我的性别是'</span>.<span class="hljs-keyword">$this</span>-&gt;sex;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;name = <span class="hljs-keyword">null</span>;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;sex = <span class="hljs-keyword">null</span>;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;age = <span class="hljs-keyword">null</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化“人”类</span></span></span><br><span class="line"><span class="hljs-php">$male = <span class="hljs-keyword">new</span> Human(<span class="hljs-string">"张三"</span>,<span class="hljs-string">"男"</span>,<span class="hljs-string">"20"</span>);</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//调用“人”类说话的方法</span></span></span><br><span class="line"><span class="hljs-php">$male-&gt;say();</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//输出结果：大家好，我的名字叫张三，今年20岁，我的性别是男</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="二、PHP面向对象高级编程实践"><a href="#二、PHP面向对象高级编程实践" class="headerlink" title="二、PHP面向对象高级编程实践"></a>二、PHP面向对象高级编程实践</h2><p><em>知识点：类的继承、方法重写、访问控制、static关键字、final关键字、数据访问、接口、多态、抽象类</em></p>
+<p><strong>2.1、类的继承：extends 关键字</strong><br>例如：一员运行员、一位主持人，他们有人类共同的行为方法，但他们都有自己不同的特长专业。因此在编程时需要给他们创建一个父类并继承；</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line">/*</span><br><span class="line">*    创建一个“人”类做为父类，继承的子类都拥有其父类的成员属性、方法</span><br><span class="line"><span class="hljs-php">*/</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $name;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">say</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"父类说话的方法，姓名："</span>.<span class="hljs-keyword">$this</span>-&gt;name.<span class="hljs-string">"\n"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"父类吃饭的方法\n"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line">/*</span><br><span class="line">*    创建一个“运动员”类，继承“人”类</span><br><span class="line">*    extends : 关键字，继承某个类</span><br><span class="line"><span class="hljs-php">*/</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $type;    </span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($name,$type)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;name = $name;    <span class="hljs-comment">//给父类 $name 属性赋值</span></span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;type = $type;    </span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;say();   <span class="hljs-comment">//调用父类“说话”的方法</span></span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"我在正跑步，我是一员"</span>.<span class="hljs-keyword">$this</span>-&gt;type.<span class="hljs-string">"运动员.....\n"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line">/*</span><br><span class="line">*    创建一个“主持人”类，继承“人”类</span><br><span class="line">*    extends : 关键字，继承某个类</span><br><span class="line"><span class="hljs-php">*/</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Host</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $television; </span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($name,$television)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;name = $name;    </span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;television= $television;   </span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">perform</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">$this</span>-&gt;eat();   <span class="hljs-comment">//调用父类“吃饭”的方法</span></span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"我在正表演一个节目，我是"</span>.<span class="hljs-keyword">$this</span>-&gt;television.<span class="hljs-string">"电视台的一名主持人.....\n"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化“运动员”类</span></span></span><br><span class="line"><span class="hljs-php">$nba = <span class="hljs-keyword">new</span> Sport(<span class="hljs-string">"乔丹"</span>,<span class="hljs-string">"篮球"</span>);</span></span><br><span class="line"><span class="hljs-php">$nba-&gt;run();</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化“主持人”类</span></span></span><br><span class="line"><span class="hljs-php">$tv = <span class="hljs-keyword">new</span> Host(<span class="hljs-string">"张三"</span>,<span class="hljs-string">"北京卫视"</span>);</span></span><br><span class="line"><span class="hljs-php">$tv-&gt;perform();</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//输出结果：</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//父类说话的方法，姓名：乔丹 我在正跑步，我是一员篮球运动员..... </span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//父类吃饭的方法 我在正表演一个节目，我是北京卫视电视台的一名主持人.....</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.2、方法重写：子类重写父类的方法</strong></p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">say</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"父类说话的方法"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-comment">//重写父类“说话”的方法</span></span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">say</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"子类说话的方法"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php">$nba = <span class="hljs-keyword">new</span> Sport();</span></span><br><span class="line"><span class="hljs-php">$nba-&gt;say();</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//输出结果：子类说话的方法</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.3、访问控制：public 、 protected 、private 关键字</strong></p>
+<p>public：定义公共的成员属性或方法，任何地方都可使用<br>protected : 定义受保护的成员属性或方法，只允许类本身或子类使用<br>private : 定义私有的成员属性或方法，只允许类的本身使用</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $name;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">protected</span> $sex;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">private</span> $age;  </span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化对象，给公共属性赋值可正常输出结果，外部不能给protected、private受保护的成员属性赋值或使用</span></span></span><br><span class="line"><span class="hljs-php">$worker = <span class="hljs-keyword">new</span> Human();</span></span><br><span class="line"><span class="hljs-php">$worker-&gt;name = <span class="hljs-string">"张三"</span>;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">echo</span> $worker-&gt;name;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.4、static（静态）关键字</strong><br>1）、静态属性用于保存类的公有数据；<br>2）、静态方法里面只能访问静态属性或方法，不能使用 $this 伪变量；<br>3）、静态成员不需要通过 new 关键字来实例化对象就可访问使用；</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">static</span> $name = <span class="hljs-string">"张三"</span>;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">say</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"我的姓名叫："</span>.<span class="hljs-keyword">self</span>::$name;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//外部使用静态成员属性或方法</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">echo</span> Human::$name;</span></span><br><span class="line"><span class="hljs-php">Human::say();</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//输出结果：张三  我的姓名叫：张三</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.5、final关键字：不允许成员方法被重写，不允许被继承</strong><br>例：1、对于父类“吃饭”这个方法，不希望子类重写它；2、对于“运动员”这个类，不希望它再创建子类；</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"父类吃饭的方法，不允许子类重写"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"子类吃饭的方法。此时程序将会报致命错误"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//创建一个类继承 Sport 这个类。此时程序也将会报致命错误。因为 Sport 类不允许再创建子类</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Sport</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> $name;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化 Sport 类 ，调用 eat() 方法</span></span></span><br><span class="line"><span class="hljs-php">$nba = <span class="hljs-keyword">new</span> Sport();</span></span><br><span class="line"><span class="hljs-php">$nba-&gt;eat();</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化 Student 类 ，给 name 属性负值</span></span></span><br><span class="line"><span class="hljs-php">$obj = <span class="hljs-keyword">new</span> Student();</span></span><br><span class="line"><span class="hljs-php">$obj-&gt;name = <span class="hljs-string">"张三"</span>;</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//输出结果：Fatal error: Cannot override final method Human::eat() in ******.php on line 15</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//Fatal error: Class Student may not inherit from final class (Sport) in ****.php on line 20</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.6、数据访问：$this 、 self 、parent 关键字</strong><br>$this ： 伪变量，代表类的本身，可访问本类及父类中的成员属性与方法。<br>self ： 访问类中的静态成员属性或方法<br>parent ：访问父类的成员属性或方法</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">static</span> $name = <span class="hljs-string">"张三"</span>;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Human</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getParentName</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-keyword">parent</span>::$name;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> </span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">       <span class="hljs-keyword">self</span>::getParentName(); </span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php">$obj = <span class="hljs-keyword">new</span> Sport();</span></span><br><span class="line"><span class="hljs-php">$obj-&gt;get();</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//输出结果：张三</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.7、接口：把不同类的共同行为方法进行定义，但不具体实现，由子类来实现具体的方法；</strong><br>例如：人会吃饭，动物也会吃饭，甚至有些植物也会吃饭，但他们吃饭的方式不一样，因此这时需要定义一个接口类，具体的方式由子类来实现；<br>定义接口关键字：interface<br>实现接口方法关键字：implements</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//定义一个接口类，有吃饭的方法，但不具体实现。</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ICanEat</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">($food)</span></span>;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ICanEat</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-comment">//eat()方法必须由子类来实现，否则程序将报致命错误</span></span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">($food)</span> </span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"I'm eating "</span>.$food;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ICanEat</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">($food)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"It's eating "</span>.$food;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化一个“人”类</span></span></span><br><span class="line"><span class="hljs-php">$people = <span class="hljs-keyword">new</span> Human();</span></span><br><span class="line"><span class="hljs-php">$people-&gt;eat(<span class="hljs-string">'rice'</span>);</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//实例化一个“动物”类</span></span></span><br><span class="line"><span class="hljs-php">$monkey = <span class="hljs-keyword">new</span> Animal();</span></span><br><span class="line"><span class="hljs-php">$monkey-&gt;eat(<span class="hljs-string">'banana'</span>);</span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line">//输出结果：I'm eating rice</span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">// It's eating banana</span></span></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2.8、多态：比如接口A有两个实现B和C，B和C对A接口里面定义的方法实现可以是不同的，这种现象称之为多态；</strong><br>上述实例中，ICanEat接口定义了一个eat()方法，人类吃米饭，猴子吃香蕉。他们都实现了一个“吃”的方法，但他们吃东西有不同的行为，称之为多态；</p>
+<p><strong>2.9、抽象类：介入接口与类的定义之间，允许类里面一部分方法不实现，实现一部分有相同功能且不会更改的方法。然而接口类里面不允许有任何实现的方法。</strong><br>例如：人和动物都具有吃饭与呼吸的方法，除吃饭不同以外，呼吸方法是相同的，此时需要定义一个抽象类来实现。<br>定义抽象类关键字：abstract</p>
+<figure class="highlight php hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&lt;?php</span></span><br><span class="line"><span class="hljs-comment">//定义一个抽象类，里面有吃饭和呼吸的方法。呼吸方法需要在抽象类中具体实现</span></span><br><span class="line"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ICanEat</span></span></span><br><span class="line"><span class="hljs-class"></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">abstract</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">($food)</span></span>;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breath</span><span class="hljs-params">()</span></span></span><br><span class="line"><span class="hljs-function">    </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">echo</span> <span class="hljs-string">'Breath use the air...'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Human</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ICanEat</span></span></span><br><span class="line"><span class="hljs-class"></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eat</span><span class="hljs-params">($food)</span></span></span><br><span class="line"><span class="hljs-function">    </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"I'm eating "</span>.$food;</span><br><span class="line">        <span class="hljs-keyword">$this</span>-&gt;breath();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//实例化“人”类</span></span><br><span class="line">$people = <span class="hljs-keyword">new</span> Human();</span><br><span class="line">$people-&gt;eat(<span class="hljs-string">'rice'</span>);</span><br><span class="line"><span class="hljs-comment">//输出结果:I'm eating rice Breath use the air...</span></span><br><span class="line"><span class="hljs-meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、PHP面向对象编程特殊实践"><a href="#三、PHP面向对象编程特殊实践" class="headerlink" title="三、PHP面向对象编程特殊实践"></a>三、PHP面向对象编程特殊实践</h2><p>PHP语言特定的一些魔术方法：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Object</span></span></span></span><br><span class="line"><span class="hljs-php">&#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"当类在被实例化的时候，自动执行该函数"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__toString</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">return</span> <span class="hljs-string">"当对象被当作字符串形式输出时，自动执行该函数"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span><span class="hljs-params">($value)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"当对象被当作函数调用时，自动执行该函数"</span>.$value;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line">    /*</span><br><span class="line">    *    当对象访问不存在的方法时，自动执行该函数。也称之为“方法重载”</span><br><span class="line">    *    $fun : 方法名称</span><br><span class="line">    *    $param : 传递的参数</span><br><span class="line"><span class="hljs-php">    */</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__call</span><span class="hljs-params">($fun,$param)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"调用"</span>.$fun.<span class="hljs-string">"方法不存在，传递的参数"</span>.implode(<span class="hljs-string">','</span>,$param);</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line">    /*</span><br><span class="line">    *    当对象访问不存在的静态方法时，自动执行该函数。</span><br><span class="line">    *    $fun : 方法名称</span><br><span class="line">    *    $param : 传递的参数</span><br><span class="line"><span class="hljs-php">    */</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__callStatic</span><span class="hljs-params">($fun,$param)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"调用"</span>.$fun.<span class="hljs-string">"静态方法不存在，传递的参数"</span>.implode(<span class="hljs-string">','</span>,$param);</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span><span class="hljs-params">($key)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"当读取对象中不可访问（未定义）的属性值时，自动调用该函数。"</span>.$key.<span class="hljs-string">"属性不可访问或未定义"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__set</span><span class="hljs-params">($key,$value)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">         <span class="hljs-keyword">echo</span> <span class="hljs-string">"当给对象中不可访问（未定义）的属性赋值时，自动调用该函数。"</span>.$key.<span class="hljs-string">"属性不可访问或未定义，值"</span>.$value;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__isset</span><span class="hljs-params">($key)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"判断对象中的属性不存在时，自动执行该函数。属性："</span>.$key.<span class="hljs-string">"值未定义"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__unset</span><span class="hljs-params">($key)</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"释放对象中的不存在的属性值时，自动执行该函数。属性："</span>.$key.<span class="hljs-string">"值未定义"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__clone</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"当对象被克隆时，自动执行该函数。"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">    &#123;</span></span><br><span class="line"><span class="hljs-php">        <span class="hljs-keyword">echo</span> <span class="hljs-string">"当对象执行完成后，自动执行该函数"</span>;</span></span><br><span class="line"><span class="hljs-php">    &#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php">$obj = <span class="hljs-keyword">new</span> Object();    <span class="hljs-comment">//实例化对象时，调用__construct()方法</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">echo</span> $obj;              <span class="hljs-comment">//将对象以字符串形式输出时，调用__toString()方法</span></span></span><br><span class="line"><span class="hljs-php">$obj(<span class="hljs-number">123</span>);              <span class="hljs-comment">//当对象以函数形式调用时，执行__invoke()方法</span></span></span><br><span class="line"><span class="hljs-php">$obj-&gt;runTest();        <span class="hljs-comment">//当调用对象中不存在的方法时，执行__call()方法</span></span></span><br><span class="line"><span class="hljs-php">$obj::runTest();        <span class="hljs-comment">//当调用对象中不存在的静态方法时，执行__callStatic()方法</span></span></span><br><span class="line"><span class="hljs-php">$obj-&gt;name;             <span class="hljs-comment">//当调用对象中不存在的成员属性时，执行__get()方法</span></span></span><br><span class="line"><span class="hljs-php">$obj-&gt;name = <span class="hljs-string">"张三"</span>;    <span class="hljs-comment">//当给对象中不存在的成员属性赋值时，执行__set()方法</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">isset</span>($obj-&gt;name) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;     <span class="hljs-comment">//判断对象中不存在的成员属性时，执行__isset()方法</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">unset</span>($obj-&gt;name);      <span class="hljs-comment">//释放对象中的不存在的属性值时，执行__unset()方法</span></span></span><br><span class="line"><span class="hljs-php">$obj2 = <span class="hljs-keyword">clone</span> $obj;     <span class="hljs-comment">//当对象被克隆时，执行__clone()方法</span></span></span><br><span class="line"><span class="hljs-php">                        <span class="hljs-comment">//对象执行完毕，执行__destruct()方法</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/PHP/">PHP</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/浏览器：一个浏览器是如何工作的（阶段三）/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">浏览器：一个浏览器是如何工作的？（阶段三）</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/06/关于this的解析（四）——绑定例外和this词法/">
+                <span class="level-item">关于this的解析（四）——绑定例外和this词法</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avator.jpg" alt="Old C">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Old C
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        A tossed cucumber
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangdong·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Articles
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Catégories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
+                SUIVRE</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Abner0101">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Liens
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.alloyteam.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">AlloyTeam</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.alloyteam.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.zhangxinxu.com/wordpress/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张鑫旭-鑫空间</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.zhangxinxu.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.daqianduan.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">大前端</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.daqianduan.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3cplus.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3cplus</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3cplus.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catégories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/BLOG/">
+            <span class="level-start">
+                <span class="level-item">BLOG</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/NODE-JS/">
+            <span class="level-start">
+                <span class="level-item">NODE JS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/PHP/">
+            <span class="level-start">
+                <span class="level-item">PHP</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端/">
+            <span class="level-start">
+                <span class="level-item">前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">23</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nuage de tags
+        </h3>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/touch-icon.png" alt="浅谈PHP面向对象编程" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 老黄瓜&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Articles',
+                PAGES: 'Pages',
+                CATEGORIES: 'Catégories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

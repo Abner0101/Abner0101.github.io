@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装 - Old C</title>
+
+
+    <meta name="description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，">
+<meta name="keywords" content="PHP,数据库,验证码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/06/php mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装/index.html">
+<meta property="og:site_name" content="Old C">
+<meta property="og:description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3449064909,2824735748&fm=11&gp=0.jpg">
+<meta property="og:updated_time" content="2019-10-02T03:08:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装">
+<meta name="twitter:description" content="这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，">
+<meta name="twitter:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3449064909,2824735748&fm=11&gp=0.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/touch-icon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/touch-icon.png" alt="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3449064909,2824735748&amp;fm=11&amp;gp=0.jpg" alt="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:23.135Z">2020-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/PHP/">PHP</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 minutes read (About 2003 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装
+            
+        </h1>
+        <div class="content">
+            <p>这篇文章中已经介绍了PHP连接数据库的方法以及最基本的对数据库的操作，但并没有实现模块化，所有的代码全都集中在表现页面中，<a id="more"></a>造成了代码冗余，不仅不利于维护也不利于代码的重用性，那么在这篇文章中将用面向对象的知识对数据库的连接和基本操作方法进行封装，也简单地对地分页功能进行了封装，这样就大大避免了代码的重复。</p>
+<blockquote>
+<p>以下文件放置于space文件夹中</p>
+</blockquote>
+<h2 id="一、封装简单的数据库的增删改查等函数"><a href="#一、封装简单的数据库的增删改查等函数" class="headerlink" title="一、封装简单的数据库的增删改查等函数"></a>一、封装简单的数据库的增删改查等函数</h2><blockquote>
+<p>libs/Db文件夹</p>
+</blockquote>
+<p>1、先写一个db.config.php文件来使用里面是你数据库的信息</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span>(</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-string">'host'</span> 		=&gt; <span class="hljs-string">'localhost'</span>,</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-string">'user'</span> 		=&gt; <span class="hljs-string">'root'</span>,</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-string">'password'</span> 	=&gt; <span class="hljs-string">'root'</span>,</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-string">'port'</span> 		=&gt; <span class="hljs-string">'3306'</span>,</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-string">'dbname'</span> 	=&gt; <span class="hljs-string">'test'</span>,</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-string">'charset'</span> 	=&gt; <span class="hljs-string">'utf8'</span></span></span><br><span class="line"><span class="hljs-php">);</span></span><br></pre></td></tr></table></figure>
+<p>2、通过Idb.class.php文件来定义接口</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Db</span>; <span class="hljs-comment">//引入命名空间</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Idb</span> </span>&#123;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span><span class="hljs-params">()</span></span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getOne</span><span class="hljs-params">()</span></span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getList</span><span class="hljs-params">()</span></span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">()</span></span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span><span class="hljs-params">()</span></span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">count</span><span class="hljs-params">()</span></span>;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><em><a href="https://blog.csdn.net/q740766100/article/details/80281773" target="_blank" rel="noopener">什么是命名空间</a></em></p>
+<p>3、通过Mysql.class.php来封装接口的各个功能</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Db</span>;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mysql</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Idb</span> </span>&#123;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_link = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_debug = <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_where = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_table = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_data = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_fields = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_limit=<span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_order = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> $_instance = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_link == <span class="hljs-keyword">NULL</span> )</span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">$this</span>-&gt;connect();</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">self</span>::$_instance == <span class="hljs-keyword">NULL</span> )</span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">self</span>::$_instance = <span class="hljs-keyword">new</span> <span class="hljs-keyword">self</span>();</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>::$_instance;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">excute</span><span class="hljs-params">($sql)</span> //执行<span class="hljs-title">sql</span>语句</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_debug == <span class="hljs-keyword">true</span> )</span></span><br><span class="line"><span class="hljs-php">			&#123;</span></span><br><span class="line"><span class="hljs-php">				<span class="hljs-keyword">echo</span> <span class="hljs-string">"EXCUTE SQL: &#123;$sql&#125; &lt;br/&gt;"</span>;</span></span><br><span class="line"><span class="hljs-php">			&#125;</span></span><br><span class="line"><span class="hljs-php">			$ret = <span class="hljs-keyword">$this</span>-&gt;_link-&gt;query($sql);</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">return</span> $ret;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setDebug</span><span class="hljs-params">( $debug = true )</span> //调试函数</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_debug = $debug;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">connect</span><span class="hljs-params">()</span> //连接数据库</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		$conf = <span class="hljs-keyword">require_once</span> <span class="hljs-string">'db.config.php'</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_link = <span class="hljs-keyword">new</span> \mysqli($conf[<span class="hljs-string">'host'</span>], $conf[<span class="hljs-string">'user'</span>], $conf[<span class="hljs-string">'password'</span>], $conf[<span class="hljs-string">'dbname'</span>],$conf[<span class="hljs-string">'port'</span>]);</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">$this</span>-&gt;_link-&gt;connect_error) &#123;</span></span><br><span class="line"><span class="hljs-php">		    <span class="hljs-keyword">die</span>(<span class="hljs-string">'Connect Error ('</span> . <span class="hljs-keyword">$this</span>-&gt;_link-&gt;connect_errno . <span class="hljs-string">') '</span></span></span><br><span class="line"><span class="hljs-php">		            . <span class="hljs-keyword">$this</span>-&gt;_link-&gt;connect_error);</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		date_default_timezone_set(<span class="hljs-string">'PRC'</span>); <span class="hljs-comment">//设时区</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_link-&gt;query(<span class="hljs-string">"SET NAME &#123;$conf['charset']&#125;"</span>);</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">table</span><span class="hljs-params">( $table )</span> //获取表</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_table = $table;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">where</span><span class="hljs-params">($where= NULL)</span></span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_where = $where;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">data</span><span class="hljs-params">($data)</span> </span></span></span><br><span class="line"><span class="hljs-php">	&#123; </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_data = $data;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">field</span><span class="hljs-params">($fields)</span></span>&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_fields = $fields;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">order</span><span class="hljs-params">($order)</span></span>&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_order = $order;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">limit</span><span class="hljs-params">($limit)</span></span>&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_limit = $limit;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span><span class="hljs-params">()</span> //添加数据</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		$sql = <span class="hljs-string">"INSERT INTO &#123;$this-&gt;_table&#125; ("</span>;</span></span><br><span class="line"><span class="hljs-php">		$fields = <span class="hljs-string">""</span>;</span></span><br><span class="line"><span class="hljs-php">		$values = <span class="hljs-string">""</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">foreach</span>( <span class="hljs-keyword">$this</span>-&gt;_data <span class="hljs-keyword">as</span> $key =&gt; $val )</span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">if</span> ( $fields == <span class="hljs-string">""</span> )	$fields = $key;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">else</span> $fields .= <span class="hljs-string">","</span>.$key;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">if</span> ( $values == <span class="hljs-string">""</span> )	$values = <span class="hljs-string">"'&#123;$val&#125;'"</span>;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">else</span> $values .= <span class="hljs-string">","</span>.<span class="hljs-string">"'&#123;$val&#125;'"</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		$sql .= <span class="hljs-string">"&#123;$fields&#125; )VALUES(&#123;$values&#125;)"</span>;</span></span><br><span class="line"><span class="hljs-php">		$ret = <span class="hljs-keyword">$this</span>-&gt;excute($sql);</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $ret;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getOne</span><span class="hljs-params">()</span> //获取一组数据</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//select id,name from table where id = 10</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( is_array(<span class="hljs-keyword">$this</span>-&gt;_fields) ) $fields = implode(<span class="hljs-string">','</span>, $fields);</span></span><br><span class="line"><span class="hljs-php">		$sql = <span class="hljs-string">"SELECT &#123;$this-&gt;_fields&#125; FROM &#123;$this-&gt;_table&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_where != <span class="hljs-keyword">NULL</span> ) $sql .= <span class="hljs-string">" WHERE &#123;$this-&gt;_where&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		$ret = <span class="hljs-keyword">$this</span>-&gt;excute($sql); <span class="hljs-comment">//select 操作query 返回的是结果集</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $ret == <span class="hljs-keyword">false</span> )	<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		$row = $ret-&gt;fetch_assoc();</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">empty</span>($row) ) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $row;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getList</span><span class="hljs-params">()</span> //获取多组数据</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//select id,name from table where id &gt; 10</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//若查询字段为一维数组，以,拼接为目标字符串</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( is_array(<span class="hljs-keyword">$this</span>-&gt;_fields) ) <span class="hljs-keyword">$this</span>-&gt;_fields = implode(<span class="hljs-string">','</span>, <span class="hljs-keyword">$this</span>-&gt;_fields);</span></span><br><span class="line"><span class="hljs-php">		$sql = <span class="hljs-string">"SELECT &#123;$this-&gt;_fields&#125; FROM &#123;$this-&gt;_table&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_where != <span class="hljs-keyword">NULL</span> ) $sql .= <span class="hljs-string">" WHERE &#123;$this-&gt;_where&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">$this</span>-&gt;_order !=<span class="hljs-keyword">NULL</span>) $sql .= <span class="hljs-string">" ORDER BY &#123;$this-&gt;_order&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_limit != <span class="hljs-keyword">NULL</span> ) $sql .= <span class="hljs-string">" LIMIT &#123;$this-&gt;_limit&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		$ret = <span class="hljs-keyword">$this</span>-&gt;excute($sql);</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $ret == <span class="hljs-keyword">false</span> )	<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		$result = [];</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">while</span> ( ($row = $ret-&gt;fetch_assoc()) != <span class="hljs-keyword">false</span>) &#123;</span></span><br><span class="line"><span class="hljs-php">			$result[] = $row;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $result;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">		</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">()</span> //更新数据</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//update table set name = "wein" where id = 1</span></span></span><br><span class="line"><span class="hljs-php">		$sql = <span class="hljs-string">"UPDATE &#123;$this-&gt;_table&#125; SET "</span>;</span></span><br><span class="line"><span class="hljs-php">		$fields = <span class="hljs-string">""</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">foreach</span>( <span class="hljs-keyword">$this</span>-&gt;_data <span class="hljs-keyword">as</span> $key =&gt; $val )</span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">if</span> ( $fields == <span class="hljs-string">""</span> )	$fields = <span class="hljs-string">"&#123;$key&#125;='&#123;$val&#125;'"</span>;</span></span><br><span class="line"><span class="hljs-php">			<span class="hljs-keyword">else</span> $fields .= <span class="hljs-string">","</span>.<span class="hljs-string">"&#123;$key&#125;='&#123;$val&#125;'"</span>;</span></span><br><span class="line"><span class="hljs-php">			</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_where != <span class="hljs-keyword">NULL</span> ) $sql .= <span class="hljs-string">"&#123;$fields&#125; WHERE &#123;$this-&gt;_where&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">else</span>  $sql .= <span class="hljs-string">"&#123;$fields&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		$ret = <span class="hljs-keyword">$this</span>-&gt;excute($sql);</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $ret == <span class="hljs-keyword">false</span> )	<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		$row = <span class="hljs-keyword">$this</span>-&gt;_link-&gt;affected_rows;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $row == <span class="hljs-number">0</span> ) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span><span class="hljs-params">()</span>//删除数据</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//拼接sql语句</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//delete from table where id =1</span></span></span><br><span class="line"><span class="hljs-php">		$sql = <span class="hljs-string">"DELETE FROM &#123;$this-&gt;_table&#125; WHERE &#123;$this-&gt;_where&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		$ret = <span class="hljs-keyword">$this</span>-&gt;excute($sql);</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $ret;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">count</span><span class="hljs-params">()</span>  //统计数据</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		$sql = <span class="hljs-string">"SELECT COUNT(&#123;$this-&gt;_fields&#125;) AS num FROM &#123;$this-&gt;_table&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">$this</span>-&gt;_where != <span class="hljs-keyword">NULL</span> ) $sql .= <span class="hljs-string">" WHERE &#123;$this-&gt;_where&#125;"</span>;</span></span><br><span class="line"><span class="hljs-php">		$ret = <span class="hljs-keyword">$this</span>-&gt;excute($sql); <span class="hljs-comment">//select 操作query 返回的是结果集</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $ret == <span class="hljs-keyword">false</span> )	<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		$row = $ret-&gt;fetch_assoc();</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( <span class="hljs-keyword">empty</span>($row) ) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $row[<span class="hljs-string">'num'</span>];</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span><span class="hljs-params">()</span> //断开数据库连接</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_link-&gt;close();</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_link = <span class="hljs-keyword">NULL</span>;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、分页类的封装"><a href="#二、分页类的封装" class="headerlink" title="二、分页类的封装"></a>二、分页类的封装</h2><blockquote>
+<p>libs/Page文件夹</p>
+</blockquote>
+<p>1、通过Page.class.php文件来封装</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Page</span>;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page</span> </span>&#123;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_totals = <span class="hljs-number">0</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $_pagesize = <span class="hljs-number">0</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">( $pagesize, $total )</span></span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_totals = $total;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">$this</span>-&gt;_pagesize = $pagesize;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getoffset</span><span class="hljs-params">()</span> //获取展示下一页开始的<span class="hljs-title">id</span>值</span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		$page = <span class="hljs-keyword">isset</span>($_GET[<span class="hljs-string">'page'</span>])?$_GET[<span class="hljs-string">'page'</span>]:<span class="hljs-number">1</span>;</span></span><br><span class="line"><span class="hljs-php">		$offset = ($page <span class="hljs-number">-1</span>) * <span class="hljs-keyword">$this</span>-&gt;_pagesize;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $offset;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($left = <span class="hljs-number">2</span>)</span></span></span></span><br><span class="line"><span class="hljs-php">	&#123;</span></span><br><span class="line"><span class="hljs-php">		$page = <span class="hljs-keyword">isset</span>($_GET[<span class="hljs-string">'page'</span>])?$_GET[<span class="hljs-string">'page'</span>]:<span class="hljs-number">1</span>;</span></span><br><span class="line"><span class="hljs-php">		$totalPages = ceil(<span class="hljs-keyword">$this</span>-&gt;_totals / <span class="hljs-keyword">$this</span>-&gt;_pagesize);</span></span><br><span class="line"><span class="hljs-php">		$html = <span class="hljs-string">'&lt;ul class="page-ui-box"&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $page &gt; <span class="hljs-number">1</span> )&#123;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="able"&gt;&lt;a href="?page=1"&gt;首页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="able"&gt;&lt;a href="?page='</span>.($page<span class="hljs-number">-1</span>).<span class="hljs-string">'"&gt;上一页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">else</span></span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="unable"&gt;&lt;a&gt;首页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="unable"&gt;&lt;a&gt;上一页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//当前页的前面显示两个数字页面</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">		$start = ($page - $left);</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $start &lt;= <span class="hljs-number">0</span> ) $start = <span class="hljs-number">1</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">for</span>( $i = $start; $i &lt; $page; $i++ )</span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="able"&gt;&lt;a href="?page='</span>.$i.<span class="hljs-string">'"&gt;'</span>.$i.<span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">		$html .= <span class="hljs-string">'&lt;li class="unable"&gt;&lt;a&gt;'</span>.$page.<span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//当前页的后面显示两个数字页面</span></span></span><br><span class="line"><span class="hljs-php">		$end = $page + <span class="hljs-number">2</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $end &gt; $totalPages ) $end = $totalPages;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">for</span>( $i = $page + <span class="hljs-number">1</span>; $i &lt;= $end; $i++ )</span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="able"&gt;&lt;a href="?page='</span>.$i.<span class="hljs-string">'"&gt;'</span>.$i.<span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">	</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">if</span> ( $page &lt; $totalPages ) </span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="able"&gt;&lt;a href="?page='</span>.($page+<span class="hljs-number">1</span>).<span class="hljs-string">'"&gt;下一页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="able"&gt;&lt;a href="?page='</span>.$totalPages.<span class="hljs-string">'"&gt;尾页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">else</span></span></span><br><span class="line"><span class="hljs-php">		&#123;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="unable"&gt;&lt;a&gt;下一页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">			$html .= <span class="hljs-string">'&lt;li class="unable"&gt;&lt;a&gt;尾页&lt;/a&gt;&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		$html .= <span class="hljs-string">'&lt;/ul&gt;'</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $html;</span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>2、样式文件Page-ui.css</p>
+<figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">* &#123;<span class="hljs-attribute">margin</span>: <span class="hljs-number">0px</span>;<span class="hljs-attribute">padding</span>: <span class="hljs-number">0px</span>;&#125;</span><br><span class="line"><span class="hljs-selector-tag">ul</span>, <span class="hljs-selector-tag">li</span> &#123;<span class="hljs-attribute">list-style</span>: none;&#125;</span><br><span class="line"><span class="hljs-selector-class">.page-ui-box</span> &#123;<span class="hljs-attribute">overflow</span>: hidden;<span class="hljs-attribute">border-left</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#CCC</span>;&#125;</span><br><span class="line"><span class="hljs-selector-class">.page-ui-box</span> <span class="hljs-selector-tag">li</span> &#123;<span class="hljs-attribute">float</span>: left;<span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span> <span class="hljs-number">25px</span>;<span class="hljs-attribute">height</span>: <span class="hljs-number">30px</span>;<span class="hljs-attribute">line-height</span>: <span class="hljs-number">30px</span>;<span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#CCC</span>;<span class="hljs-attribute">border-left</span>:none;<span class="hljs-attribute">cursor</span>: pointer;&#125;</span><br><span class="line"><span class="hljs-selector-class">.unable</span> &#123;<span class="hljs-attribute">background</span>: <span class="hljs-number">#EEE</span>;&#125;</span><br><span class="line"><span class="hljs-selector-class">.page-ui-box</span> <span class="hljs-selector-tag">a</span> &#123;<span class="hljs-attribute">text-decoration</span>: none;&#125;</span><br><span class="line"><span class="hljs-selector-class">.able</span> <span class="hljs-selector-tag">a</span> &#123;<span class="hljs-attribute">color</span>: blue;&#125;</span><br><span class="line"><span class="hljs-selector-class">.able</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> &#123;<span class="hljs-attribute">text-decoration</span>: underline;&#125;</span><br><span class="line"><span class="hljs-selector-tag">table</span>&#123;<span class="hljs-attribute">border-collapse</span>:collapse; <span class="hljs-attribute">border-spacing</span>:<span class="hljs-number">0</span>; <span class="hljs-attribute">border-left</span>:<span class="hljs-number">1px</span> solid <span class="hljs-number">#aaa</span>; <span class="hljs-attribute">border-top</span>:<span class="hljs-number">1px</span> solid <span class="hljs-number">#aaa</span>; &#125;</span><br><span class="line"><span class="hljs-selector-tag">td</span>&#123;<span class="hljs-attribute">border-right</span>:<span class="hljs-number">1px</span> solid <span class="hljs-number">#aaa</span>; <span class="hljs-attribute">border-bottom</span>:<span class="hljs-number">1px</span> solid <span class="hljs-number">#aaa</span>; <span class="hljs-attribute">padding</span>:<span class="hljs-number">3px</span> <span class="hljs-number">15px</span>; <span class="hljs-attribute">text-align</span>:left; <span class="hljs-attribute">color</span>:<span class="hljs-number">#3C3C3C</span>;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、图片验证码类的封装"><a href="#三、图片验证码类的封装" class="headerlink" title="三、图片验证码类的封装"></a>三、图片验证码类的封装</h2><blockquote>
+<p>libs/Verify文件夹</p>
+</blockquote>
+<p>1、Verify.class.php:</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span> </span></span><br><span class="line"><span class="hljs-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Verify</span>;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Verify</span></span></span></span><br><span class="line"><span class="hljs-php">&#123; </span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $width=<span class="hljs-number">100</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $height=<span class="hljs-number">30</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $content=<span class="hljs-string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $num=<span class="hljs-number">4</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $point=<span class="hljs-number">100</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">private</span> $line= <span class="hljs-number">4</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span></span>&#123;</span></span><br><span class="line"><span class="hljs-php">		</span></span><br><span class="line"><span class="hljs-php">	  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">	  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>&#123;</span></span><br><span class="line">		     /**</span><br><span class="line">		 * 字母+数字的验证码生成</span><br><span class="line"><span class="hljs-php">		 */</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">// 开启session</span></span></span><br><span class="line"><span class="hljs-php">		session_start();</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//1.创建黑色画布</span></span></span><br><span class="line"><span class="hljs-php">		$image = imagecreatetruecolor(<span class="hljs-keyword">$this</span>-&gt;width, <span class="hljs-keyword">$this</span>-&gt;height);</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//2.为画布定义(背景)颜色</span></span></span><br><span class="line"><span class="hljs-php">		$bgcolor = imagecolorallocate($image, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>);</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//3.填充颜色</span></span></span><br><span class="line"><span class="hljs-php">		imagefill($image, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, $bgcolor);</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">// 4.设置验证码内容</span></span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//4.1 定义验证码的内容</span></span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//4.1 创建一个变量存储产生的验证码数据，便于用户提交核对</span></span></span><br><span class="line"><span class="hljs-php">		$captcha = <span class="hljs-string">""</span>;</span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">for</span> ($i = <span class="hljs-number">0</span>; $i &lt; <span class="hljs-keyword">$this</span>-&gt;num; $i++) &#123;</span></span><br><span class="line"><span class="hljs-php">		    <span class="hljs-comment">// 字体大小</span></span></span><br><span class="line"><span class="hljs-php">		    $fontsize = <span class="hljs-number">5</span>;</span></span><br><span class="line"><span class="hljs-php">		    <span class="hljs-comment">// 字体颜色 随机生成字体颜色</span></span></span><br><span class="line"><span class="hljs-php">		    $fontcolor = imagecolorallocate($image, mt_rand(<span class="hljs-number">0</span>, <span class="hljs-number">120</span>), mt_rand(<span class="hljs-number">0</span>, <span class="hljs-number">120</span>), mt_rand(<span class="hljs-number">0</span>, <span class="hljs-number">120</span>));</span></span><br><span class="line"><span class="hljs-php">		    <span class="hljs-comment">// 设置字体内容</span></span></span><br><span class="line"><span class="hljs-php">		    $fontcontent = substr(<span class="hljs-keyword">$this</span>-&gt;content, mt_rand(<span class="hljs-number">0</span>, strlen(<span class="hljs-keyword">$this</span>-&gt;content)), <span class="hljs-number">1</span>);</span></span><br><span class="line"><span class="hljs-php">		    $captcha .= $fontcontent;</span></span><br><span class="line"><span class="hljs-php">		    <span class="hljs-comment">// 显示的坐标</span></span></span><br><span class="line"><span class="hljs-php">		    $x = ($i * <span class="hljs-keyword">$this</span>-&gt;width / <span class="hljs-keyword">$this</span>-&gt;num) + mt_rand(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>);</span></span><br><span class="line"><span class="hljs-php">		    $y = mt_rand(<span class="hljs-keyword">$this</span>-&gt;height/<span class="hljs-number">3</span>, <span class="hljs-keyword">$this</span>-&gt;height/<span class="hljs-number">2</span>);</span></span><br><span class="line"><span class="hljs-php">		    <span class="hljs-comment">// 填充内容到画布中</span></span></span><br><span class="line"><span class="hljs-php">		    imagestring($image, $fontsize, $x, $y, $fontcontent, $fontcolor);</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		$_SESSION[<span class="hljs-string">"captcha"</span>] = $captcha;</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//4.3 设置背景干扰元素</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">for</span> ($i = <span class="hljs-number">0</span>; $i &lt; <span class="hljs-keyword">$this</span>-&gt;point; $i++) &#123;</span></span><br><span class="line"><span class="hljs-php">		    $pointcolor = imagecolorallocate($image, mt_rand(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>), mt_rand(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>), mt_rand(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>));</span></span><br><span class="line"><span class="hljs-php">		    imagesetpixel($image, mt_rand(<span class="hljs-number">1</span>, <span class="hljs-keyword">$this</span>-&gt;width), mt_rand(<span class="hljs-number">1</span>, <span class="hljs-keyword">$this</span>-&gt;height), $pointcolor);</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//4.4 设置干扰线</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">for</span> ($i = <span class="hljs-number">0</span>; $i &lt; <span class="hljs-keyword">$this</span>-&gt;line; $i++) &#123;</span></span><br><span class="line"><span class="hljs-php">		    $linecolor = imagecolorallocate($image, mt_rand(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>), mt_rand(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>), mt_rand(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>));</span></span><br><span class="line"><span class="hljs-php">		    imageline($image, mt_rand(<span class="hljs-number">1</span>, <span class="hljs-keyword">$this</span>-&gt;width), mt_rand(<span class="hljs-number">1</span>, <span class="hljs-keyword">$this</span>-&gt;height), mt_rand(<span class="hljs-number">1</span>, <span class="hljs-keyword">$this</span>-&gt;width), mt_rand(<span class="hljs-number">1</span>, <span class="hljs-keyword">$this</span>-&gt;height), $linecolor);</span></span><br><span class="line"><span class="hljs-php">		&#125;</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-keyword">return</span> $image;</span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//6.输出图片到浏览器</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">// imagepng($image);</span></span></span><br><span class="line"><span class="hljs-php">		 </span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">//7.销毁图片</span></span></span><br><span class="line"><span class="hljs-php">		<span class="hljs-comment">// imagedestroy($image);</span></span></span><br><span class="line"><span class="hljs-php">	&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">width</span><span class="hljs-params">($width)</span>  //设置验证码图片的宽度</span></span></span><br><span class="line"><span class="hljs-php">  &#123;  </span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">$this</span>-&gt;width=$width;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">height</span><span class="hljs-params">($height)</span>  //设置验证码图片的高度</span></span></span><br><span class="line"><span class="hljs-php">  &#123;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">$this</span>-&gt;height=$height;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setLine</span><span class="hljs-params">($line)</span>  //设置验证码图片的干扰线数量</span></span></span><br><span class="line"><span class="hljs-php">  &#123;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">$this</span>-&gt;line=$line;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php"> </span></span><br><span class="line"><span class="hljs-php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setNum</span><span class="hljs-params">($num)</span> // 设置验证码的位数</span></span></span><br><span class="line"><span class="hljs-php">  &#123;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">$this</span>-&gt;num=$num;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setChars</span><span class="hljs-params">($content)</span>  //设置验证码出现的字符集， 比如设置 123456789,那么验证码中出现的字符只能是这个字符串中的某几个</span></span></span><br><span class="line"><span class="hljs-php">  &#123;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">$this</span>-&gt;content=$content;</span></span><br><span class="line"><span class="hljs-php">  	<span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setPoint</span><span class="hljs-params">($point)</span>  // 设置验证码图片中出现的杂点数量</span></span></span><br><span class="line"><span class="hljs-php">  &#123;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">$this</span>-&gt;point=$point;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>;</span></span><br><span class="line"><span class="hljs-php">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">&#125;</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>2、Verify类的实例verify.php：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//5.向浏览器输出图片头信息</span></span></span><br><span class="line"><span class="hljs-php"> header(<span class="hljs-string">'content-type:image/png'</span>);</span></span><br><span class="line"><span class="hljs-php">spl_autoload_register(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($class)</span></span>&#123; <span class="hljs-comment">//$class = libs\Db\Mysql</span></span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-comment">//libs\Db\Mysql -&gt; libs/Db/Mysql</span></span></span><br><span class="line"><span class="hljs-php">	$class_path = str_replace(<span class="hljs-string">'\\'</span>, <span class="hljs-string">'/'</span>, $class);</span></span><br><span class="line"><span class="hljs-php">	$class_path .= <span class="hljs-string">'.class.php'</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">require_once</span> $class_path;</span></span><br><span class="line"><span class="hljs-php">&#125;);</span></span><br><span class="line"><span class="hljs-php"> <span class="hljs-keyword">use</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Verify</span>\<span class="hljs-title">Verify</span>;</span></span><br><span class="line"><span class="hljs-php">    $verify=<span class="hljs-keyword">new</span> Verify();</span></span><br><span class="line"><span class="hljs-php">    $char=<span class="hljs-string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"</span>;</span></span><br><span class="line"><span class="hljs-php">    $verifyhtml=$verify-&gt;width(<span class="hljs-number">200</span>)-&gt;height(<span class="hljs-number">80</span>)-&gt;setLine(<span class="hljs-number">6</span>)-&gt;setNum(<span class="hljs-number">6</span>)-&gt;setChars($char)-&gt;setPoint(<span class="hljs-number">500</span>)-&gt;show(); <span class="hljs-comment">//链式操作</span></span></span><br><span class="line"><span class="hljs-php">    </span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-comment">//6.输出图片到浏览器</span></span></span><br><span class="line"><span class="hljs-php">    imagepng($verifyhtml);</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-comment">//7.销毁图片</span></span></span><br><span class="line"><span class="hljs-php">    imagedestroy($verifyhtml);</span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="四、运用实例"><a href="#四、运用实例" class="headerlink" title="四、运用实例"></a>四、运用实例</h2><p>这里通过start.php文件来运用</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-php"><span class="hljs-meta">&lt;?php</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//namespace "上级文件夹名称"</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">// require_once 'libs/Db/Mysql.class.php';</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-comment">//引入命名空间</span></span></span><br><span class="line"><span class="hljs-php">spl_autoload_register(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($class)</span></span>&#123; <span class="hljs-comment">//$class = libs\Db\Mysql</span></span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-comment">//libs\Db\Mysql -&gt; libs/Db/Mysql</span></span></span><br><span class="line"><span class="hljs-php">	$class_path = str_replace(<span class="hljs-string">'\\'</span>, <span class="hljs-string">'/'</span>, $class);</span></span><br><span class="line"><span class="hljs-php">	$class_path .= <span class="hljs-string">'.class.php'</span>;</span></span><br><span class="line"><span class="hljs-php">	<span class="hljs-keyword">require_once</span> $class_path;</span></span><br><span class="line"><span class="hljs-php">&#125;);</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">use</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Db</span>\<span class="hljs-title">Mysql</span>;</span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-keyword">use</span> <span class="hljs-title">libs</span>\<span class="hljs-title">Page</span>\<span class="hljs-title">Page</span>;</span></span><br><span class="line"><span class="hljs-php">    </span></span><br><span class="line"><span class="hljs-php">    $db = Mysql::init(); <span class="hljs-comment">//新建Mysql对象</span></span></span><br><span class="line"><span class="hljs-php">    $totals = $db-&gt;table(<span class="hljs-string">"contact"</span>)-&gt;field(<span class="hljs-string">"id"</span>)-&gt;count();</span></span><br><span class="line"><span class="hljs-php">    $pagesize = <span class="hljs-number">3</span>; <span class="hljs-comment">//每一页显示的数据条数</span></span></span><br><span class="line"><span class="hljs-php">    $page = <span class="hljs-keyword">new</span> Page($pagesize,$totals); <span class="hljs-comment">//新建Page对象</span></span></span><br><span class="line"><span class="hljs-php">    $pagehtml = $page-&gt;show();</span></span><br><span class="line"><span class="hljs-php">    $left = $page-&gt;getoffset();</span></span><br><span class="line"><span class="hljs-php">    $db-&gt;setDebug(<span class="hljs-keyword">true</span>);</span></span><br><span class="line"><span class="hljs-php">    $data=$db-&gt;table(<span class="hljs-string">"contact"</span>)-&gt;where(<span class="hljs-keyword">NULL</span>)-&gt;field(<span class="hljs-string">"*"</span>)-&gt;order(<span class="hljs-string">"id desc"</span>)-&gt;limit(<span class="hljs-string">"&#123;$left&#125;,&#123;$pagesize&#125;"</span>)-&gt;getList(); <span class="hljs-comment">//链式操作</span></span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-comment">// $data = $db-&gt;getList('contact', NULL,"*", 'id desc', "&#123;$left&#125;, &#123;$pagesize&#125;");</span></span></span><br><span class="line"><span class="hljs-php">    <span class="hljs-comment">// var_dump($data);</span></span></span><br><span class="line"><span class="hljs-php"><span class="hljs-meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"libs/Page/page-ui.css"</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>编号<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>姓名<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>工作<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>QQ<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>手机号码<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>留言内容<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="line">    <span class="hljs-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> ($data <span class="hljs-keyword">as</span> $key =&gt; $val) &#123; <span class="hljs-meta">?&gt;</span></span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$val[<span class="hljs-string">'id'</span>]<span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$val[<span class="hljs-string">'userName'</span>]<span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$val[<span class="hljs-string">'job'</span>]<span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$val[<span class="hljs-string">'qqnum'</span>]<span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$val[<span class="hljs-string">'phone'</span>]<span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$val[<span class="hljs-string">'remark'</span>]<span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="line">         <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="line">    <span class="hljs-php"><span class="hljs-meta">&lt;?php</span> &#125; <span class="hljs-meta">?&gt;</span></span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span></span><br><span class="line">	<span class="hljs-php"><span class="hljs-meta">&lt;?</span>=$pagehtml<span class="hljs-meta">?&gt;</span></span> <span class="hljs-comment">&lt;!-- 显示分页样式 --&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://localhost/space/verify.php"</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"resetPic(this)"</span>&gt;</span> <span class="hljs-comment">&lt;!-- 显示图片验证码 --&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"js/jquery.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="hljs-actionscript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resetPic</span><span class="hljs-params">(obj)</span></span></span></span><br><span class="line">    &#123;</span><br><span class="line"><span class="hljs-javascript">        $(obj).attr(<span class="hljs-string">'src'</span>, <span class="hljs-string">"http://localhost/space/verify.php"</span>); <span class="hljs-comment">//点击二维码刷新</span></span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><em>附：本人建立test数据库contact表的sql文件：</em></p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">use</span> <span class="hljs-keyword">test</span>; </span><br><span class="line"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> contact( </span><br><span class="line">     <span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> primary <span class="hljs-keyword">key</span> auto_increment, </span><br><span class="line">     userName <span class="hljs-built_in">char</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">unique</span>, </span><br><span class="line">     job <span class="hljs-built_in">char</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>, </span><br><span class="line">     qqnum <span class="hljs-built_in">char</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>, </span><br><span class="line">     phone <span class="hljs-built_in">char</span>(<span class="hljs-number">100</span>), </span><br><span class="line">     remark <span class="hljs-built_in">text</span> </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/PHP/">PHP</a>, <a class="has-link-grey -link" href="/tags/数据库/">数据库</a>, <a class="has-link-grey -link" href="/tags/验证码/">验证码</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/PHP知识点积累/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">PHP知识点积累</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/06/node.js学习记录/">
+                <span class="level-item">node.js学习记录</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avator.jpg" alt="Old C">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Old C
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        A tossed cucumber
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangdong·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Articles
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Catégories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
+                SUIVRE</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Abner0101">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Liens
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.alloyteam.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">AlloyTeam</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.alloyteam.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.zhangxinxu.com/wordpress/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张鑫旭-鑫空间</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.zhangxinxu.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="http://www.daqianduan.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">大前端</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.daqianduan.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3cplus.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3cplus</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3cplus.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catégories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/BLOG/">
+            <span class="level-start">
+                <span class="level-item">BLOG</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/NODE-JS/">
+            <span class="level-start">
+                <span class="level-item">NODE JS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/PHP/">
+            <span class="level-start">
+                <span class="level-item">PHP</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端/">
+            <span class="level-start">
+                <span class="level-item">前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">23</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nuage de tags
+        </h3>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Récents
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://gitee.com/lglGitee/images/raw/master/Hexo/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2-0.jpg" alt="记Hexo + Github Pages博客搭建">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.902Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/记Hexo + Github pages博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">记Hexo + Github Pages博客搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/BLOG/">BLOG</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3576027747,1542618245&amp;fm=26&amp;gp=0.jpg" alt="用jQuery实现简单的图片轮播效果">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.873Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/用jQuery实现简单图片轮播效果 /" class="title has-link-black-ter is-size-6 has-text-weight-normal">用jQuery实现简单的图片轮播效果</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段四）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.828Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段四）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段四）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
+                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">36</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java入门/">
+                        <span class="tag">Java入门</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Next/">
+                        <span class="tag">Next</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/PHP/">
+                        <span class="tag">PHP</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jQuery/">
+                        <span class="tag">jQuery</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">16</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/seo优化/">
+                        <span class="tag">seo优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">25</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据库/">
+                        <span class="tag">数据库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/验证码/">
+                        <span class="tag">验证码</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/touch-icon.png" alt="PHP mysql数据库面向对象简单操作类（增删改查）、分页类和图片验证码类的封装" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 老黄瓜&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Articles',
+                PAGES: 'Pages',
+                CATEGORIES: 'Catégories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
