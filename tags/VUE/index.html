@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Tag: vue - Old C</title>
+<title>Etiqueta: vue - Old C</title>
 
 
     <meta property="og:type" content="website">
@@ -137,12 +137,99 @@
     <div class="card-content">
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="/tags">Tags</a></li>
+            <li><a href="/tags">Etiquetas</a></li>
             <li class="is-active"><a href="#" aria-current="page">vue</a></li>
         </ul>
         </nav>
     </div>
 </div>
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="image is-7by1">
+            <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（三）">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-09T14:22:38.385Z">2020-06-09</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 minutes read (About 388 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/06/09/vue常见问题及解决方法（三）/">vue常见问题及解决方法（三）</a>
+            
+        </h1>
+        <div class="content">
+            <p>好久没更新博客了，很长一段时间在刚python，不得不说python真是方便，后面可能回更新一些python的学习历程。好，废话不说，进入主题。。</p>
+<h5 id="1-监听某个DOM节点，当其失去焦点（鼠标点击到页面其他标签）时，触发相应的事件。"><a href="#1-监听某个DOM节点，当其失去焦点（鼠标点击到页面其他标签）时，触发相应的事件。" class="headerlink" title="1.监听某个DOM节点，当其失去焦点（鼠标点击到页面其他标签）时，触发相应的事件。"></a>1.监听某个DOM节点，当其失去焦点（鼠标点击到页面其他标签）时，触发相应的事件。</h5><p>以下是一个点击按钮，就会弹出框，点击页面其他地方，就会关闭弹出框的例子。</p>
+<ul>
+<li>DOM结构：</li>
+</ul>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div ref=<span class="hljs-string">"elLogout"</span>&gt;</span><br><span class="line">      &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"userControl"</span> @click=<span class="hljs-string">"showLogoutdiv = !showLogoutdiv"</span>&gt;</span><br><span class="line">        &lt;svg <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"iconuser"</span> aria-hidden=<span class="hljs-string">"true"</span>&gt;</span><br><span class="line">          &lt;use xlink:href=<span class="hljs-string">"#icon-user"</span>&gt;&lt;<span class="hljs-regexp">/use&gt;</span></span><br><span class="line"><span class="hljs-regexp">       	&lt;/</span>svg&gt;</span><br><span class="line">      &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">      &lt;div class="userLogout" v-show="showLogoutdiv"&gt;</span></span><br><span class="line"><span class="hljs-regexp">        &lt;el-button type="primary" plain size="small" @click="toLogout"&gt;退出&lt;/</span>el-button&gt;</span><br><span class="line">      &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>js部分：</li>
+</ul>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  data () &#123; </span><br><span class="line">  	showLogoutdiv:<span class="hljs-literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'click'</span>,e =&gt; &#123;  <span class="hljs-comment">//监听页面的点击事件</span></span><br><span class="line">      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.$refs.elLogout)&#123;  <span class="hljs-comment">//判断是否存在该标签对象</span></span><br><span class="line">      	<span class="hljs-comment">//contains()判断DOM元素的包含关系,如果两个DOM对象一样，则返回true</span></span><br><span class="line">        <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">this</span>.$refs.elLogout.contains(e.target))&#123;</span><br><span class="line">          <span class="hljs-keyword">this</span>.showLogoutdiv = <span class="hljs-literal">false</span>;  <span class="hljs-comment">//点击其他区域关闭</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; </span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>拓展：contains()函数的用法</p>
+<ul>
+<li>题目描述:</li>
+</ul>
+<blockquote>
+<p>查找两个节点的最近的一个共同父节点，可以包括节点自身</p>
+</blockquote>
+<ul>
+<li>输入描述:</li>
+</ul>
+<blockquote>
+<pre><code>oNode1 和 oNode2 在同一文档中，且不会为相同的节点
+</code></pre></blockquote>
+<p><strong>递归实现：</strong></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">commonParentNode</span>(<span class="hljs-params">oNode1, oNode2</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(oNode1.contains(oNode2))&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> oNode1</span><br><span class="line">    &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> commonParentNode(oNode1.parentNode, oNode2)</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>迭代实现：</strong><br>方式一：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">commonParentNode</span>(<span class="hljs-params">oNode1, oNode2</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(;;oNode1=oNode1.parentNode)&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(oNode1.contains(oNode2))&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> oNode1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方式二：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">commonParentNode</span>(<span class="hljs-params">oNode1, oNode2</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(oNode1.contains(oNode2))&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> oNode1</span><br><span class="line">        &#125;</span><br><span class="line">        oNode1 = oNode1.parentNode</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-计算属性computed方法内传参"><a href="#2-计算属性computed方法内传参" class="headerlink" title="2.计算属性computed方法内传参"></a>2.计算属性computed方法内传参</h5><ul>
+<li>index.vue</li>
+</ul>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;van-circle</span><br><span class="line">  v-model=<span class="hljs-string">"Ratedata[index].currentRate"</span></span><br><span class="line">     color=<span class="hljs-string">"#2462E8"</span></span><br><span class="line">     fill=<span class="hljs-string">"#fff"</span></span><br><span class="line">     layer-color=<span class="hljs-string">"#E6E6E6"</span></span><br><span class="line">     :rate=<span class="hljs-string">"Ratedata[index].rate"</span></span><br><span class="line">     :text=<span class="hljs-string">"text(index)"</span></span><br><span class="line">     :speed=<span class="hljs-string">"60"</span></span><br><span class="line">     :clockwise=<span class="hljs-string">"true"</span></span><br><span class="line">     :stroke-width=<span class="hljs-string">"40"</span></span><br><span class="line"> /&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>computed中text方法传递index，利用了闭包传值</li>
+</ul>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  text() &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">index</span>) </span>&#123;</span><br><span class="line">          <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.Ratedata[index].currentRate.toFixed(<span class="hljs-number">0</span>) + <span class="hljs-string">'%'</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
 
     <div class="card">
     
@@ -418,17 +505,17 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Articles
+                        Entradas
                     </p>
                     <p class="title has-text-weight-normal">
-                        36
+                        37
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Catégories
+                        Categorias
                     </p>
                     <p class="title has-text-weight-normal">
                         7
@@ -438,7 +525,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        Etiquetas
                     </p>
                     <p class="title has-text-weight-normal">
                         18
@@ -448,7 +535,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/Abner0101" target="_blank">
-                SUIVRE</a>
+                SEGUIR</a>
         </div>
         
         
@@ -481,7 +568,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Liens
+            Links
         </h3>
         <ul class="menu-list">
         
@@ -552,7 +639,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Catégories
+                Categorias
             </h3>
             <ul class="menu-list">
             <li>
@@ -609,7 +696,7 @@
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">23</span>
+                <span class="level-item tag">24</span>
             </span>
         </a></li>
             </ul>
@@ -621,7 +708,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nuage de tags
+            Nube de etiquetas
         </h3>
         <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
@@ -635,8 +722,27 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Récents
+            Recientes
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（三）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-09T14:22:38.385Z">2020-06-09</time></div>
+                    <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue常见问题及解决方法（三）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -714,25 +820,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
-                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -741,7 +828,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -751,7 +838,7 @@
                     <span class="level-item">June 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">36</span>
+                    <span class="level-item tag">37</span>
                 </span>
             </a>
         </li>
@@ -765,7 +852,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -870,14 +957,14 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/vue/">
                         <span class="tag">vue</span>
-                        <span class="tag is-grey">4</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/前端/">
                         <span class="tag">前端</span>
-                        <span class="tag is-grey">25</span>
+                        <span class="tag is-grey">26</span>
                     </a>
                 </div>
                 
@@ -915,8 +1002,27 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Récents
+            Recientes
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（三）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-09T14:22:38.385Z">2020-06-09</time></div>
+                    <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue常见问题及解决方法（三）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -994,25 +1100,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段二）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.770Z">2020-06-06</time></div>
-                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段二）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段二）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1021,7 +1108,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -1031,7 +1118,7 @@
                     <span class="level-item">June 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">36</span>
+                    <span class="level-item tag">37</span>
                 </span>
             </a>
         </li>
@@ -1045,7 +1132,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -1150,14 +1237,14 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/vue/">
                         <span class="tag">vue</span>
-                        <span class="tag is-grey">4</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/前端/">
                         <span class="tag">前端</span>
-                        <span class="tag is-grey">25</span>
+                        <span class="tag is-grey">26</span>
                     </a>
                 </div>
                 
@@ -1335,10 +1422,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Articles',
+                POSTS: 'Entradas',
                 PAGES: 'Pages',
-                CATEGORIES: 'Catégories',
-                TAGS: 'Tags',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Etiquetas',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
