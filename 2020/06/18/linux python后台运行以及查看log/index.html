@@ -19,7 +19,7 @@
 <meta property="og:description" content="命令1nohup python -u run.py &amp;gt;  run.log 2&amp;gt;&amp;amp;1 &amp;amp;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592471356981&di=5740ce3191e5550d46502f089dfde704&imgtype=0&src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg">
-<meta property="og:updated_time" content="2020-06-18T07:08:55.467Z">
+<meta property="og:updated_time" content="2020-06-18T07:11:20.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux python后台运行以及查看log">
 <meta name="twitter:description" content="命令1nohup python -u run.py &amp;gt;  run.log 2&amp;gt;&amp;amp;1 &amp;amp;">
@@ -178,7 +178,7 @@
             
         </h1>
         <div class="content">
-            <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup python -u run.py &gt;  run.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+            <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a><strong>命令</strong></h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup python -u run.py &gt;  run.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>说明：</p>
 <ol>
@@ -195,11 +195,11 @@
 <li><p>好了，我们现在可以直接关闭shell窗口（我用的是Xshell），而不用再输入<code>exit</code>这个命令来退出shell了，在当我们直接关闭shell窗口，再连接上服务器，查看Python的进程，发现进程还在。但是，在python运行中却查看不到输出！因为： <strong>python的输出有缓冲，导致run.log并不能够马上看到输出</strong>，使用<code>-u</code>参数，使得python不启用缓冲。</p>
 </li>
 </ol>
-<h3 id="查看log文件"><a href="#查看log文件" class="headerlink" title="查看log文件"></a>查看log文件</h3><p>如果要实时查看日志文件使用命令</p>
+<h3 id="查看log文件"><a href="#查看log文件" class="headerlink" title="查看log文件"></a><strong>查看log文件</strong></h3><p>如果要实时查看日志文件使用命令</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f run.log</span><br></pre></td></tr></table></figure>
 <p>查看全部输出使用命令</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat run.log</span><br></pre></td></tr></table></figure>
-<h3 id="附加：linux常用指令"><a href="#附加：linux常用指令" class="headerlink" title="附加：linux常用指令"></a>附加：linux常用指令</h3><p><strong>1.查看当前后台运行的命令</strong><br>有两个命令可以用，jobs和ps,区别是jobs用于查看当前终端后台运行的任务，换了终端就看不到了。而ps命令用于查看瞬间进程的动态，可以看到别的终端运行的后台进程。</p>
+<h3 id="附加：linux常用指令"><a href="#附加：linux常用指令" class="headerlink" title="附加：linux常用指令"></a><strong>附加：linux常用指令</strong></h3><p><strong>1.查看当前后台运行的命令</strong><br>有两个命令可以用，jobs和ps,区别是jobs用于查看当前终端后台运行的任务，换了终端就看不到了。而ps命令用于查看瞬间进程的动态，可以看到别的终端运行的后台进程。</p>
 <ul>
 <li><p><code>jobs</code>命令：查看当前终端后台运行的任务</p>
   <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">jobs</span> -l</span><br></pre></td></tr></table></figure>
