@@ -11,7 +11,7 @@
 
 
     <meta name="description" content="文法是编译原理中对语言的写法的一种规定，一般来说，文法分成词法和语法两种。   词法规定了语言的最小语义单元：token，可以翻译成“标记”或者“词”，在我的专栏文章中，我统一把 token 翻译成词。">
-<meta name="keywords" content="前端,js">
+<meta name="keywords" content="js,前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript词法：为什么12.toString会报错？">
 <meta property="og:url" content="https://jdsheng.cn/2020/06/06/JavaScript词法：为什么12.toString会报错？/index.html">
@@ -194,7 +194,7 @@
 <p>  <code>&lt;PS&gt;</code>是 U+2029，是 Unicode 中的段落分隔符。</p>
 <p>  大部分 LineTerminator在被词法分析器扫描出之后，会被语法分析器丢弃，但是换行符会影响 JavaScript 的两个重要语法特性：自动插入分号和“no line terminator”规则。</p>
 <p>  </p><h3>注释 Comment</h3><br>  JavaScript的注释分为单行注释和多行注释两种：<p></p>
-  <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* MultiLineCommentChars */</span></span><br><span class="line"><span class="hljs-comment">// SingleLineCommentChars</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight actionscript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* MultiLineCommentChars */</span></span><br><span class="line"><span class="hljs-comment">// SingleLineCommentChars</span></span><br></pre></td></tr></table></figure>
 <p>  多行注释中允许自由地出现<code>MultiLineNotAsteriskChar</code>，也就是除了<code><em></em></code>之外的所有字符。而每一个<code></code>之后，不能出现正斜杠符<code>/</code>。除了四种LineTerminator 之外，所有字符都可以作为单行注释。我们需要注意，多行注释中是否包含换行符号，会对 JavaScript 语法产生影响，对于“no line terminator”规则来说，带换行的多行注释与换行符是等效的。</p>
 <p>  </p><h2>标识符名称 IdentifierName</h2><br>  <code>IdentifierName</code>可以以美元符“<code>$</code>”、下划线“<code>_</code>”或者 Unicode字母开始，除了开始字符以外，<code>IdentifierName</code>中还可以使用 Unicode 中的连接标记、数字、以及连接符号。<p></p>
 <p>  <code>IdentifierName</code>的任意字符可以使用JavaScript 的 Unicode 转义写法，使用 Unicode转义写法时，没有任何字符限制。</p>
@@ -220,13 +220,13 @@
 <p>  这里 e 后面的部分，只允许使用整数。当以<code>0x</code> <code>0b</code> 或者<code>0o</code> 开头时，表示特定进制的整数：</p>
   <figure class="highlight maxima hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">0xFA</span></span><br><span class="line"><span class="hljs-number">0o73</span></span><br><span class="line"><span class="hljs-number">0b10000</span></span><br></pre></td></tr></table></figure>
 <p>  上面这几种进制都不支持小数，也不支持科学计数法。</p><h3>字符串直接量 StringLiteral</h3>JavaScript 中的 StringLiteral 支持单引号和双引号两种写法。<p></p>
-  <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">" DoubleStringCharacters "</span></span><br><span class="line"><span class="hljs-string">' SingleStringCharacters '</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight 1c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">" DoubleStringCharacters "</span></span><br><span class="line">' SingleStringCharacters '</span><br></pre></td></tr></table></figure>
 <p>  单双引号的区别仅仅在于写法，在双引号字符串直接量中，双引号必须转义，在单引号字符串直接量中，单引号必须转义。字符串中其他必须转义的字符是<code>\</code>和所有换行符。JavaScript中支持四种转义形式，还有一种虽然标准没有定义，但是大部分实现都支持的八进制转义。第一种是单字符转义。</p>
 <p>  即一个反斜杠<code>\</code>后面跟一个字符这种形式。有特别意义的字符包括有<code>SingleEscapeCharacter</code>所定义的 9 种，见下表：<img src="https://static001.geekbang.org/resource/image/02/75/022c2c77d0a3c846ad0d61b48c4e0e75.png" alt>除了这 9 种字符、数字、x 和 u 以及所有的换行符之外，其它字符经过<code>\</code>转义后都是自身。</p>
 <p>  </p><h3>正则表达式直接量 RegularExpressionLiteral</h3><br>  正则表达式由 Body 和Flags 两部分组成，例如：<p></p>
   <figure class="highlight awk hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-regexp">/RegularExpressionBody/g</span></span><br></pre></td></tr></table></figure>
 <p>  其中 Body 部分至少有一个字符，第一个字符不能是 <em>（因为 /</em>跟多行注释有词法冲突）。正则表达式有自己的语法规则，在词法阶段，仅会对它做简单解析。正则表达式并非机械地见到<code>/</code>就停止，在正则表达式<code>[]</code>中的<code>/</code>就会被认为是普通字符。我们可以看一个例子：</p>
-  <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/[<span class="hljs-regexp">/]/</span>.test(<span class="hljs-string">"/"</span>);</span><br></pre></td></tr></table></figure>
+  <figure class="highlight abnf hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/[/]/.test(<span class="hljs-string">"/"</span>)<span class="hljs-comment">;</span></span><br></pre></td></tr></table></figure>
 <p>  除了<code>\</code>、<code>/</code> 和<code>[</code> 三个字符之外，JavaScript 正则表达式中的字符都是普通字符。用\和一个非换行符可以组成一个转义，<code>[]</code>中也支持转义。正则表达式中的 flag 在词法阶段不会限制字符。虽然只有 ig 几个是有效的，但是任何 IdentifierPart（Identifier中合法的字符）序列在词法阶段都会被认为是合法的。</p>
 <p>  </p><h3>字符串模板 Template</h3><br>  从语法结构上，Template 是个整体，其中的 <code>${ }</code> 是并列关系。但是实际上，在JavaScript 词法中，包含 <code>${ }</code> 的 Template，是被拆开分析的，如：<p></p>
   <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">`a<span class="hljs-subst">$&#123;b&#125;</span>c<span class="hljs-subst">$&#123;d&#125;</span>e`</span></span><br></pre></td></tr></table></figure>
@@ -343,7 +343,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        37
+                        38
                     </p>
                 </div>
             </div>
@@ -353,7 +353,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -363,7 +363,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        18
+                        20
                     </p>
                 </div>
             </div>
@@ -494,6 +494,14 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/LINUX/">
+            <span class="level-start">
+                <span class="level-item">LINUX</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/NODE-JS/">
             <span class="level-start">
                 <span class="level-item">NODE JS</span>
@@ -545,7 +553,7 @@
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
 </div>
 
@@ -559,6 +567,25 @@
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/18/linux python后台运行以及查看log/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1592471356981&amp;di=5740ce3191e5550d46502f089dfde704&amp;imgtype=0&amp;src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg" alt="linux python后台运行以及查看log">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-18T06:17:36.411Z">2020-06-18</time></div>
+                    <a href="/2020/06/18/linux python后台运行以及查看log/" class="title has-link-black-ter is-size-6 has-text-weight-normal">linux python后台运行以及查看log</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/LINUX/">LINUX</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -636,25 +663,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
-                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -673,7 +681,7 @@
                     <span class="level-item">June 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">37</span>
+                    <span class="level-item tag">38</span>
                 </span>
             </a>
         </li>
@@ -776,8 +784,22 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/linux/">
+                        <span class="tag">linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/node-js/">
                         <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -842,6 +864,25 @@
         
         <article class="media">
             
+            <a href="/2020/06/18/linux python后台运行以及查看log/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1592471356981&amp;di=5740ce3191e5550d46502f089dfde704&amp;imgtype=0&amp;src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg" alt="linux python后台运行以及查看log">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-18T06:17:36.411Z">2020-06-18</time></div>
+                    <a href="/2020/06/18/linux python后台运行以及查看log/" class="title has-link-black-ter is-size-6 has-text-weight-normal">linux python后台运行以及查看log</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/LINUX/">LINUX</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（三）">
@@ -916,25 +957,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
-                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -953,7 +975,7 @@
                     <span class="level-item">June 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">37</span>
+                    <span class="level-item tag">38</span>
                 </span>
             </a>
         </li>
@@ -1056,8 +1078,22 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/linux/">
+                        <span class="tag">linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/node-js/">
                         <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>

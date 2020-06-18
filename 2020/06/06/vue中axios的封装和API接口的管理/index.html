@@ -181,7 +181,7 @@
             <h1 id="一、axios的封装"><a href="#一、axios的封装" class="headerlink" title="一、axios的封装"></a>一、axios的封装</h1><p>在vue项目中，和后台交互获取数据这块，我们通常使用的是axios库，<a id="more"></a>它是基于promise的http库，可运行在浏览器端和node.js中。他有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。所以我们的尤大大也是果断放弃了对其官方库vue-resource的维护，直接推荐我们使用axios库。如果还对axios不了解的，可以移步<a href="https://www.npmjs.com/package/axios" target="_blank" rel="noopener">axios文档</a>。</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOC83LzIzLzE2NGM3MDg1MmY0MWIwNGM?x-oss-process=image/format,png" alt="面对一团糟代码的你"></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight mipsasm hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="hljs-keyword">install </span>axios<span class="hljs-comment">; // 安装axios</span></span><br></pre></td></tr></table></figure>
-<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>一般我会在项目的src目录中，新建一个request文件夹，然后在里面新建一个http.js和一个api.js文件。http.js文件用来封装我们的axios，api.js用来统一管理我们的接口。<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 在http.js中引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>; <span class="hljs-comment">// 引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> QS <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>; <span class="hljs-comment">// 引入qs模块，用来序列化post类型的数据，后面会提到</span></span><br><span class="line"><span class="hljs-comment">// vant的toast提示框组件，大家可根据自己的ui组件更改。</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; Toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vant'</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>一般我会在项目的src目录中，新建一个request文件夹，然后在里面新建一个http.js和一个api.js文件。http.js文件用来封装我们的axios，api.js用来统一管理我们的接口。<br><figure class="highlight clean hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 在http.js中引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>; <span class="hljs-comment">// 引入axios</span></span><br><span class="line"><span class="hljs-keyword">import</span> QS <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>; <span class="hljs-comment">// 引入qs模块，用来序列化post类型的数据，后面会提到</span></span><br><span class="line"><span class="hljs-comment">// vant的toast提示框组件，大家可根据自己的ui组件更改。</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; Toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vant'</span>;</span><br></pre></td></tr></table></figure></p>
 <h3 id="环境的切换"><a href="#环境的切换" class="headerlink" title="环境的切换"></a>环境的切换</h3><p>我们的项目环境可能有开发环境、测试环境和生产环境。我们通过node的环境变量来匹配我们的默认的接口url前缀。axios.defaults.baseURL可以设置axios的默认请求地址就不多说了。</p>
 <figure class="highlight mel hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 环境的切换</span></span><br><span class="line"><span class="hljs-keyword">if</span> (process.<span class="hljs-keyword">env</span>.NODE_ENV == <span class="hljs-string">'development'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'https://www.baidu.com'</span>;&#125; </span><br><span class="line"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (process.<span class="hljs-keyword">env</span>.NODE_ENV == <span class="hljs-string">'debug'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'https://www.ceshi.com'</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (process.<span class="hljs-keyword">env</span>.NODE_ENV == <span class="hljs-string">'production'</span>) &#123;    </span><br><span class="line">    axios.defaults.baseURL = <span class="hljs-string">'https://www.production.com'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="设置请求超时"><a href="#设置请求超时" class="headerlink" title="设置请求超时"></a>设置请求超时</h3><p>通过axios.defaults.timeout设置默认的请求超时时间。例如超过了10s，就会告知用户当前请求超时，请刷新等。</p>
@@ -258,13 +258,13 @@
 <li>restful风格的接口，也可以通过这种方式灵活的设置api接口地址。</li>
 </ol>
 <p>最后，为了方便api的调用，我们需要将其挂载到vue的原型上。在main.js中：</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span></span><br><span class="line"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">'./router'</span> <span class="hljs-comment">// 导入路由文件</span></span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'./store'</span> <span class="hljs-comment">// 导入vuex文件</span></span><br><span class="line"><span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">'./api'</span> <span class="hljs-comment">// 导入api接口</span></span><br><span class="line"></span><br><span class="line">Vue.prototype.$api = api; <span class="hljs-comment">// 将api挂载到vue的原型上</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight clean hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span></span><br><span class="line"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">'./router'</span> <span class="hljs-comment">// 导入路由文件</span></span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'./store'</span> <span class="hljs-comment">// 导入vuex文件</span></span><br><span class="line"><span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">'./api'</span> <span class="hljs-comment">// 导入api接口</span></span><br><span class="line"></span><br><span class="line">Vue.prototype.$api = api; <span class="hljs-comment">// 将api挂载到vue的原型上</span></span><br></pre></td></tr></table></figure>
 <p>然后我们可以在页面中这样调用接口，eg：</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;    </span><br><span class="line">    onLoad(id) &#123;      </span><br><span class="line">        <span class="hljs-keyword">this</span>.$api.article.articleDetail(id, &#123;        </span><br><span class="line">            api: <span class="hljs-number">123</span>      </span><br><span class="line">        &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span> &#123;</span><br><span class="line">            <span class="hljs-comment">// 执行某些操作      </span></span><br><span class="line">        &#125;)    </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>再提一下断网的处理，这里只做一个简单的示例：</p>
 <figure class="highlight xquery hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>  </span></span><br><span class="line"><span class="hljs-xml">    </span><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>    </span></span><br><span class="line"><span class="hljs-xml">        </span><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"!network"</span>&gt;</span>      </span></span><br><span class="line"><span class="hljs-xml">            </span><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>我没网了<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-xml">      </span></span><br><span class="line"><span class="hljs-xml">            </span><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"onRefresh"</span>&gt;</span>刷新<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-xml">      </span></span><br><span class="line"><span class="hljs-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-xml">    </span></span><br><span class="line"><span class="hljs-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>/&gt;</span>      </span></span><br><span class="line"><span class="hljs-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></span><br><span class="line"><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span></span><br><span class="line"><span class="hljs-xml">    import </span><span class="hljs-xquery">&#123; mapState &#125;</span><span class="hljs-xml"> from 'vuex';</span></span><br><span class="line"><span class="hljs-xml">    export default </span><span class="hljs-xquery">&#123;  </span></span><br><span class="line"><span class="hljs-xquery">       <span class="hljs-built_in"> name</span>: <span class="hljs-string">'App'</span>,  </span></span><br><span class="line"><span class="hljs-xquery">        computed: &#123;    </span></span><br><span class="line"><span class="hljs-xquery">            ...mapState([<span class="hljs-string">'network'</span>])  </span></span><br><span class="line"><span class="hljs-xquery">        &#125;</span><span class="hljs-xml">,  </span></span><br><span class="line"><span class="hljs-xml">        methods: </span><span class="hljs-xquery">&#123;    </span></span><br><span class="line"><span class="hljs-xquery">            // 通过跳转一个空页面再返回的方式来实现刷新当前页面数据的目的</span></span><br><span class="line"><span class="hljs-xquery">            onRefresh () &#123;      </span></span><br><span class="line"><span class="hljs-xquery">                this.<span class="hljs-variable">$router</span><span class="hljs-built_in">.replace</span>(<span class="hljs-string">'/refresh'</span>)    </span></span><br><span class="line"><span class="hljs-xquery">            &#125;</span><span class="hljs-xml">  </span></span><br><span class="line"><span class="hljs-xml">        &#125;</span></span><br><span class="line"><span class="hljs-xml">    &#125;</span></span><br><span class="line"><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>这是app.vue，这里简单演示一下断网。在http.js中介绍了，我们会在断网的时候，来更新vue中network的状态，那么这里我们根据network的状态来判断是否需要加载这个断网组件。断网情况下，加载断网组件，不加载对应页面的组件。当点击刷新的时候，我们通过跳转refesh页面然后立即返回的方式来实现重新获取数据的操作。因此我们需要新建一个refresh.vue页面，并在其<code>beforeRouteEnter</code>钩子中再返回当前页面。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// refresh.vue</span></span><br><span class="line">beforeRouteEnter (to, <span class="hljs-keyword">from</span>, next) &#123;</span><br><span class="line">    next(<span class="hljs-function"><span class="hljs-params">vm</span> =&gt;</span> &#123;            </span><br><span class="line">        vm.$router.replace(<span class="hljs-keyword">from</span>.fullPath)        </span><br><span class="line">    &#125;)    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// refresh.vue</span></span><br><span class="line">beforeRouteEnter (to, <span class="hljs-keyword">from</span>, <span class="hljs-keyword">next</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">next</span>(vm =&gt; &#123;            </span><br><span class="line">        vm.$router.replace(<span class="hljs-keyword">from</span>.fullPath)        </span><br><span class="line">    &#125;)    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是一种全局通用的断网提示，当然了，也可以根据自己的项目需求操作。具体操作就仁者见仁智者见智了。</p>
 <p>如果更多的需求，或者说是不一样的需求，可以根据自己的需求进行一个改进。</p>
 
@@ -372,7 +372,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        37
+                        38
                     </p>
                 </div>
             </div>
@@ -382,7 +382,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -392,7 +392,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        18
+                        20
                     </p>
                 </div>
             </div>
@@ -523,6 +523,14 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/LINUX/">
+            <span class="level-start">
+                <span class="level-item">LINUX</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/NODE-JS/">
             <span class="level-start">
                 <span class="level-item">NODE JS</span>
@@ -574,7 +582,7 @@
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
+        <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java入门/" style="font-size: 10px;">Java入门</a> <a href="/tags/Next/" style="font-size: 12px;">Next</a> <a href="/tags/PHP/" style="font-size: 14px;">PHP</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/js/" style="font-size: 18px;">js</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/seo优化/" style="font-size: 10px;">seo优化</a> <a href="/tags/vue/" style="font-size: 16px;">vue</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/验证码/" style="font-size: 10px;">验证码</a>
     </div>
 </div>
 
@@ -588,6 +596,25 @@
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/18/linux python后台运行以及查看log/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1592471356981&amp;di=5740ce3191e5550d46502f089dfde704&amp;imgtype=0&amp;src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg" alt="linux python后台运行以及查看log">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-18T06:17:36.411Z">2020-06-18</time></div>
+                    <a href="/2020/06/18/linux python后台运行以及查看log/" class="title has-link-black-ter is-size-6 has-text-weight-normal">linux python后台运行以及查看log</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/LINUX/">LINUX</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -665,25 +692,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
-                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -702,7 +710,7 @@
                     <span class="level-item">June 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">37</span>
+                    <span class="level-item tag">38</span>
                 </span>
             </a>
         </li>
@@ -805,8 +813,22 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/linux/">
+                        <span class="tag">linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/node-js/">
                         <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -871,6 +893,25 @@
         
         <article class="media">
             
+            <a href="/2020/06/18/linux python后台运行以及查看log/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1592471356981&amp;di=5740ce3191e5550d46502f089dfde704&amp;imgtype=0&amp;src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg" alt="linux python后台运行以及查看log">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-18T06:17:36.411Z">2020-06-18</time></div>
+                    <a href="/2020/06/18/linux python后台运行以及查看log/" class="title has-link-black-ter is-size-6 has-text-weight-normal">linux python后台运行以及查看log</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/LINUX/">LINUX</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/06/09/vue常见问题及解决方法（三）/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2518683187,1484663917&amp;fm=26&amp;gp=0.jpg" alt="vue常见问题及解决方法（三）">
@@ -945,25 +986,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://p0.ifengimg.com/pmop/2018/0819/AA7BB01E8AC507F5F33C49A5B3AC16BC8BD40145_size18_w740_h278.jpeg" alt="浏览器：一个浏览器是如何工作的？（阶段五）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-06T15:00:23.799Z">2020-06-06</time></div>
-                    <a href="/2020/06/06/浏览器：一个浏览器是如何工作的？（阶段五）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浏览器：一个浏览器是如何工作的？（阶段五）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/WEB/">WEB</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -982,7 +1004,7 @@
                     <span class="level-item">June 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">37</span>
+                    <span class="level-item tag">38</span>
                 </span>
             </a>
         </li>
@@ -1085,8 +1107,22 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/linux/">
+                        <span class="tag">linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/node-js/">
                         <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>

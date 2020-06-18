@@ -7,18 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Tag: js - Old C</title>
+<title>linux python后台运行以及查看log - Old C</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Old C">
-<meta property="og:url" content="https://jdsheng.cn/tags/js/page/2/index.html">
+    <meta name="description" content="命令1nohup python -u run.py &amp;gt;  run.log 2&amp;gt;&amp;amp;1 &amp;amp;">
+<meta name="keywords" content="linux,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux python后台运行以及查看log">
+<meta property="og:url" content="https://jdsheng.cn/2020/06/18/linux python后台运行以及查看log/index.html">
 <meta property="og:site_name" content="Old C">
+<meta property="og:description" content="命令1nohup python -u run.py &amp;gt;  run.log 2&amp;gt;&amp;amp;1 &amp;amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jdsheng.cn/images/og_image.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592471356981&di=5740ce3191e5550d46502f089dfde704&imgtype=0&src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg">
+<meta property="og:updated_time" content="2020-06-18T06:22:16.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Old C">
-<meta name="twitter:image" content="https://jdsheng.cn/images/og_image.png">
+<meta name="twitter:title" content="linux python后台运行以及查看log">
+<meta name="twitter:description" content="命令1nohup python -u run.py &amp;gt;  run.log 2&amp;gt;&amp;amp;1 &amp;amp;">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592471356981&di=5740ce3191e5550d46502f089dfde704&imgtype=0&src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg">
 
 
 
@@ -92,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/touch-icon.png" alt="Old C" height="28">
+                <img src="/images/touch-icon.png" alt="linux python后台运行以及查看log" height="28">
             
             </a>
         </div>
@@ -134,383 +139,151 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1592471356981&amp;di=5740ce3191e5550d46502f089dfde704&amp;imgtype=0&amp;src=http%3A%2F%2Fp.ananas.chaoxing.com%2Fstar3%2Forigin%2Fbd8ff3b1812986a6c80f3f8f2f9cd9cc.jpg" alt="linux python后台运行以及查看log">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-18T06:17:36.411Z">2020-06-18</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/LINUX/">LINUX</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 minutes read (About 1006 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                linux python后台运行以及查看log
+            
+        </h1>
+        <div class="content">
+            <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup python -u run.py &gt;  run.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>说明：<br>1.  <code>&gt;</code> 表示把标准输出（STDOUT）重定向到 那个文件，这里重定向到了run.log<br>2. <code>&amp;</code> 表示在后台执行脚本，这样可以到达目的，但是，我们退出shell窗口的时候，必须用exit命令来退出，否则，退出之后，该进程也会随着shell的消失而消失（退出、关闭），所以有了第3步的指令<code>nohup</code><br>3. <code>nohup</code>(not hang up)：不挂断的运行命令<br>4. <code>1</code>是标准输出（STDOUT）的文件描述符，2是标准错误（STDERR）的文件描述符。<code>1&gt; run.log</code> 简化为 <code>&gt; run.log</code>，表示把标准输出重定向到run.log这个文件<br>5. <code>2&gt;&amp;1</code> 表示把标准错误重定向到标准输出，这里<code>&amp;1</code>表示标准输出 ，  为什么需要将标准错误重定向到标准输出的原因，是因为标准错误没有缓冲区，而STDOUT有。 这就会导致  <code>commond &gt; run.log</code>  ，<code>2&gt; run.log</code> 文件python.log被两次打开，而STDOUT和  STDERR将会竞争覆盖，这肯定不是我门想要的<br>6. 好了，我们现在可以直接关闭shell窗口（我用的是Xshell），而不用再输入<code>exit</code>这个命令来退出shell了，在当我们直接关闭shell窗口，再连接上服务器，查看Python的进程，发现进程还在。但是，在python运行中却查看不到输出！因为：<br><br>    &gt; python的输出有缓冲，导致run.log并不能够马上看到输出<br><br>    使用<code>-u</code>参数，使得python不启用缓冲。<br><br>### 查看log文件<br>如果要实时查看日志文件使用命令<br><br><br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f run.log</span><br></pre></td></tr></table></figure>
+<p>查看全部输出使用命令</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat run.log</span><br></pre></td></tr></table></figure>
+<h3 id="附加：linux常用指令"><a href="#附加：linux常用指令" class="headerlink" title="附加：linux常用指令"></a>附加：linux常用指令</h3><p><strong>1.查看当前后台运行的命令</strong><br>有两个命令可以用，jobs和ps,区别是jobs用于查看当前终端后台运行的任务，换了终端就看不到了。而ps命令用于查看瞬间进程的动态，可以看到别的终端运行的后台进程。</p>
+<ul>
+<li><code>jobs</code>命令：查看当前终端后台运行的任务</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">jobs</span> -l</span><br></pre></td></tr></table></figure>
+<p>可显示当前终端所有任务的PID，jobs的状态可以是running，stopped，Terminated。+ 号表示当前任务，- 号表示后一个任务。</p>
+<ul>
+<li><code>ps</code>命令：查看当前的所有进程</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep python</span><br></pre></td></tr></table></figure>
+<p>#a:显示所有程序  u:以用户为主的格式来显示   x:显示所有程序，不以终端机来区分</p>
+<p><strong>2.关闭当前后台运行的命令</strong></p>
+<ul>
+<li><p><code>kill</code>命令：结束进程<br> 通过ps命令查看进程号PID，然后执行</p>
+ <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> PID</span><br></pre></td></tr></table></figure>
+<p> 如果是前台进程的话，直接执行 Ctrl+c 就可以终止了</p>
+<p><code>kill</code>命令其他用法：</p>
+<ol>
+<li>强制杀死进程</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -KILL pid</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>发送SIGHUP信号，可以使用一下信号</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -HUP pid</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>彻底杀死进程</p>
+</li>
+</ol>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -9 pid</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>杀死指定用户所有进程<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -9 $(ps -ef | grep hnlinux) //方法一 过滤出hnlinux用户进程 </span><br><span class="line"><span class="hljs-built_in">kill</span> -u hnlinux //方法二</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>3.前后台进程的切换与控制</strong></p>
+<ul>
+<li><p><code>fg</code>命令<br> 功能：将后台中的命令调至前台继续运行<br> 如果后台中有多个命令，可以先用jobs查看jobnun，然后用 <code>fg %jobnum</code> 将选中的命令调出。</p>
+<ul>
+<li><p><code>Ctrl + z</code> 命令<br>功能：将一个正在前台执行的命令放到后台，并且处于暂停状态</p>
+</li>
+<li><p><code>bg</code>命令<br>功能：将一个在后台暂停的命令，变成在后台继续执行<br>如果后台中有多个命令，可以先用jobs查看jobnum，然后用 <code>bg %jobnum</code> 将选中的命令调出继续执行。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>4.运行Python示例</strong><br> 运行一个Python脚本，通常设置如下：<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python test.py &gt;test.log &amp;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/linux/">linux</a>, <a class="has-link-grey -link" href="/tags/python/">python</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">Tags</a></li>
-            <li class="is-active"><a href="#" aria-current="page">js</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/weixin.png" alt="Wechat"></div>
+</a>
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/06/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/" class="image is-7by1">
-            <img class="thumbnail" src="https://static001.geekbang.org/resource/image/68/52/68f50c00d475a7d6d8c7eef6a91b2152.png" alt="JavaScript执行（二）：闭包和执行上下文到底是怎么回事？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.752Z">2020-06-06</time>
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    23 minutes read (About 3383 words)
-                </span>
-                
-                
-            </div>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/06/06/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/">JavaScript执行（二）：闭包和执行上下文到底是怎么回事？</a>
-            
-        </h1>
-        <div class="content">
-            <div class><br>  <p>在上一课，我们了解了 JavaScript 执行中最粗粒度的任务：传给引擎执行的代码段。并且，我们还根据“由 JavaScript 引擎发起”还是“由宿主发起”，</p></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/06/JavaScript执行（二）：闭包和执行上下文到底是怎么回事？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/06/JavaScript执行（三）：你知道现在有多少种函数吗？/" class="image is-7by1">
-            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="JavaScript执行（三）：你知道现在有多少种函数吗？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.715Z">2020-06-06</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 minutes read (About 442 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/06/06/JavaScript执行（三）：你知道现在有多少种函数吗？/">JavaScript执行（三）：你知道现在有多少种函数吗？</a>
-            
-        </h1>
-        <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>在前一篇文章中，我们大致了解了执行上下文是什么，也知道了任何语句的执行都会依赖特定的上下文。</p></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/06/JavaScript执行（三）：你知道现在有多少种函数吗？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/06/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/" class="image is-7by1">
-            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.676Z">2020-06-06</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    17 minutes read (About 2527 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/06/06/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/">JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？</a>
-            
-        </h1>
-        <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>这一部分我们来讲一讲 JavaScript 的执行。</p><br>  <p>首先我们考虑一下，如果我们是浏览器或者 Node 的开发者，我们该如何使用 JavaScript 引擎。</p></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/06/JavaScript执行（一）：Promise里的代码为什么比setTimeout先执行？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/06/JavaScript对象：面向对象还是基于对象？/" class="image is-7by1">
-            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="JavaScript对象：面向对象还是基于对象？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.646Z">2020-06-06</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    26 minutes read (About 3851 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/06/06/JavaScript对象：面向对象还是基于对象？/">JavaScript对象：面向对象还是基于对象？</a>
-            
-        </h1>
-        <div class="content">
-            <div class="_1kh1ihh6_0"><br>  与其它的语言相比，JavaScript 中的“对象”总是显得不那么合群。</div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/06/JavaScript对象：面向对象还是基于对象？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/06/JavaScript对象：我们真的需要模拟类吗？/" class="image is-7by1">
-            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1904592834,1375152912&amp;fm=26&amp;gp=0.jpg" alt="JavaScript对象：我们真的需要模拟类吗？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.591Z">2020-06-06</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    25 minutes read (About 3747 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/06/06/JavaScript对象：我们真的需要模拟类吗？/">JavaScript对象：我们真的需要模拟类吗？</a>
-            
-        </h1>
-        <div class="content">
-            <div class="_1kh1ihh6_0"><br>  <p>早期的 JavaScript 程序员一般都有过使用 JavaScript“模拟面向对象”的经历。</p><br>  <p>在上一篇文章我们已经讲到，JavaScript</p></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/06/JavaScript对象：我们真的需要模拟类吗？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/06/06/JavaScript对象：你知道全部的对象分类吗？/" class="image is-7by1">
-            <img class="thumbnail" src="https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png" alt="JavaScript对象：你知道全部的对象分类吗？">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-06T15:00:22.529Z">2020-06-06</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    20 minutes read (About 2993 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/06/06/JavaScript对象：你知道全部的对象分类吗？/">JavaScript对象：你知道全部的对象分类吗？</a>
-            
-        </h1>
-        <div class="content">
-            <div class="_1kh1ihh6_0"><p>前面讲解了 JavaScript 对象的一些基础知识。但是，我们所讲解的对象，只是特定的一部分，并不能涵盖全部的 JavaScript 对象。</p><p>比如说，</p></div>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/06/06/JavaScript对象：你知道全部的对象分类吗？/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/tags/js/">Previous</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/09/vue常见问题及解决方法（三）/">
+                <span class="level-item">vue常见问题及解决方法（三）</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/tags/js/page/3/">Next</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/tags/js/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/tags/js/page/2/">2</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
 </div>
                 
 
@@ -1361,7 +1134,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/touch-icon.png" alt="Old C" height="28">
+                    <img src="/images/touch-icon.png" alt="linux python后台运行以及查看log" height="28">
                 
                 </a>
                 <p class="is-size-7">
