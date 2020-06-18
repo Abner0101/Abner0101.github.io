@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 minutes read (About 1006 words)
+                    7 minutes read (About 1007 words)
                 </span>
                 
                 
@@ -180,77 +180,16 @@
         </h1>
         <div class="content">
             <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup python -u run.py &gt;  run.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-<p>说明：</p>
-<ol>
-<li><p><code>&gt;</code> 表示把标准输出（STDOUT）重定向到 那个文件，这里重定向到了run.log</p>
-</li>
-<li><p><code>&amp;</code> 表示在后台执行脚本，这样可以到达目的，但是，我们退出shell窗口的时候，必须用exit命令来退出，否则，退出之后，该进程也会随着shell的消失而消失（退出、关闭），所以有了第3步的指令<code>nohup</code></p>
-</li>
-<li><p><code>nohup</code>(not hang up)：不挂断的运行命令</p>
-</li>
-<li><p><code>1</code>是标准输出（STDOUT）的文件描述符，2是标准错误（STDERR）的文件描述符。<code>1&gt; run.log</code> 简化为 <code>&gt; run.log</code>，表示把标准输出重定向到run.log这个文件</p>
-</li>
-<li><p><code>2&gt;&amp;1</code> 表示把标准错误重定向到标准输出，这里<code>&amp;1</code>表示标准输出 ，  为什么需要将标准错误重定向到标准输出的原因，是因为标准错误没有缓冲区，而STDOUT有。 这就会导致  <code>commond &gt; run.log</code>  ，<code>2&gt; run.log</code> 文件python.log被两次打开，而STDOUT和  STDERR将会竞争覆盖，这肯定不是我门想要的</p>
-</li>
-<li><p>好了，我们现在可以直接关闭shell窗口（我用的是Xshell），而不用再输入<code>exit</code>这个命令来退出shell了，在当我们直接关闭shell窗口，再连接上服务器，查看Python的进程，发现进程还在。但是，在python运行中却查看不到输出！因为： <strong>python的输出有缓冲，导致run.log并不能够马上看到输出</strong>，使用<code>-u</code>参数，使得python不启用缓冲。</p>
-</li>
-</ol>
-<h3 id="查看log文件"><a href="#查看log文件" class="headerlink" title="查看log文件"></a>查看log文件</h3><p>如果要实时查看日志文件使用命令</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f run.log</span><br></pre></td></tr></table></figure>
-<p>查看全部输出使用命令</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat run.log</span><br></pre></td></tr></table></figure>
-<h3 id="附加：linux常用指令"><a href="#附加：linux常用指令" class="headerlink" title="附加：linux常用指令"></a>附加：linux常用指令</h3><p><strong>1.查看当前后台运行的命令</strong><br>有两个命令可以用，jobs和ps,区别是jobs用于查看当前终端后台运行的任务，换了终端就看不到了。而ps命令用于查看瞬间进程的动态，可以看到别的终端运行的后台进程。</p>
-<ul>
-<li><p><code>jobs</code>命令：查看当前终端后台运行的任务</p>
-  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">jobs</span> -l</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可显示当前终端所有任务的PID，jobs的状态可以是running，stopped，Terminated。+ 号表示当前任务，- 号表示后一个任务。</p>
-<ul>
-<li><p><code>ps</code>命令：查看当前的所有进程</p>
-  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep python</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>#a:显示所有程序  u:以用户为主的格式来显示   x:显示所有程序，不以终端机来区分</p>
-<p><strong>2.关闭当前后台运行的命令</strong></p>
-<ul>
-<li><p><code>kill</code>命令：结束进程<br> 通过ps命令查看进程号PID，然后执行</p>
- <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> PID</span><br></pre></td></tr></table></figure>
-<p> 如果是前台进程的话，直接执行 Ctrl+c 就可以终止了</p>
-<p><code>kill</code>命令其他用法：</p>
-<ol>
-<li><p>强制杀死进程</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -KILL pid</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-<ol start="2">
-<li><p>发送SIGHUP信号，可以使用一下信号</p>
- <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -HUP pid</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>彻底杀死进程</p>
- <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -9 pid</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>杀死指定用户所有进程</p>
- <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">kill</span> -9 $(ps -ef | grep hnlinux) //方法一 过滤出hnlinux用户进程 </span><br><span class="line"><span class="hljs-built_in">kill</span> -u hnlinux //方法二</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><strong>3.前后台进程的切换与控制</strong></p>
-<ul>
-<li><p><code>fg</code>命令<br> 功能：将后台中的命令调至前台继续运行<br> 如果后台中有多个命令，可以先用jobs查看jobnun，然后用 <code>fg %jobnum</code> 将选中的命令调出。</p>
-<ul>
-<li><p><code>Ctrl + z</code> 命令<br>功能：将一个正在前台执行的命令放到后台，并且处于暂停状态</p>
-</li>
-<li><p><code>bg</code>命令<br>功能：将一个在后台暂停的命令，变成在后台继续执行<br>如果后台中有多个命令，可以先用jobs查看jobnum，然后用 <code>bg %jobnum</code> 将选中的命令调出继续执行。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>4.运行Python示例</strong><br> 运行一个Python脚本，通常设置如下：<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python test.py &gt;test.log &amp;</span><br></pre></td></tr></table></figure></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/06/18/linux python后台运行以及查看log/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
